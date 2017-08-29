@@ -19,7 +19,7 @@ namespace ePlanifServerLibTest
 
 		protected override Account OnCreateAccount()
 		{
-			return new Account() { Login = $"{Domain}\\{Login}", IsDisabled = false, ProfileID = 2 };
+			return new Account() { Login = System.Security.Principal.WindowsIdentity.GetCurrent().Name, IsDisabled = false, ProfileID = 2 };
 		}
 
 		protected override void OnAssertCreateAccount(IePlanifServiceClient Client)
@@ -157,6 +157,7 @@ namespace ePlanifServerLibTest
 		protected override void OnAssertGetCurrentAccount(IePlanifServiceClient Client)
 		{
 			Account account = Client.GetCurrentAccount();
+			Assert.IsNotNull(account);
 			Assert.AreNotEqual(account.AccountID, 0);
 			Assert.AreNotEqual(account.AccountID, -1);
 			Assert.AreEqual(account.IsDisabled, false);
@@ -167,6 +168,7 @@ namespace ePlanifServerLibTest
 		protected override void OnAssertGetCurrentProfile(IePlanifServiceClient Client)
 		{
 			Profile profile = Client.GetCurrentProfile();
+			Assert.IsNotNull(profile);
 			Assert.AreEqual(profile.ProfileID, 2);
 			Assert.AreEqual(profile.IsDisabled, false);
 			Assert.AreEqual(profile.AdministrateAccounts, false);

@@ -19,7 +19,7 @@ namespace ePlanifServerLibTest
 
 		protected override Account OnCreateAccount()
 		{
-			return new Account() { Login = $"{Domain}\\{Login}", IsDisabled = true, ProfileID = 1 };
+			return new Account() { Login = System.Security.Principal.WindowsIdentity.GetCurrent().Name, IsDisabled = true, ProfileID = 1 };
 		}
 
 		protected override void OnAssertCreateAccount(IePlanifServiceClient Client)

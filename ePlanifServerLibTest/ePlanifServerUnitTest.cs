@@ -20,22 +20,20 @@ namespace ePlanifServerLibTest
 	//
 
 	[TestClass]
-	public class ePlanifServerUnitTest:IDisposable
+	public class ePlanifServerUnitTest
 	{
-		
-		private List<TestContext> contextes;
-	
-		public void Dispose()
+		private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContextInstance;
+		public Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
 		{
-			foreach (TestContext context in contextes)
-			{
-				
-			}
-			contextes.Clear();
+			get { return testContextInstance; }
+			set { testContextInstance = value; }
 		}
 
-		[TestInitialize]
-		public async Task Initialize()
+		private static List<TestContext> contextes;
+	
+		
+		[ClassInitialize]
+		public static async Task Initialize(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext Context)
 		{
 			contextes = new List<TestContext>();
 			contextes.Add(new TestContextAdmin(".", "ePlanifUnitTestAdmin", "ePlanifUnitTestAdmin"));
@@ -45,13 +43,13 @@ namespace ePlanifServerLibTest
 
 			foreach (TestContext context in contextes)
 			{
-				await context.InitializeAsync();
+				await context.InitializeAsync(); 
 			}
 			//Microsoft.VisualStudio.TestTools.UnitTesting.
 		}
 	
-		[TestCleanup]
-		public async Task Cleanup()
+		[ClassCleanup]
+		public static async Task Cleanup()
 		{
 			foreach (TestContext context in contextes)
 			{
@@ -60,7 +58,7 @@ namespace ePlanifServerLibTest
 			contextes.Clear();
 		}
 
-		[TestMethod,TestProperty("toto", "1")]
+		[TestMethod]
 		public void TestInstantiateClient()
 		{
 			

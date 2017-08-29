@@ -45,7 +45,11 @@ namespace ePlanifServerLibTest
 
 		public async Task InitializeAsync()
 		{
-			account = OnCreateAccount();
+			using (ImpersonatedSession session = new ImpersonatedSession(domain, login, password))
+			{
+				account = OnCreateAccount();
+			}
+
 			if (account != null) await db.InsertAsync(account);
 
 			existingEmployee = new Employee() { FirstName = "test", LastName = "test", MaxWorkingHoursPerWeek = 10 };
