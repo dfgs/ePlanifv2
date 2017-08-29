@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="ePlanifv2.Views.ViewByEmployeeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:ePlanifv2.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Focusable="False">
+		<Views:VirtualizingEmployeePanel  TableViewModel="{Binding}" LayerID="{Binding Service.VisibleLayers.SelectedItem.LayerID}" Layers="{Binding Service.VisibleLayers}"
+									  Columns="{Binding Service.Days}" ColumnCount="{Binding Service.Days.Count}"
+									  Rows="{Binding VisibleMembers}" RowCount="{Binding VisibleMembers.Count}"
+									  CornerContent="{Binding Service.WeekName}"
+									  VerticalHeaderWidth="200" HorizontalHeaderHeight="48"
+									  ColumnWidth="{x:Static Views:DisplayOptions.ColumnWidth}" ActivityHeight="32"
+									  />
+	</ScrollViewer>
+</UserControl>

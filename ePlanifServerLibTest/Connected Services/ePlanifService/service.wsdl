@@ -1,0 +1,917 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ePlanifService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="ePlanif_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256>
+                </sp:Basic256>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict>
+                </sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/ModelLib" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IePlanifService_GetEmployees_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployees" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetEmployees_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployee" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmployee" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetActivityTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityTypes" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetActivityTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateActivityType_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateActivityType" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateActivityType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateActivityTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateActivityType_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateActivityType" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateActivityType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateActivityTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetProfiles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProfiles" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetProfiles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProfilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProfile" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProfile" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetActivities_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivities" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetActivities_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateActivity_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateActivity" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateActivity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateActivityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteActivity_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteActivity" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteActivity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteActivityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateActivity_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateActivity" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateActivity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateActivityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetGroupMembers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupMembers" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetGroupMembers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupMembersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateGroupMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateGroupMember" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateGroupMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateGroupMemberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteGroupMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroupMember" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteGroupMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroupMemberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetGrants_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGrants" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetGrants_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGrantsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateGrant_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateGrant" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateGrant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateGrantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteGrant_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGrant" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteGrant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGrantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetGroups_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroups" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetGroups_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateGroup" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroup" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGroup" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetAccounts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccounts" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetAccounts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetCurrentAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentAccount" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetCurrentAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetCurrentProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentProfile" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetCurrentProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetLayers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLayers" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetLayers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLayersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateLayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLayer" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateLayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateLayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLayer" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateLayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetEmployeeViews_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeViews" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetEmployeeViews_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeViewsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateEmployeeView_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployeeView" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateEmployeeView_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployeeViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteEmployeeView_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEmployeeView" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteEmployeeView_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEmployeeViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateEmployeeView_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmployeeView" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateEmployeeView_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmployeeViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetActivityTypeViews_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityTypeViews" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetActivityTypeViews_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityTypeViewsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateActivityTypeView_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateActivityTypeView" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateActivityTypeView_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateActivityTypeViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteActivityTypeView_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteActivityTypeView" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteActivityTypeView_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteActivityTypeViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateActivityTypeView_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateActivityTypeView" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateActivityTypeView_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateActivityTypeViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetEmployeeViewMembers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeViewMembers" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetEmployeeViewMembers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeViewMembersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateEmployeeViewMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployeeViewMember" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateEmployeeViewMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployeeViewMemberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteEmployeeViewMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEmployeeViewMember" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteEmployeeViewMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEmployeeViewMemberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetActivityTypeViewMembers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityTypeViewMembers" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetActivityTypeViewMembers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityTypeViewMembersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateActivityTypeViewMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateActivityTypeViewMember" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreateActivityTypeViewMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateActivityTypeViewMemberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteActivityTypeViewMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteActivityTypeViewMember" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeleteActivityTypeViewMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteActivityTypeViewMemberResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IePlanifService">
+    <wsdl:operation name="GetEmployees">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetEmployees" message="tns:IePlanifService_GetEmployees_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetEmployeesResponse" message="tns:IePlanifService_GetEmployees_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEmployee">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateEmployee" message="tns:IePlanifService_CreateEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateEmployeeResponse" message="tns:IePlanifService_CreateEmployee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployee">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateEmployee" message="tns:IePlanifService_UpdateEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateEmployeeResponse" message="tns:IePlanifService_UpdateEmployee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetActivityTypes" message="tns:IePlanifService_GetActivityTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetActivityTypesResponse" message="tns:IePlanifService_GetActivityTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivityType">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateActivityType" message="tns:IePlanifService_CreateActivityType_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateActivityTypeResponse" message="tns:IePlanifService_CreateActivityType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateActivityType">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivityType" message="tns:IePlanifService_UpdateActivityType_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivityTypeResponse" message="tns:IePlanifService_UpdateActivityType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProfiles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetProfiles" message="tns:IePlanifService_GetProfiles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetProfilesResponse" message="tns:IePlanifService_GetProfiles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateProfile" message="tns:IePlanifService_CreateProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateProfileResponse" message="tns:IePlanifService_CreateProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateProfile" message="tns:IePlanifService_UpdateProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateProfileResponse" message="tns:IePlanifService_UpdateProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivities">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetActivities" message="tns:IePlanifService_GetActivities_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetActivitiesResponse" message="tns:IePlanifService_GetActivities_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivity">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateActivity" message="tns:IePlanifService_CreateActivity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateActivityResponse" message="tns:IePlanifService_CreateActivity_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteActivity">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivity" message="tns:IePlanifService_DeleteActivity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityResponse" message="tns:IePlanifService_DeleteActivity_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateActivity">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivity" message="tns:IePlanifService_UpdateActivity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivityResponse" message="tns:IePlanifService_UpdateActivity_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupMembers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetGroupMembers" message="tns:IePlanifService_GetGroupMembers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetGroupMembersResponse" message="tns:IePlanifService_GetGroupMembers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateGroupMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateGroupMember" message="tns:IePlanifService_CreateGroupMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateGroupMemberResponse" message="tns:IePlanifService_CreateGroupMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroupMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteGroupMember" message="tns:IePlanifService_DeleteGroupMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteGroupMemberResponse" message="tns:IePlanifService_DeleteGroupMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGrants">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetGrants" message="tns:IePlanifService_GetGrants_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetGrantsResponse" message="tns:IePlanifService_GetGrants_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateGrant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateGrant" message="tns:IePlanifService_CreateGrant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateGrantResponse" message="tns:IePlanifService_CreateGrant_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGrant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteGrant" message="tns:IePlanifService_DeleteGrant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteGrantResponse" message="tns:IePlanifService_DeleteGrant_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroups">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetGroups" message="tns:IePlanifService_GetGroups_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetGroupsResponse" message="tns:IePlanifService_GetGroups_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateGroup" message="tns:IePlanifService_CreateGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateGroupResponse" message="tns:IePlanifService_CreateGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteGroup" message="tns:IePlanifService_DeleteGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteGroupResponse" message="tns:IePlanifService_DeleteGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateGroup" message="tns:IePlanifService_UpdateGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateGroupResponse" message="tns:IePlanifService_UpdateGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccounts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetAccounts" message="tns:IePlanifService_GetAccounts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetAccountsResponse" message="tns:IePlanifService_GetAccounts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateAccount" message="tns:IePlanifService_CreateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateAccountResponse" message="tns:IePlanifService_CreateAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateAccount" message="tns:IePlanifService_UpdateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateAccountResponse" message="tns:IePlanifService_UpdateAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetCurrentAccount" message="tns:IePlanifService_GetCurrentAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetCurrentAccountResponse" message="tns:IePlanifService_GetCurrentAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetCurrentProfile" message="tns:IePlanifService_GetCurrentProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetCurrentProfileResponse" message="tns:IePlanifService_GetCurrentProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLayers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetLayers" message="tns:IePlanifService_GetLayers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetLayersResponse" message="tns:IePlanifService_GetLayers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateLayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateLayer" message="tns:IePlanifService_CreateLayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateLayerResponse" message="tns:IePlanifService_CreateLayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateLayer" message="tns:IePlanifService_UpdateLayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateLayerResponse" message="tns:IePlanifService_UpdateLayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeViews">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetEmployeeViews" message="tns:IePlanifService_GetEmployeeViews_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetEmployeeViewsResponse" message="tns:IePlanifService_GetEmployeeViews_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEmployeeView">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateEmployeeView" message="tns:IePlanifService_CreateEmployeeView_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateEmployeeViewResponse" message="tns:IePlanifService_CreateEmployeeView_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEmployeeView">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteEmployeeView" message="tns:IePlanifService_DeleteEmployeeView_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteEmployeeViewResponse" message="tns:IePlanifService_DeleteEmployeeView_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployeeView">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateEmployeeView" message="tns:IePlanifService_UpdateEmployeeView_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateEmployeeViewResponse" message="tns:IePlanifService_UpdateEmployeeView_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityTypeViews">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetActivityTypeViews" message="tns:IePlanifService_GetActivityTypeViews_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetActivityTypeViewsResponse" message="tns:IePlanifService_GetActivityTypeViews_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivityTypeView">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateActivityTypeView" message="tns:IePlanifService_CreateActivityTypeView_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateActivityTypeViewResponse" message="tns:IePlanifService_CreateActivityTypeView_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteActivityTypeView">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityTypeView" message="tns:IePlanifService_DeleteActivityTypeView_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewResponse" message="tns:IePlanifService_DeleteActivityTypeView_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateActivityTypeView">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivityTypeView" message="tns:IePlanifService_UpdateActivityTypeView_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivityTypeViewResponse" message="tns:IePlanifService_UpdateActivityTypeView_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeViewMembers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetEmployeeViewMembers" message="tns:IePlanifService_GetEmployeeViewMembers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetEmployeeViewMembersResponse" message="tns:IePlanifService_GetEmployeeViewMembers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEmployeeViewMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateEmployeeViewMember" message="tns:IePlanifService_CreateEmployeeViewMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateEmployeeViewMemberResponse" message="tns:IePlanifService_CreateEmployeeViewMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEmployeeViewMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteEmployeeViewMember" message="tns:IePlanifService_DeleteEmployeeViewMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteEmployeeViewMemberResponse" message="tns:IePlanifService_DeleteEmployeeViewMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityTypeViewMembers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetActivityTypeViewMembers" message="tns:IePlanifService_GetActivityTypeViewMembers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetActivityTypeViewMembersResponse" message="tns:IePlanifService_GetActivityTypeViewMembers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivityTypeViewMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateActivityTypeViewMember" message="tns:IePlanifService_CreateActivityTypeViewMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateActivityTypeViewMemberResponse" message="tns:IePlanifService_CreateActivityTypeViewMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteActivityTypeViewMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember" message="tns:IePlanifService_DeleteActivityTypeViewMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMemberResponse" message="tns:IePlanifService_DeleteActivityTypeViewMember_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ePlanif" type="tns:IePlanifService">
+    <wsp:PolicyReference URI="#ePlanif_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetEmployees">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetEmployees" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEmployee">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployee">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityTypes">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetActivityTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivityType">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateActivityType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateActivityType">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateActivityType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfiles">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetProfiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProfile">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateProfile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProfile">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateProfile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivities">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetActivities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivity">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateActivity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteActivity">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteActivity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateActivity">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateActivity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupMembers">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetGroupMembers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateGroupMember">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateGroupMember" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroupMember">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteGroupMember" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGrants">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetGrants" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateGrant">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateGrant" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGrant">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteGrant" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroups">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetGroups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateGroup">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroup">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGroup">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccounts">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetAccounts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateAccount">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentAccount">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetCurrentAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentProfile">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetCurrentProfile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLayers">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetLayers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLayer">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateLayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLayer">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateLayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeViews">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetEmployeeViews" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEmployeeView">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateEmployeeView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEmployeeView">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteEmployeeView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployeeView">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateEmployeeView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityTypeViews">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetActivityTypeViews" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivityTypeView">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateActivityTypeView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteActivityTypeView">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteActivityTypeView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateActivityTypeView">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateActivityTypeView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeViewMembers">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetEmployeeViewMembers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEmployeeViewMember">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateEmployeeViewMember" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEmployeeViewMember">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteEmployeeViewMember" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityTypeViewMembers">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetActivityTypeViewMembers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivityTypeViewMember">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreateActivityTypeViewMember" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteActivityTypeViewMember">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ePlanifService">
+    <wsdl:port name="ePlanif" binding="tns:ePlanif">
+      <soap12:address location="net.tcp://localhost:8523/ePlanif" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8523/ePlanif</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Dns>localhost</Dns>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

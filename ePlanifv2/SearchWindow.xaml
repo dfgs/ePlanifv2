@@ -1,0 +1,33 @@
+﻿<Window x:Class="ePlanifv2.SearchWindow"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ePlanifv2"
+        mc:Ignorable="d" x:Name="searchWindow"
+		Loaded="searchWindow_Loaded"
+		WindowStartupLocation="CenterOwner" ResizeMode="NoResize" SizeToContent="Height"
+        Title="Search projects" Width="300" Icon="Images/magnifier.png">
+
+	<Window.Resources>
+		<RoutedUICommand x:Key="findNextCommand"/>
+		<RoutedUICommand x:Key="cancelCommand"/>
+	</Window.Resources>
+	<Window.CommandBindings>
+		<CommandBinding Command="{StaticResource findNextCommand}" CanExecute="FindNextCommandBinding_CanExecute" Executed="FindNextCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource cancelCommand}" CanExecute="CancelCommandBinding_CanExecute" Executed="CancelCommandBinding_Executed"/>
+	</Window.CommandBindings>
+	<Window.InputBindings>
+		<KeyBinding Command="{StaticResource findNextCommand}" Key="Return"/>
+		<KeyBinding Command="{StaticResource cancelCommand}" Key="Esc"/>
+	</Window.InputBindings>
+	<StackPanel>
+		<TextBlock Margin="4" Text="Project number to search:" FontWeight="Bold"/>
+		<TextBox x:Name="textBox" Margin="4" Text="{Binding ElementName=searchWindow,Path=ProjectNumber,UpdateSourceTrigger=PropertyChanged}"/>
+
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+			<Button Margin="4" Content="Find next" Width="80" Command="{StaticResource findNextCommand}" />
+			<Button Margin="4" Content="Cancel" Width="80" Command="{StaticResource cancelCommand}"/>
+		</StackPanel>
+	</StackPanel>
+</Window>

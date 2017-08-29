@@ -1,0 +1,28 @@
+﻿<Window x:Class="ePlanifv2.ReplicateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ePlanifv2"
+        mc:Ignorable="d" x:Name="replicateWindow"
+		WindowStartupLocation="CenterOwner" ResizeMode="NoResize" SizeToContent="Height"
+        Title="Replicate activities" Width="300" Icon="Images/calendar.png">
+
+	<Window.Resources>
+		<RoutedUICommand x:Key="okCommand"/>
+		<RoutedUICommand x:Key="cancelCommand"/>
+	</Window.Resources>
+	<Window.CommandBindings>
+		<CommandBinding Command="{StaticResource okCommand}" CanExecute="OKCommandBinding_CanExecute" Executed="OKCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource cancelCommand}" CanExecute="CancelCommandBinding_CanExecute" Executed="CancelCommandBinding_Executed"/>
+	</Window.CommandBindings>
+    <StackPanel>
+		<TextBlock Margin="4" Text="Replicate activities until:" FontWeight="Bold"/>
+		<DatePicker Margin="4" SelectedDate="{Binding ElementName=replicateWindow,Path=EndDate}" />
+
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+			<Button Margin="4" Content="OK" Width="80" Command="{StaticResource okCommand}" />
+			<Button Margin="4" Content="Cancel" Width="80" Command="{StaticResource cancelCommand}"/>
+		</StackPanel>
+	</StackPanel>
+</Window>

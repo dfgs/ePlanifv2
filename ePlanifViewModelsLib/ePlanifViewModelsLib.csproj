@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C33B6302-9CA7-4C79-8286-9D31A9CA4A7E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ePlanifViewModelsLib</RootNamespace>
+    <AssemblyName>ePlanifViewModelsLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivityTypeViewViewModel.cs" />
+    <Compile Include="ActivityTypeViewMemberViewModel.cs" />
+    <Compile Include="ActivityTypeViewMemberViewModelCollection.cs" />
+    <Compile Include="TabViewModel.cs" />
+    <Compile Include="TabByActivityTypeViewModel.cs" />
+    <Compile Include="TabViewModelCollection.cs" />
+    <Compile Include="TabByEmployeeViewModel.cs" />
+    <Compile Include="EmployeeViewViewModel.cs" />
+    <Compile Include="ActivityTypeViewViewModelCollection.cs" />
+    <Compile Include="EmployeeViewViewModelCollection.cs" />
+    <Compile Include="EmployeeViewMemberViewModel.cs" />
+    <Compile Include="EmployeeViewMemberViewModelCollection.cs" />
+    <Compile Include="FilteredViewModelCollection.cs" />
+    <Compile Include="IGroupViewModel.cs" />
+    <Compile Include="LayerViewModel.cs" />
+    <Compile Include="LayerViewModelCollection.cs" />
+    <Compile Include="Connected Services\ePlanifService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="GrantViewModel.cs" />
+    <Compile Include="GrantViewModelCollection.cs" />
+    <Compile Include="GroupMemberViewModel.cs" />
+    <Compile Include="GroupMemberViewModelCollection.cs" />
+    <Compile Include="GroupViewModel.cs" />
+    <Compile Include="GroupViewModelCollection.cs" />
+    <Compile Include="ProfileViewModel.cs" />
+    <Compile Include="AccountViewModel.cs" />
+    <Compile Include="ProfileViewModelCollection.cs" />
+    <Compile Include="AccountViewModelCollection.cs" />
+    <Compile Include="EmployeeViewModel.cs" />
+    <Compile Include="ActivityTypeViewModel.cs" />
+    <Compile Include="EmployeeViewModelCollection.cs" />
+    <Compile Include="ActivityViewModel.cs" />
+    <Compile Include="ActivityTypeViewModelCollection.cs" />
+    <Compile Include="ActivityViewModelCollection.cs" />
+    <Compile Include="DayViewModel.cs" />
+    <Compile Include="DayViewModelCollection.cs" />
+    <Compile Include="ePlanifServiceViewModel.cs" />
+    <Compile Include="DisableViewModel.cs" />
+    <Compile Include="DisableViewModelCollection.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ReportViewModel.cs" />
+    <Compile Include="ReportViewModelCollection.cs" />
+    <Compile Include="Clipboard.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CellViewModel.cs" />
+    <Compile Include="IRowViewModel.cs" />
+    <Compile Include="IViewViewModel.cs" />
+    <Compile Include="ViewViewModel.cs" />
+    <Compile Include="WCFViewModel.cs" />
+    <Compile Include="WCFViewModelCollection.cs" />
+    <Compile Include="Web References\ReportingServices\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ePlanifModelsLib\ePlanifModelsLib.csproj">
+      <Project>{ebc42cf1-eff8-456c-b9d6-b8874d790fd8}</Project>
+      <Name>ePlanifModelsLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost/reportserver/ReportService2010.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ReportingServices\</RelPath>
+      <UpdateFromURL>http://localhost/reportserver/ReportService2010.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ePlanifViewModelsLib_ReportingServices_ReportingService2010</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\ePlanifService\ePlanifModelsLib.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ePlanifService\ModelLib.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ePlanifService\service.wsdl" />
+    <None Include="Connected Services\ePlanifService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ePlanifService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\ePlanifModelsLib.Account.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Activity.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.ActivityType.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.ActivityTypeFilter.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.ActivityTypeView.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.ActivityTypeViewMember.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Employee.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.EmployeeFilter.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.EmployeeView.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.EmployeeViewMember.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Grant.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Group.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.GroupMember.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Layer.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Member.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.OnCall.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.OnCallType.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Profile.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ReportingServices\ActiveState.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\CacheRefreshPlan.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\CacheRefreshPlanState.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\CatalogItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\DataRetrievalPlan.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\DataSetDefinition.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\DataSource.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\DataSourceDefinition.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\DataSourcePrompt.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Event.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ExpirationDefinition.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Extension.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ExtensionParameter.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ExtensionSettings.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ItemHistorySnapshot.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ItemParameter.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ItemReferenceData.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Job.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ModelCatalogItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ModelDrillthroughReport.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ModelItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ParameterValue.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ParameterValueOrFieldReference.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Policy.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Property.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ReportingServices\ReportService2010.wsdl" />
+    <None Include="Web References\ReportingServices\Role.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Schedule.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\ScheduleDefinitionOrReference.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Subscription.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Task.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingServices\Warning.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ePlanifService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ePlanifService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ePlanifService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ePlanifService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

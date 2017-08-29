@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/ModelLib" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfEmployee">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Employee" nillable="true" type="tns:Employee" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployee" nillable="true" type="tns:ArrayOfEmployee" />
+  <xs:complexType name="Employee">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ePlanifModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="FirstName" nillable="true" type="q1:Text" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="LastName" nillable="true" type="q2:Text" />
+          <xs:element minOccurs="0" name="MaxWorkingHoursPerWeek" nillable="true" type="xs:unsignedByte" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Employee" nillable="true" type="tns:Employee" />
+  <xs:complexType name="ePlanifModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsDisabled" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ePlanifModel" nillable="true" type="tns:ePlanifModel" />
+  <xs:complexType name="ArrayOfActivityType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ActivityType" nillable="true" type="tns:ActivityType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfActivityType" nillable="true" type="tns:ArrayOfActivityType" />
+  <xs:complexType name="ActivityType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ePlanifModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ActivityTypeID" nillable="true" type="xs:int" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="BackgroundColor" nillable="true" type="q3:Text" />
+          <xs:element minOccurs="0" name="LayerID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="MinEmployees" nillable="true" type="xs:int" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q4:Text" />
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="TextColor" nillable="true" type="q5:Text" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActivityType" nillable="true" type="tns:ActivityType" />
+  <xs:complexType name="ArrayOfProfile">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Profile" nillable="true" type="tns:Profile" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProfile" nillable="true" type="tns:ArrayOfProfile" />
+  <xs:complexType name="Profile">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ePlanifModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdministrateAccounts" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AdministrateActivityTypes" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AdministrateEmployees" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="CanRunReports" nillable="true" type="xs:boolean" />
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q6:Text" />
+          <xs:element minOccurs="0" name="ProfileID" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Profile" nillable="true" type="tns:Profile" />
+  <xs:complexType name="ArrayOfActivity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Activity" nillable="true" type="tns:Activity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfActivity" nillable="true" type="tns:ArrayOfActivity" />
+  <xs:complexType name="Activity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActivityID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ActivityTypeID" nillable="true" type="xs:int" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Comment" nillable="true" type="q7:Text" />
+      <xs:element minOccurs="0" name="Duration" nillable="true" type="ser:duration" />
+      <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IsDraft" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ProjectNumber" nillable="true" type="xs:int" />
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="RemedyRef" nillable="true" type="q8:Text" />
+      <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TrackedDuration" nillable="true" type="ser:duration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Activity" nillable="true" type="tns:Activity" />
+  <xs:complexType name="ArrayOfGroupMember">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GroupMember" nillable="true" type="tns:GroupMember" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroupMember" nillable="true" type="tns:ArrayOfGroupMember" />
+  <xs:complexType name="GroupMember">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="GroupID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="GroupMemberID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GroupMember" nillable="true" type="tns:GroupMember" />
+  <xs:complexType name="ArrayOfGrant">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Grant" nillable="true" type="tns:Grant" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGrant" nillable="true" type="tns:ArrayOfGrant" />
+  <xs:complexType name="Grant">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GrantID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="GroupID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ProfileID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Grant" nillable="true" type="tns:Grant" />
+  <xs:complexType name="ArrayOfGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Group" nillable="true" type="tns:Group" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroup" nillable="true" type="tns:ArrayOfGroup" />
+  <xs:complexType name="Group">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GroupID" nillable="true" type="xs:int" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q9:Text" />
+      <xs:element minOccurs="0" name="ParentGroupID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Group" nillable="true" type="tns:Group" />
+  <xs:complexType name="ArrayOfAccount">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Account" nillable="true" type="tns:Account" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccount" nillable="true" type="tns:ArrayOfAccount" />
+  <xs:complexType name="Account">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ePlanifModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
+          <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Login" nillable="true" type="q10:Text" />
+          <xs:element minOccurs="0" name="ProfileID" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Account" nillable="true" type="tns:Account" />
+  <xs:complexType name="ArrayOfLayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Layer" nillable="true" type="tns:Layer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLayer" nillable="true" type="tns:ArrayOfLayer" />
+  <xs:complexType name="Layer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ePlanifModel">
+        <xs:sequence>
+          <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Color" nillable="true" type="q11:Text" />
+          <xs:element minOccurs="0" name="LayerID" nillable="true" type="xs:int" />
+          <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q12:Text" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Layer" nillable="true" type="tns:Layer" />
+  <xs:complexType name="ArrayOfEmployeeView">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeView" nillable="true" type="tns:EmployeeView" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployeeView" nillable="true" type="tns:ArrayOfEmployeeView" />
+  <xs:complexType name="EmployeeView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeViewID" nillable="true" type="xs:int" />
+      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q13:Text" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeView" nillable="true" type="tns:EmployeeView" />
+  <xs:complexType name="ArrayOfActivityTypeView">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ActivityTypeView" nillable="true" type="tns:ActivityTypeView" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfActivityTypeView" nillable="true" type="tns:ArrayOfActivityTypeView" />
+  <xs:complexType name="ActivityTypeView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ActivityTypeViewID" nillable="true" type="xs:int" />
+      <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q14:Text" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ActivityTypeView" nillable="true" type="tns:ActivityTypeView" />
+  <xs:complexType name="ArrayOfEmployeeViewMember">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeViewMember" nillable="true" type="tns:EmployeeViewMember" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployeeViewMember" nillable="true" type="tns:ArrayOfEmployeeViewMember" />
+  <xs:complexType name="EmployeeViewMember">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeViewID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeViewMemberID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeViewMember" nillable="true" type="tns:EmployeeViewMember" />
+  <xs:complexType name="ArrayOfActivityTypeViewMember">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ActivityTypeViewMember" nillable="true" type="tns:ActivityTypeViewMember" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfActivityTypeViewMember" nillable="true" type="tns:ArrayOfActivityTypeViewMember" />
+  <xs:complexType name="ActivityTypeViewMember">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActivityTypeID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ActivityTypeViewID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ActivityTypeViewMemberID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ActivityTypeViewMember" nillable="true" type="tns:ActivityTypeViewMember" />
+</xs:schema>

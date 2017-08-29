@@ -1,0 +1,219 @@
+﻿<Window x:Class="ePlanifv2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ePlanifv2"
+        xmlns:Views="clr-namespace:ePlanifv2.Views"
+        xmlns:ViewModelLib="clr-namespace:ViewModelLib;assembly=ViewModelLib"
+        xmlns:ViewModels="clr-namespace:ePlanifViewModelsLib;assembly=ePlanifViewModelsLib"
+		xmlns:ViewLib="clr-namespace:ViewLib;assembly=ViewLib"
+		xmlns:tlk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"  x:Name="root"
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Title="ePlanif" Height="480" Width="800" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="Images/calendar.png">
+
+    <Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="TemplateDictionary.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+
+			<ViewLib:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+			<Style x:Key="separatorStyle"
+			   TargetType="{x:Type Border}">
+				<Setter Property="BorderThickness" Value="1,0,0,0"/>
+				<Setter Property="BorderBrush" Value="#FFC5C5C5"/>
+				<Setter Property="Margin" Value="5,2,5,2"/>
+				<Setter Property="Width" Value="2"/>
+				<Setter Property="Background" Value="White"/>
+			</Style>
+
+			<Style x:Key="disabledStyle">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding IsDisabled}" Value="True">
+						<Setter Property="TextBlock.TextDecorations" Value="Strikethrough"/>
+					</DataTrigger>
+				</Style.Triggers>    
+			</Style>
+		
+			<Style TargetType="{x:Type Image}">
+				<Style.Triggers>
+					<Trigger Property="IsEnabled" Value="false">
+						<Setter Property="Opacity" Value="0.25"/>
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+
+			<DataTemplate DataType="{x:Type ViewModels:ReportViewModel}">
+				<TextBlock Text="{Binding Model}"/>
+			</DataTemplate>
+
+		
+
+			<RoutedUICommand x:Key="replicateCommand"/>
+			<RoutedUICommand x:Key="openReportCommand"/>
+			<RoutedUICommand x:Key="connectCommand"/>
+			<RoutedUICommand x:Key="disconnectCommand"/>
+			<RoutedUICommand x:Key="showLogCommand"/>
+		</ResourceDictionary>
+
+	</Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Left" Command="{Binding PreviousWeekCommand}"/>
+        <KeyBinding Key="Right" Command="{Binding NextWeekCommand}"/>
+		<KeyBinding Key="Home" Command="{Binding CurrentWeekCommand}"/>
+		<KeyBinding Key="F5" Command="{Binding RefreshCommand}"/>
+		<KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.CopyCommand}" />
+		<KeyBinding Modifiers="Ctrl" Key="X" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.CutCommand}" />
+		<KeyBinding Modifiers="Ctrl" Key="V" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.PasteCommand}" />
+		<KeyBinding Modifiers="Ctrl" Key="O" Command="{StaticResource connectCommand}" />
+		<KeyBinding Modifiers="Ctrl" Key="F" Command="Search" />
+		<KeyBinding Key="Delete" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.DeleteCommand}"/>
+	</Window.InputBindings>
+
+    <Window.CommandBindings>
+		<CommandBinding Command="{StaticResource connectCommand}" CanExecute="ConnectCommandBinding_CanExecute" Executed="ConnectCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource disconnectCommand}" CanExecute="DisconnectCommandBinding_CanExecute" Executed="DisconnectCommandBinding_Executed"/>
+		<CommandBinding Command="ApplicationCommands.Properties" CanExecute="AdministrationCommandBinding_CanExecute" Executed="AdministrationCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource replicateCommand}" CanExecute="ReplicateCommandBinding_CanExecute" Executed="ReplicateCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource openReportCommand}" CanExecute="OpenReportCommandBinding_CanExecute" Executed="OpenReportCommandBinding_Executed"/>
+		<CommandBinding Command="Search" CanExecute="SearchCommandBinding_CanExecute" Executed="SearchCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource showLogCommand}" CanExecute="ShowLogCommandBinding_CanExecute" Executed="ShowLogCommandBinding_Executed"/>
+	</Window.CommandBindings>
+	<Grid>
+		<DockPanel>
+			<DockPanel DockPanel.Dock="Top"  >
+				<Button Command="{StaticResource connectCommand}" ToolTip="Connect">
+					<Image Source="Images/database.png" Stretch="None"/>
+				</Button>
+				<Button Command="{StaticResource disconnectCommand}" ToolTip="Disconnect">
+					<Image Source="Images/database_connect.png" Stretch="None"/>
+				</Button>
+				<Border Style="{StaticResource separatorStyle}"/>
+				<Button Command="{Binding CurrentWeekCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Current week">
+					<Image Source="Images/date.png" Stretch="None"/>
+				</Button>
+				<Button Command="{Binding RefreshCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Refresh">
+					<Image Source="Images/arrow_refresh.png" Stretch="None"/>
+				</Button>
+				<Border Style="{StaticResource separatorStyle}"/>
+				<Button Command="{Binding PreviousWeekCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Previous week">
+					<Image Source="Images/date_previous.png" Stretch="None"/>
+				</Button>
+				<DatePicker SelectedDate="{Binding StartDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" IsEnabled="{Binding IsLoaded,FallbackValue=false}" />
+				<Button Command="{Binding NextWeekCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Next week">
+					<Image Source="Images/date_next.png" Stretch="None"/>
+				</Button>
+				<Border Style="{StaticResource separatorStyle}"/>
+				<Button Command="{Binding RemoveDaysCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Display less weeks">
+					<Image Source="Images/date_delete.png" Stretch="None"/>
+				</Button>
+				<TextBlock Text="{Binding DaysCount,FallbackValue=0}" VerticalAlignment="Center" Margin="4,0,4,0" />
+				<Button Command="{Binding AddDaysCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Display more weeks">
+					<Image Source="Images/date_add.png" Stretch="None"/>
+				</Button>
+				<Border Style="{StaticResource separatorStyle}"/>
+
+
+				<ComboBox  ItemsSource="{Binding VisibleLayers}" Width="100" SelectedItem="{Binding VisibleLayers.SelectedItem}" IsEnabled="{Binding IsLoaded,FallbackValue=false}">
+
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel Orientation="Horizontal">
+								<Border Width="8" Height="8" VerticalAlignment="Center" Background="{Binding Color.Value}" BorderThickness="0"/>
+								<TextBlock Margin="4,0,0,0" Text="{Binding Name}" Style="{StaticResource disabledStyle}"/>
+							</StackPanel>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+
+
+				<Border Style="{StaticResource separatorStyle}"/>
+				<Button Command="{Binding Tabs.SelectedItem.Model.SelectedItem.CopyCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Copy">
+					<Image Source="Images/page_copy.png" Stretch="None"/>
+				</Button>
+				<Button Command="{Binding Tabs.SelectedItem.Model.SelectedItem.CutCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Cut">
+					<Image Source="Images/cut.png" Stretch="None"/>
+				</Button>
+				<Button Command="{Binding Tabs.SelectedItem.Model.SelectedItem.PasteCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Paste">
+					<Image Source="Images/page_paste.png" Stretch="None"/>
+				</Button>
+				<Button Command="{StaticResource replicateCommand}" ToolTip="Replicate">
+					<Image Source="Images/page_go.png" Stretch="None"/>
+				</Button>
+				<Button Command="{Binding Tabs.SelectedItem.Model.SelectedItem.DeleteCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Delete">
+					<Image Source="Images/cross.png" Stretch="None"/>
+				</Button>
+				<Border Style="{StaticResource separatorStyle}"/>
+				<Button Command="Search" ToolTip="Search project">
+					<Image Source="Images/magnifier.png" Stretch="None"/>
+				</Button>
+				<Border Style="{StaticResource separatorStyle}"/>
+				<ComboBox  ItemsSource="{Binding Reports}" Width="100" SelectedItem="{Binding Reports.SelectedItem}" IsEnabled="{Binding UserProfile.CanRunReports,FallbackValue=false}" >
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"/>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<Button Command="{StaticResource openReportCommand}" ToolTip="Reports">
+					<Image Source="Images/chart_bar.png" Stretch="None"/>
+				</Button>
+			
+
+				
+
+	
+				<Button DockPanel.Dock="Right" Command="ApplicationCommands.Properties" ToolTip="Administration">
+					<Image Source="Images/cog.png" Stretch="None"/>
+				</Button>
+				<Button DockPanel.Dock="Right" Command="{StaticResource showLogCommand}" ToolTip="Show/Hide logs">
+					<Image Source="Images/application-task.png" Stretch="None"/>
+				</Button>
+				<Border DockPanel.Dock="Right" Style="{StaticResource separatorStyle}"/>
+
+
+				<TextBlock/>
+            
+			</DockPanel>
+			<StatusBar DockPanel.Dock="Bottom">
+				<TextBlock Text=""/>
+			</StatusBar>
+			<ListBox Height="150" DockPanel.Dock="Bottom" Visibility="{Binding ElementName=root,Path=LogVisibility}" ItemsSource="{x:Static ViewModelLib:ViewModel.Errors}"/>
+			<TabControl x:Name="tabControl" IsEnabled="{Binding IsLoaded,FallbackValue=false}" ItemsSource="{Binding Tabs}" SelectedItem="{Binding Tabs.SelectedItem}">
+				<TabControl.Resources>
+					<DataTemplate DataType="{x:Type ViewModels:TabByEmployeeViewModel}">
+						<Views:EmployeeViewsView DataContext="{Binding Model}"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type ViewModels:TabByActivityTypeViewModel}">
+						<Views:ActivityTypeViewsView DataContext="{Binding Model}"/>
+					</DataTemplate>
+				</TabControl.Resources>
+				<TabControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Image Stretch="None" Source="{Binding ImageSource}"/>
+							<TextBlock Margin="4,0,0,0" Text="{Binding Header}"/>
+						</StackPanel>
+					</DataTemplate>
+				</TabControl.ItemTemplate>
+			</TabControl>
+		</DockPanel>
+		<Views:LoadView>
+			<Views:LoadView.Style>
+				<Style TargetType="{x:Type Views:LoadView}">
+					<Setter Property="Visibility" Value="Hidden"/>
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsLoading}" Value="true">
+							<Setter Property="Visibility" Value="Visible"/>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Views:LoadView.Style>
+		</Views:LoadView>
+		
+	</Grid>
+</Window>

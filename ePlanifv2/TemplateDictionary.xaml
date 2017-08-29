@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ViewModels="clr-namespace:ePlanifViewModelsLib;assembly=ePlanifViewModelsLib"
+					xmlns:Views="clr-namespace:ePlanifv2.Views"
+                    xmlns:local="clr-namespace:ePlanifv2">
+	<Style x:Key="disabledStyle">
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding IsDisabled}" Value="True">
+				<Setter Property="TextBlock.TextDecorations" Value="Strikethrough"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
+
+
+	<DataTemplate DataType="{x:Type ViewModels:ActivityTypeViewModel}">
+		<StackPanel Orientation="Horizontal">
+			<Border Width="8" Height="8" VerticalAlignment="Center" Background="{Binding BackgroundColor.Value}" BorderThickness="1" BorderBrush="{Binding TextColor.Value}"/>
+			<TextBlock Margin="4,0,0,0" Text="{Binding Name}" Style="{StaticResource disabledStyle}"/>
+			<TextBlock Margin="4,0,0,0" Text=" (" Style="{StaticResource disabledStyle}"/>
+			<TextBlock Text="{Binding Layer.Name}"/>
+			<TextBlock Text=")"/>
+		</StackPanel>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:EmployeeViewModel}">
+		<StackPanel Orientation="Horizontal" >
+			<TextBlock Text="{Binding LastName}" Style="{StaticResource disabledStyle}"/>
+			<TextBlock Text=" "/>
+			<TextBlock Text="{Binding FirstName}" Style="{StaticResource disabledStyle}"/>
+		</StackPanel>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:AccountViewModel}">
+		<TextBlock Text="{Binding Login}" Style="{StaticResource disabledStyle}"/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:ProfileViewModel}">
+		<TextBlock Text="{Binding Name}" Style="{StaticResource disabledStyle}"/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:LayerViewModel}">
+		<StackPanel Orientation="Horizontal">
+			<Border Width="8" Height="8" VerticalAlignment="Center" Background="{Binding Color.Value}" BorderThickness="0"/>
+			<TextBlock Margin="4,0,0,0" Text="{Binding Name}" Style="{StaticResource disabledStyle}"/>
+		</StackPanel>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:EmployeeViewViewModel}">
+		<TextBlock Text="{Binding Name}"/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:ActivityTypeViewViewModel}">
+		<TextBlock Text="{Binding Name}"/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:GroupViewModel}">
+		<TextBlock Text="{Binding Name}"/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:GroupMemberViewModel}">
+		<TextBlock DataContext="{Binding Employee}" Text="{Binding FullName}" Style="{StaticResource disabledStyle}"/>
+		<!-- Change datacontext to enable disabled style -->
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:GrantViewModel}">
+		<TextBlock DataContext="{Binding Group}" Text="{Binding Name}"/>
+		<!-- Change datacontext to enable disabled style -->
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:EmployeeViewMemberViewModel}">
+		<TextBlock DataContext="{Binding Employee}" Text="{Binding FullName}" Style="{StaticResource disabledStyle}"/>
+		<!-- Change datacontext to enable disabled style -->
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:ActivityTypeViewMemberViewModel}">
+		<TextBlock DataContext="{Binding ActivityType}" Text="{Binding Name}" Style="{StaticResource disabledStyle}"/>
+		<!-- Change datacontext to enable disabled style -->
+	</DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,50 @@
+﻿<Window x:Class="ePlanifv2.AdministrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ePlanifv2"
+        xmlns:ViewLib="clr-namespace:ViewLib;assembly=ViewLib"
+		xmlns:Views="clr-namespace:ePlanifv2.Views"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+        Title="Administration" Height="480" Width="640" Icon="Images/calendar.png">
+    <Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="TemplateDictionary.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<ViewLib:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+		</ResourceDictionary>
+	</Window.Resources>
+    <DockPanel>
+       
+        <Button DockPanel.Dock="Bottom" HorizontalAlignment="Center" Margin="4" Content="OK" Width="100" Click="Button_Click"/>
+        
+        <TabControl TabStripPlacement="Left">
+            <TabItem Header="Employees" Visibility="{Binding UserProfile.AdministrateEmployees,Converter={StaticResource boolToVisibilityConverter}}">
+                <Views:GenericCollectionView DataContext="{Binding Employees}"/>
+            </TabItem>
+			<TabItem Header="Layers" Visibility="{Binding UserProfile.AdministrateActivityTypes,Converter={StaticResource boolToVisibilityConverter}}">
+				<Views:GenericCollectionView DataContext="{Binding Layers}"/>
+			</TabItem>
+			<TabItem Header="Activity types" Visibility="{Binding UserProfile.AdministrateActivityTypes,Converter={StaticResource boolToVisibilityConverter}}">
+				<Views:GenericCollectionView DataContext="{Binding ActivityTypes}"/>
+			</TabItem>
+			<TabItem Header="Accounts" Visibility="{Binding UserProfile.AdministrateAccounts,Converter={StaticResource boolToVisibilityConverter}}">
+				<Views:GenericCollectionView DataContext="{Binding Accounts}"/>
+			</TabItem>
+			<TabItem Header="Groups" Visibility="{Binding UserProfile.AdministrateEmployees,Converter={StaticResource boolToVisibilityConverter}}">
+				<Views:GroupsView Groups="{Binding Groups}" PotentialMembers="{Binding Employees}"/>
+			</TabItem>
+			<TabItem Header="Profiles" Visibility="{Binding UserProfile.AdministrateAccounts,Converter={StaticResource boolToVisibilityConverter}}">
+				<Views:ListAndMembersView Groups="{Binding Profiles}" PotentialMembers="{Binding Groups}" />
+			</TabItem>
+			<TabItem Header="Employee views">
+				<Views:ListAndMembersView Groups="{Binding EmployeeViews}" PotentialMembers="{Binding Employees}" />
+			</TabItem>
+			<TabItem Header="Activity type views">
+				<Views:ListAndMembersView Groups="{Binding ActivityTypeViews}" PotentialMembers="{Binding ActivityTypes}" />
+			</TabItem>
+		</TabControl>
+    </DockPanel>
+</Window>

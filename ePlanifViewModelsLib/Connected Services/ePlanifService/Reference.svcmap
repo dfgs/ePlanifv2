@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="489a7974-8c43-42d6-bf82-71d62fa0b8e8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:8523/ePlanif/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="fdeaa1d7-6e88-4922-9fda-4782675174b3" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="bab98292-e214-4a0d-82fd-86f8a39d864c" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="a87bc1c9-4712-4eea-b9a2-a846e435b091" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="ePlanifModelsLib.xsd" MetadataType="Schema" ID="5c962dd6-e961-477c-8c79-a2b8b46aa2ee" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="ModelLib.xsd" MetadataType="Schema" ID="1088b325-7ef0-4795-b159-f5bc203c675e" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

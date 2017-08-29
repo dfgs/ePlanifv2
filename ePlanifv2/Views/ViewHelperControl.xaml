@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="ePlanifv2.Views.ViewHelperControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ePlanifv2.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+		<StackPanel.Style>
+			<Style TargetType="{x:Type StackPanel}">
+				<Setter Property="Visibility" Value="Hidden"/>
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding Count}" Value="0">
+						<Setter Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+		</StackPanel.Style>
+		<TextBlock Text="Create your views into the administration menu" FontSize="24" VerticalAlignment="Center"/>
+		<Image Margin="8,0,0,0" Source="/ePlanifv2;component/Images/cog.png" Stretch="None"/>
+	</StackPanel>
+</UserControl>
