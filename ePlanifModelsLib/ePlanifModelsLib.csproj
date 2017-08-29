@@ -60,5 +60,23 @@
     <Compile Include="ePlanifModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MVVMLib\DatabaseModelLib\DatabaseModelLib.csproj">
+      <Project>{5d765243-db53-4e4a-9101-881a4024b3b5}</Project>
+      <Name>DatabaseModelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\DatabaseUpgraderLib\DatabaseUpgraderLib.csproj">
+      <Project>{dab4ccaa-92de-4d6c-912c-e561d2321252}</Project>
+      <Name>DatabaseUpgraderLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\ModelLib\ModelLib.csproj">
+      <Project>{360b1f0a-1582-4979-91f0-e323b0b65e2c}</Project>
+      <Name>ModelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\SqlDatabaseModelLib\SqlDatabaseModelLib.csproj">
+      <Project>{42a08cd2-8118-4990-a7c7-cf66cc9a887e}</Project>
+      <Name>SqlDatabaseModelLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

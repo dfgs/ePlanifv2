@@ -101,6 +101,18 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MVVMLib\DatabaseModelLib\DatabaseModelLib.csproj">
+      <Project>{5D765243-DB53-4E4A-9101-881A4024B3B5}</Project>
+      <Name>DatabaseModelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\ModelLib\ModelLib.csproj">
+      <Project>{360B1F0A-1582-4979-91F0-E323B0B65E2C}</Project>
+      <Name>ModelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\SqlDatabaseModelLib\SqlDatabaseModelLib.csproj">
+      <Project>{42A08CD2-8118-4990-A7C7-CF66CC9A887E}</Project>
+      <Name>SqlDatabaseModelLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ePlanifModelsLib\ePlanifModelsLib.csproj">
       <Project>{ebc42cf1-eff8-456c-b9d6-b8874d790fd8}</Project>
       <Name>ePlanifModelsLib</Name>

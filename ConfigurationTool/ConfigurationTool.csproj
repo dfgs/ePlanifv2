@@ -98,6 +98,30 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MVVMLib\DatabaseModelLib\DatabaseModelLib.csproj">
+      <Project>{5D765243-DB53-4E4A-9101-881A4024B3B5}</Project>
+      <Name>DatabaseModelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\DatabaseUpgraderLib\DatabaseUpgraderLib.csproj">
+      <Project>{DAB4CCAA-92DE-4D6C-912C-E561D2321252}</Project>
+      <Name>DatabaseUpgraderLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\ModelLib\ModelLib.csproj">
+      <Project>{360B1F0A-1582-4979-91F0-E323B0B65E2C}</Project>
+      <Name>ModelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\SqlDatabaseModelLib\SqlDatabaseModelLib.csproj">
+      <Project>{42A08CD2-8118-4990-A7C7-CF66CC9A887E}</Project>
+      <Name>SqlDatabaseModelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\ViewLib\ViewLib.csproj">
+      <Project>{ec7caa89-ce12-41c9-aa61-238c5e8b55c6}</Project>
+      <Name>ViewLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\ViewModelLib\ViewModelLib.csproj">
+      <Project>{1606ec93-34ca-4f3c-b703-b388b8a56ac6}</Project>
+      <Name>ViewModelLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ePlanifModelsLib\ePlanifModelsLib.csproj">
       <Project>{ebc42cf1-eff8-456c-b9d6-b8874d790fd8}</Project>
       <Name>ePlanifModelsLib</Name>

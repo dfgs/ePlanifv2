@@ -242,6 +242,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MVVMLib\ModelLib\ModelLib.csproj">
+      <Project>{360b1f0a-1582-4979-91f0-e323b0b65e2c}</Project>
+      <Name>ModelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\ViewLib\ViewLib.csproj">
+      <Project>{ec7caa89-ce12-41c9-aa61-238c5e8b55c6}</Project>
+      <Name>ViewLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMLib\ViewModelLib\ViewModelLib.csproj">
+      <Project>{1606ec93-34ca-4f3c-b703-b388b8a56ac6}</Project>
+      <Name>ViewModelLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ePlanifModelsLib\ePlanifModelsLib.csproj">
       <Project>{ebc42cf1-eff8-456c-b9d6-b8874d790fd8}</Project>
       <Name>ePlanifModelsLib</Name>
