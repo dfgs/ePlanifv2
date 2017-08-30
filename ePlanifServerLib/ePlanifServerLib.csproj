@@ -58,6 +58,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ePlanifDatabaseBehavior.cs" />
     <Compile Include="ePlanifPrincipal.cs" />
     <Compile Include="ePlanifPolicy.cs" />
     <Compile Include="IePlanifService.cs" />

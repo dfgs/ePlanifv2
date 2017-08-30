@@ -8,12 +8,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Permissions;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using WorkerLib;
 
 namespace ePlanifServerLib
 {
-	// REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
+	[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
 	public class ePlanifService :Worker, IePlanifService
 	{
 		private ePlanifDatabase database;
@@ -26,6 +27,7 @@ namespace ePlanifServerLib
 		public ePlanifService():base("ePlanifService")
 		{
 			database = new ePlanifDatabase("127.0.0.1");
+
 		}
 
 		private bool AssertPermission(string Role,[CallerMemberName]string CallerName=null)

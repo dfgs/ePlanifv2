@@ -13,7 +13,7 @@ using WorkerLib;
 
 namespace ePlanifServerLib
 {
-	class ePlanifPolicy :  IAuthorizationPolicy
+	public class ePlanifPolicy :  IAuthorizationPolicy
 	{
 		private string id;
 		public string Id
@@ -25,6 +25,10 @@ namespace ePlanifServerLib
 		{
 			get { return ClaimSet.System; }
 		}
+
+		
+
+		
 
 		// this method gets called after the authentication stage
 		public bool Evaluate(EvaluationContext evaluationContext, ref object state)
@@ -40,6 +44,7 @@ namespace ePlanifServerLib
 			account = null;
 			profile = null;
 
+			
 			// get the authenticated client identity
 			IIdentity client = GetClientIdentity(evaluationContext);
 			//if (client == null) return false;
@@ -56,19 +61,20 @@ namespace ePlanifServerLib
 				try
 				{
 					account = db.SelectAsync<Account>(new EqualFilter<Account>(Account.LoginColumn, windowsClient.Name.ToLower())).Result.FirstOrDefault();
-					if (account != null) profile = db.SelectAsync<Profile>(new EqualFilter<Profile>(Profile.ProfileIDColumn,account.ProfileID )).Result.FirstOrDefault();
+					if (account != null) profile = db.SelectAsync<Profile>(new EqualFilter<Profile>(Profile.ProfileIDColumn, account.ProfileID)).Result.FirstOrDefault();
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					// pb occured, so no role available
-					LogUtils.Logger.WriteLog(LogUtils.LogLevels.Warning,"ePlanifPolicy",0,$"Cannot find valid account for login {windowsClient.Name} ({ex.Message})");
+					LogUtils.Logger.WriteLog(LogUtils.LogLevels.Warning, "ePlanifPolicy", 0, $"Cannot find valid account for login {windowsClient.Name} ({ex.Message})");
 				}
-			}
 
-			roles.AddRange(GetAppRoles(account, profile));
-			// set a new principal holding the combined roles
-			// this could be your own IPrincipal implementation
-			evaluationContext.Properties["Principal"] =new ePlanifPrincipal(windowsClient,account,profile, roles.ToArray());
+
+				roles.AddRange(GetAppRoles(account, profile));
+				// set a new principal holding the combined roles
+				// this could be your own IPrincipal implementation
+				evaluationContext.Properties["Principal"] = new ePlanifPrincipal(windowsClient, account, profile, roles.ToArray());
+			}
 
 
 			return (account!=null) && (profile!=null);

@@ -36,18 +36,22 @@ namespace ePlanifServerLibTest
 		[PermissionSetAttribute(SecurityAction.Demand, Name = "FullTrust")]
 		public ImpersonatedSession(string Domain, string Login, string Password)
 		{
-			bool result;
+			//bool result;
 
-			result = LogonUser(Login, Domain, Password, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, out safeTokenHandle);
-			if (!result) throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+			//result = LogonUser(Login, Domain, Password, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, out safeTokenHandle);
+			//if (!result) throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
 
-			identity = new WindowsIdentity(safeTokenHandle.DangerousGetHandle());
+			//identity = new WindowsIdentity(safeTokenHandle.DangerousGetHandle());
 
-			impersonatedUser = identity.Impersonate();
+			//impersonatedUser = identity.Impersonate();
 			// Check the identity.
 			//Console.WriteLine("After impersonation: "+ WindowsIdentity.GetCurrent().Name);
 
 			client = new IePlanifServiceClient();
+
+			client.ClientCredentials.UserName.UserName = Login;
+			client.ClientCredentials.UserName.Password = Password;
+
 			client.Open();
 		}
 
