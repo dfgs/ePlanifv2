@@ -42,6 +42,8 @@ namespace ePlanifServerLib
 		[OperationContract]
 		Task<bool> DeleteActivityAsync(int ItemID);
 		[OperationContract]
+		Task<bool> BulkDeleteActivitiesAsync(DateTime StartDate,DateTime EndDate,int EmployeeID);
+		[OperationContract]
 		Task<bool> UpdateActivityAsync(Activity Item);
 
 

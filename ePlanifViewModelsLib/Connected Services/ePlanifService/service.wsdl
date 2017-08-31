@@ -113,6 +113,12 @@
   <wsdl:message name="IePlanifService_DeleteActivity_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteActivityResponse" />
   </wsdl:message>
+  <wsdl:message name="IePlanifService_BulkDeleteActivities_InputMessage">
+    <wsdl:part name="parameters" element="tns:BulkDeleteActivities" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_BulkDeleteActivities_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BulkDeleteActivitiesResponse" />
+  </wsdl:message>
   <wsdl:message name="IePlanifService_UpdateActivity_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateActivity" />
   </wsdl:message>
@@ -360,6 +366,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivity" message="tns:IePlanifService_DeleteActivity_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityResponse" message="tns:IePlanifService_DeleteActivity_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="BulkDeleteActivities">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/BulkDeleteActivities" message="tns:IePlanifService_BulkDeleteActivities_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/BulkDeleteActivitiesResponse" message="tns:IePlanifService_BulkDeleteActivities_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateActivity">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivity" message="tns:IePlanifService_UpdateActivity_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivityResponse" message="tns:IePlanifService_UpdateActivity_OutputMessage" />
@@ -598,6 +608,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteActivity">
       <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteActivity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BulkDeleteActivities">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/BulkDeleteActivities" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

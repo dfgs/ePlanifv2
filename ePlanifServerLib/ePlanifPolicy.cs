@@ -9,11 +9,10 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using WorkerLib;
 
 namespace ePlanifServerLib
 {
-	public class ePlanifPolicy :  IAuthorizationPolicy
+	class ePlanifPolicy : IAuthorizationPolicy
 	{
 		private string id;
 		public string Id
@@ -25,10 +24,6 @@ namespace ePlanifServerLib
 		{
 			get { return ClaimSet.System; }
 		}
-
-		
-
-		
 
 		// this method gets called after the authentication stage
 		public bool Evaluate(EvaluationContext evaluationContext, ref object state)
@@ -44,7 +39,6 @@ namespace ePlanifServerLib
 			account = null;
 			profile = null;
 
-			
 			// get the authenticated client identity
 			IIdentity client = GetClientIdentity(evaluationContext);
 			//if (client == null) return false;
@@ -63,21 +57,19 @@ namespace ePlanifServerLib
 					account = db.SelectAsync<Account>(new EqualFilter<Account>(Account.LoginColumn, windowsClient.Name.ToLower())).Result.FirstOrDefault();
 					if (account != null) profile = db.SelectAsync<Profile>(new EqualFilter<Profile>(Profile.ProfileIDColumn, account.ProfileID)).Result.FirstOrDefault();
 				}
-				catch (Exception ex)
+				catch
 				{
 					// pb occured, so no role available
-					LogUtils.Logger.WriteLog(LogUtils.LogLevels.Warning, "ePlanifPolicy", 0, $"Cannot find valid account for login {windowsClient.Name} ({ex.Message})");
 				}
-
-
-				roles.AddRange(GetAppRoles(account, profile));
-				// set a new principal holding the combined roles
-				// this could be your own IPrincipal implementation
-				evaluationContext.Properties["Principal"] = new ePlanifPrincipal(windowsClient, account, profile, roles.ToArray());
 			}
 
+			roles.AddRange(GetAppRoles(account, profile));
+			// set a new principal holding the combined roles
+			// this could be your own IPrincipal implementation
+			evaluationContext.Properties["Principal"] = new ePlanifPrincipal(windowsClient, account, profile, roles.ToArray());
 
-			return (account!=null) && (profile!=null);
+
+			return true;
 		}
 
 
@@ -85,11 +77,11 @@ namespace ePlanifServerLib
 		{
 			object obj;
 			if (!evaluationContext.Properties.TryGetValue("Identities", out obj)) return null;
-				//throw new Exception("No Identity found");
+			//throw new Exception("No Identity found");
 
 			IList<IIdentity> identities = obj as IList<IIdentity>;
 			if (identities == null || identities.Count <= 0) return null;
-				//throw new Exception("No Identity found");
+			//throw new Exception("No Identity found");
 
 			return identities[0];
 		}
@@ -98,7 +90,8 @@ namespace ePlanifServerLib
 		{
 			List<string> roles = new List<string>();
 
-			IdentityReferenceCollection groups = windowsClient.Groups.Translate(typeof(NTAccount));
+			IdentityReferenceCollection groups =
+			  windowsClient.Groups.Translate(typeof(NTAccount));
 
 			foreach (IdentityReference group in groups)
 			{
@@ -108,11 +101,12 @@ namespace ePlanifServerLib
 			return roles;
 		}
 
-		private IEnumerable<string> GetAppRoles(Account Account,Profile Profile)
+		private IEnumerable<string> GetAppRoles(Account Account, Profile Profile)
 		{
 			if ((Account == null) || (Profile == null)) yield break;
 			if (Profile.IsDisabled.Value) yield break;
 			yield return Roles.ePlanifUser;
+			if (Profile.AdministrateEmployees.Value) yield return Roles.AdministrateEmployees;
 			if (Profile.AdministrateAccounts.Value) yield return Roles.AdministrateAccounts;
 			if (Profile.AdministrateActivityTypes.Value) yield return Roles.AdministrateActivityTypes;
 			if (Profile.CanRunReports.Value) yield return Roles.CanRunReports;

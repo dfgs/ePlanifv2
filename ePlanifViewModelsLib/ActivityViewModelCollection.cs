@@ -69,6 +69,14 @@ namespace ePlanifViewModelsLib
 
 		}
 
+		public async Task<bool> BulkDeleteAsync(DateTime StartDate, DateTime EndDate, int EmployeeID)
+		{
+			using (IePlanifServiceClient client = Service.CreateClient())
+			{
+				return await client.BulkDeleteActivitiesAsync(StartDate, EndDate, EmployeeID);	
+			}
+		}
+
 
 
 		protected override Task OnItemAddedAsync(ActivityViewModel Item, int Index)
@@ -99,6 +107,8 @@ namespace ePlanifViewModelsLib
 			if (ActivityEdited != null) ActivityEdited(this, Activity);
 			return result;
 		}
+
+		
 		/*
 		public ActivityViewModel SearchProject(string Reference, ActivityViewModel CurrentActivity)
 		{

@@ -95,12 +95,13 @@ namespace ePlanifv2
 			e.CanExecute = (vm!=null) && vm.IsLoaded;e.Handled = true;
 		}
 
-		private void AdministrationCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		private async void AdministrationCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			AdministrationWindow window;
 
 			window = new AdministrationWindow() { Owner = this,DataContext=vm };
 			window.ShowDialog();
+			await vm.LoadAsync();
 		}
 
 		private IViewViewModel GetSelectedView()
@@ -136,6 +137,21 @@ namespace ePlanifv2
 
 			window = new ReplicateWindow() { Owner = this,Table=table };
 			window.ShowDialog();
+		}
+
+		private void BulkDeleteCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (vm != null) && vm.IsLoaded; e.Handled = true;
+		}
+
+		private async void BulkDeleteCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			BulkDeleteWindow window;
+
+			e.Handled = true;
+
+			window = new BulkDeleteWindow() { Owner = this, ePlanifServiceViewModel = vm};
+			if (window.ShowDialog()??false)	await vm.LoadAsync();
 		}
 
 		private void OpenReportCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)

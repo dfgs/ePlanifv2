@@ -49,9 +49,10 @@
 				<TextBlock Text="{Binding Model}"/>
 			</DataTemplate>
 
-		
+
 
 			<RoutedUICommand x:Key="replicateCommand"/>
+			<RoutedUICommand x:Key="bulkDeleteCommand"/>
 			<RoutedUICommand x:Key="openReportCommand"/>
 			<RoutedUICommand x:Key="connectCommand"/>
 			<RoutedUICommand x:Key="disconnectCommand"/>
@@ -71,6 +72,7 @@
 		<KeyBinding Modifiers="Ctrl" Key="O" Command="{StaticResource connectCommand}" />
 		<KeyBinding Modifiers="Ctrl" Key="F" Command="Search" />
 		<KeyBinding Key="Delete" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.DeleteCommand}"/>
+		<KeyBinding Modifiers="Ctrl" Key="Delete" Command="{StaticResource bulkDeleteCommand}"/>
 	</Window.InputBindings>
 
     <Window.CommandBindings>
@@ -81,6 +83,7 @@
 		<CommandBinding Command="{StaticResource openReportCommand}" CanExecute="OpenReportCommandBinding_CanExecute" Executed="OpenReportCommandBinding_Executed"/>
 		<CommandBinding Command="Search" CanExecute="SearchCommandBinding_CanExecute" Executed="SearchCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource showLogCommand}" CanExecute="ShowLogCommandBinding_CanExecute" Executed="ShowLogCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource bulkDeleteCommand}" CanExecute="BulkDeleteCommandBinding_CanExecute" Executed="BulkDeleteCommandBinding_Executed"/>
 	</Window.CommandBindings>
 	<Grid>
 		<DockPanel>
@@ -141,11 +144,14 @@
 				<Button Command="{Binding Tabs.SelectedItem.Model.SelectedItem.PasteCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Paste">
 					<Image Source="Images/page_paste.png" Stretch="None"/>
 				</Button>
+				<Button Command="{Binding Tabs.SelectedItem.Model.SelectedItem.DeleteCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Delete">
+					<Image Source="Images/cross.png" Stretch="None"/>
+				</Button>
 				<Button Command="{StaticResource replicateCommand}" ToolTip="Replicate">
 					<Image Source="Images/page_go.png" Stretch="None"/>
 				</Button>
-				<Button Command="{Binding Tabs.SelectedItem.Model.SelectedItem.DeleteCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Delete">
-					<Image Source="Images/cross.png" Stretch="None"/>
+				<Button Command="{StaticResource bulkDeleteCommand}" ToolTip="Bulk delete">
+					<Image Source="Images/bin--arrow.png" Stretch="None"/>
 				</Button>
 				<Border Style="{StaticResource separatorStyle}"/>
 				<Button Command="Search" ToolTip="Search project">

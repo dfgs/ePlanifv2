@@ -89,6 +89,9 @@
     <Compile Include="AdministrationWindow.xaml.cs">
       <DependentUpon>AdministrationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BulkDeleteWindow.xaml.cs">
+      <DependentUpon>BulkDeleteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConnectWindow.xaml.cs">
       <DependentUpon>ConnectWindow.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
     <Compile Include="Views\VirtualizingEmployeePanel.cs" />
     <Compile Include="Views\VirtualizingGridPanel.cs" />
     <Page Include="AdministrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BulkDeleteWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -349,6 +356,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\calendar-month-transparent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bin--arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="489a7974-8c43-42d6-bf82-71d62fa0b8e8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d7203ce3-d46d-44fd-819f-2b5672720e36" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="net.tcp://localhost:8523/ePlanif/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="fdeaa1d7-6e88-4922-9fda-4782675174b3" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="bab98292-e214-4a0d-82fd-86f8a39d864c" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="a87bc1c9-4712-4eea-b9a2-a846e435b091" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
-    <MetadataFile FileName="ePlanifModelsLib.xsd" MetadataType="Schema" ID="5c962dd6-e961-477c-8c79-a2b8b46aa2ee" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
-    <MetadataFile FileName="ModelLib.xsd" MetadataType="Schema" ID="1088b325-7ef0-4795-b159-f5bc203c675e" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="8beb620d-0a02-47cc-bfd8-1bc207696c95" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="f7b6f2a1-06bb-42d8-8dbf-76785b4f542a" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="8e14a98a-b3ea-4e7a-99e0-b021f58be09a" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="ePlanifModelsLib.xsd" MetadataType="Schema" ID="666e9643-7970-44df-a925-8e0f4d2df7eb" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="ModelLib.xsd" MetadataType="Schema" ID="2e131ec3-9f12-406c-9127-f84849cc0210" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

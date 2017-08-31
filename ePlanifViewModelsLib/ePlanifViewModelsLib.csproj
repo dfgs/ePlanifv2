@@ -51,6 +51,11 @@
     <Compile Include="ActivityTypeViewViewModel.cs" />
     <Compile Include="ActivityTypeViewMemberViewModel.cs" />
     <Compile Include="ActivityTypeViewMemberViewModelCollection.cs" />
+    <Compile Include="Connected Services\ePlanifService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="TabViewModel.cs" />
     <Compile Include="TabByActivityTypeViewModel.cs" />
     <Compile Include="TabViewModelCollection.cs" />
@@ -64,11 +69,6 @@
     <Compile Include="IGroupViewModel.cs" />
     <Compile Include="LayerViewModel.cs" />
     <Compile Include="LayerViewModelCollection.cs" />
-    <Compile Include="Connected Services\ePlanifService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="GrantViewModel.cs" />
     <Compile Include="GrantViewModelCollection.cs" />
     <Compile Include="GroupMemberViewModel.cs" />

@@ -1,0 +1,32 @@
+﻿<Window x:Class="ePlanifv2.BulkDeleteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ePlanifv2"
+        mc:Ignorable="d" x:Name="window"
+		WindowStartupLocation="CenterOwner" ResizeMode="NoResize" SizeToContent="Height"
+        Title="Bulk delete activities" Width="300" Icon="Images/calendar.png">
+
+	<Window.Resources>
+		<RoutedUICommand x:Key="okCommand"/>
+		<RoutedUICommand x:Key="cancelCommand"/>
+	</Window.Resources>
+	<Window.CommandBindings>
+		<CommandBinding Command="{StaticResource okCommand}" CanExecute="OKCommandBinding_CanExecute" Executed="OKCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource cancelCommand}" CanExecute="CancelCommandBinding_CanExecute" Executed="CancelCommandBinding_Executed"/>
+	</Window.CommandBindings>
+	<StackPanel>
+		<TextBlock Margin="4" Text="Delete activities from:" FontWeight="Bold"/>
+		<DatePicker Margin="4" SelectedDate="{Binding ElementName=window,Path=StartDate}" />
+		<TextBlock Margin="4" Text="Delete activities to:" FontWeight="Bold"/>
+		<DatePicker Margin="4" SelectedDate="{Binding ElementName=window,Path=EndDate}" />
+		<TextBlock Margin="4" Text="Employee:" FontWeight="Bold"/>
+		<ComboBox Margin="4" ItemsSource="{Binding ElementName=window,Path=ePlanifServiceViewModel.Employees}" SelectedValue="{Binding ElementName=window,Path=EmployeeID}" SelectedValuePath="EmployeeID" DisplayMemberPath="FullName" />
+
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+			<Button Margin="4" Content="OK" Width="80" Command="{StaticResource okCommand}" />
+			<Button Margin="4" Content="Cancel" Width="80" Command="{StaticResource cancelCommand}"/>
+		</StackPanel>
+	</StackPanel>
+</Window>

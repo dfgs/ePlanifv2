@@ -87,6 +87,12 @@ namespace ePlanifViewModelsLib.ePlanifService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeleteActivity", ReplyAction="http://tempuri.org/IePlanifService/DeleteActivityResponse")]
         System.Threading.Tasks.Task<bool> DeleteActivityAsync(int ItemID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/BulkDeleteActivities", ReplyAction="http://tempuri.org/IePlanifService/BulkDeleteActivitiesResponse")]
+        bool BulkDeleteActivities(System.DateTime StartDate, System.DateTime EndDate, int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/BulkDeleteActivities", ReplyAction="http://tempuri.org/IePlanifService/BulkDeleteActivitiesResponse")]
+        System.Threading.Tasks.Task<bool> BulkDeleteActivitiesAsync(System.DateTime StartDate, System.DateTime EndDate, int EmployeeID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateActivity", ReplyAction="http://tempuri.org/IePlanifService/UpdateActivityResponse")]
         bool UpdateActivity(ePlanifModelsLib.Activity Item);
         
@@ -407,6 +413,14 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         public System.Threading.Tasks.Task<bool> DeleteActivityAsync(int ItemID) {
             return base.Channel.DeleteActivityAsync(ItemID);
+        }
+        
+        public bool BulkDeleteActivities(System.DateTime StartDate, System.DateTime EndDate, int EmployeeID) {
+            return base.Channel.BulkDeleteActivities(StartDate, EndDate, EmployeeID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> BulkDeleteActivitiesAsync(System.DateTime StartDate, System.DateTime EndDate, int EmployeeID) {
+            return base.Channel.BulkDeleteActivitiesAsync(StartDate, EndDate, EmployeeID);
         }
         
         public bool UpdateActivity(ePlanifModelsLib.Activity Item) {

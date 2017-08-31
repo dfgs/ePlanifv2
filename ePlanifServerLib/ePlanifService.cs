@@ -113,6 +113,21 @@ namespace ePlanifServerLib
 			}
 		}
 
+		private async Task<bool> ExecuteAsync(SqlCommand Command)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			try
+			{
+				await database.ExecuteAsync(Command);
+				return true;
+			}
+			catch (Exception ex)
+			{
+				WriteLog(ex);
+				return false;
+			}
+		}
+
 
 		public async Task<Account> GetCurrentAccountAsync()
 		{
@@ -248,6 +263,20 @@ namespace ePlanifServerLib
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return false;
 			return await DeleteAsync<Activity>(ItemID);
+		}
+		public async Task<bool> BulkDeleteActivitiesAsync(DateTime StartDate,DateTime EndDate, int EmployeeID)
+		{
+			SqlCommand command;
+
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.ePlanifUser)) return false;
+
+			command = new SqlCommand("delete from Activity  where EmployeeID=@EmployeeID and StartDate >= @StartDate and StartDate <= @EndDate");
+			command.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+			command.Parameters.AddWithValue("@StartDate", StartDate);
+			command.Parameters.AddWithValue("@EndDate", EndDate);
+
+			return await ExecuteAsync(command);
 		}
 		public async Task<bool> UpdateActivityAsync(Activity Item)
 		{
