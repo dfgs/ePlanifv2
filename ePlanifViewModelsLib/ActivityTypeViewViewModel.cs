@@ -58,6 +58,11 @@ namespace ePlanifViewModelsLib
 			visibleMembers = new FilteredViewModelCollection<ActivityTypeViewMemberViewModel, ActivityTypeViewMember>(members,(item)=>item.IsDisabled!=true);Children.Add(visibleMembers);
 		}
 
+		protected override bool GetIsPublicHolyday(DateTime Data, int Row)
+		{
+			return false;
+		}
+
 		protected override int GetLayerID(ActivityViewModel Activity)
 		{
 			return 0;

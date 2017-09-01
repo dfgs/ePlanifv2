@@ -1,4 +1,5 @@
 ﻿using ePlanifViewModelsLib;
+using ModelLib;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -26,6 +27,14 @@ namespace ePlanifv2
 			set { SetValue(EndDateProperty, value); }
 		}
 
+
+		public static readonly DependencyProperty SkipPublicHolidaysProperty = DependencyProperty.Register("SkipPublicHolidays", typeof(bool), typeof(ReplicateWindow),new PropertyMetadata(true));
+		public bool SkipPublicHolidays
+		{
+			get { return (bool)GetValue(SkipPublicHolidaysProperty); }
+			set { SetValue(SkipPublicHolidaysProperty, value); }
+		}
+
 		private bool isRunning;
 
 		public ReplicateWindow()
@@ -43,8 +52,7 @@ namespace ePlanifv2
 		private async void OKCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			isRunning = true;
-			await Table.ReplicateActivitiesAsync(EndDate);
-			DialogResult = true;
+			DialogResult = await Table.ReplicateActivitiesAsync(EndDate,SkipPublicHolidays);
 		}
 		private void CancelCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{

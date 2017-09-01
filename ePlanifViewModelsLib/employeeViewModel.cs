@@ -1,8 +1,10 @@
 ﻿using ePlanifModelsLib;
 using ModelLib;
+using Nager.Date;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ViewModelLib;
 using ViewModelLib.Attributes;
 
 namespace ePlanifViewModelsLib
@@ -31,12 +33,23 @@ namespace ePlanifViewModelsLib
 			set { Model.LastName = value; OnPropertyChanged(); OnPropertyChanged("FullName"); }
 		}
 
+
+		[TextListProperty(Header = "Country", IsMandatory = true, IsReadOnly = false,  SelectedValuePath = "Model", DisplayMemberPath = null, SourcePath = "Service.CountryCodes")]
+		public Text? CountryCode
+		{
+			get { return Model.CountryCode; }
+			set { Model.CountryCode = value; OnPropertyChanged(); }
+		}
+
 		[ByteProperty(Header = "Max working hours per week", IsMandatory = false, IsReadOnly = false)]
 		public byte? MaxWorkingHoursPerWeek
 		{
 			get { return Model.MaxWorkingHoursPerWeek; }
 			set { Model.MaxWorkingHoursPerWeek = value; OnPropertyChanged(); }
 		}
+
+		
+
 
 		public string FullName
 		{
@@ -60,8 +73,14 @@ namespace ePlanifViewModelsLib
         {
             return Task.FromResult(Model);
         }
+		public CountryCode GetCountryCode()
+		{
+			CountryCode code;
+			if (!Enum.TryParse<CountryCode>(CountryCode.ToString(), out code)) code = Nager.Date.CountryCode.US;
 
-		
+			return code;
+		}
+
 
 	}
 }

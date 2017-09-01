@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ViewModelLib;
 using System.Collections;
+using Nager.Date;
 
 namespace ePlanifViewModelsLib
 {
@@ -116,6 +117,7 @@ namespace ePlanifViewModelsLib
 		protected abstract void SetRowID(ActivityViewModel Activity, int RowID);
 		protected abstract bool OnValidateCell(CellViewModel Cell);
 		protected abstract int GetLayerID(ActivityViewModel Activity);
+		protected abstract bool GetIsPublicHolyday(DateTime Data, int Row);
 
 		protected bool Overlap(ActivityViewModel A, ActivityViewModel B)
 		{
@@ -141,7 +143,7 @@ namespace ePlanifViewModelsLib
 			{
 				for(int c=0;c<columnCount;c++)
 				{
-					cells[c, r] = new CellViewModel(Service.Days[c].Date,VisibleMembers[r].RowID);
+					cells[c, r] = new CellViewModel(Service.Days[c].Date,VisibleMembers[r].RowID,GetIsPublicHolyday(Service.Days[c].Date,r));
 				}
 			}
 			OnPropertyChanged("Cells");
@@ -321,7 +323,7 @@ namespace ePlanifViewModelsLib
 		}
 
 
-		public async Task ReplicateActivitiesAsync(DateTime EndDate)
+		public async Task<bool> ReplicateActivitiesAsync(DateTime EndDate,bool SkipPublicHolidays)
 		{
 			int counter;
 			DateTime currentDate;
@@ -340,6 +342,9 @@ namespace ePlanifViewModelsLib
 					newDate = activity.Date.Value.AddDays(counter);
 					if (newDate > EndDate) continue;
 
+					if ((SkipPublicHolidays) && (DateSystem.IsPublicHoliday(newDate, activity.Employee.GetCountryCode()))) continue;
+					
+
 					newActivity = await activity.CloneAsync();
 					newActivity.Date = newDate;
 
@@ -350,7 +355,7 @@ namespace ePlanifViewModelsLib
 				currentDate = currentDate.AddDays(7);
 			}
 			OnUpdated();
-
+			return true;
 		}
 
 

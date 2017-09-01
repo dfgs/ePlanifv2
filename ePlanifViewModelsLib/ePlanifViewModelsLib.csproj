@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nager.Date, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nager.Date.1.10.0\lib\net45\Nager.Date.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -56,6 +59,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="CountryCodeViewModel.cs" />
+    <Compile Include="CountryCodeViewModelCollection.cs" />
     <Compile Include="TabViewModel.cs" />
     <Compile Include="TabByActivityTypeViewModel.cs" />
     <Compile Include="TabViewModelCollection.cs" />
@@ -160,6 +165,7 @@
     <None Include="Connected Services\ePlanifService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Account.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Activity.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.ActivityType.datasource" />

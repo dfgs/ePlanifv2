@@ -20,9 +20,10 @@ namespace ePlanifv2
 	/// </summary>
 	public partial class MembersWindow : Window
 	{
-		public IEnumerable SelectedItems
+		private List<object> selectedItems;
+		public List<object> SelectedItems
 		{
-			get { return listBox.SelectedItems; }
+			get { return selectedItems; }
 		}
 
 		public MembersWindow()
@@ -34,6 +35,9 @@ namespace ePlanifv2
 
 		private void ButtonOK_Click(object sender,RoutedEventArgs e)
 		{
+			selectedItems = new List<object>();
+			selectedItems.AddRange(listBox.SelectedItems.Cast<object>());
+			
 			DialogResult = true;
 		}
 		private void ButtonCancel_Click(object sender, RoutedEventArgs e)

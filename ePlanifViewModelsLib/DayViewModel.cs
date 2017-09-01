@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nager.Date;
+using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using ViewModelLib;
@@ -33,13 +34,15 @@ namespace ePlanifViewModelsLib
 		public DayViewModel(ePlanifServiceViewModel Service)
 			: base(Service)
 		{
+			
 		}
 
 		protected override Task<DateTime> OnLoadModelAsync()
 		{
-			
 			return Task.FromResult(Model);
 		}
+
+		
 
 	}
 }

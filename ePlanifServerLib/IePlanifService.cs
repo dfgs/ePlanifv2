@@ -36,7 +36,7 @@ namespace ePlanifServerLib
 
 
 		[OperationContract]
-		Task<IEnumerable<Activity>> GetActivitiesAsync(DateTime StartDate, DateTime EndDate);
+		Task<IEnumerable<Activity>> GetActivitiesAsync(DateTime Date);
 		[OperationContract]
 		Task<int> CreateActivityAsync(Activity Item);
 		[OperationContract]

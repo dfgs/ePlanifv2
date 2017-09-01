@@ -19,6 +19,10 @@
     <StackPanel>
 		<TextBlock Margin="4" Text="Replicate activities until:" FontWeight="Bold"/>
 		<DatePicker Margin="4" SelectedDate="{Binding ElementName=replicateWindow,Path=EndDate}" />
+		<StackPanel Orientation="Horizontal">
+			<TextBlock Margin="4" Text="Skip public holidays:" FontWeight="Bold"/>
+			<CheckBox Margin="4" VerticalAlignment="Center" IsChecked="{Binding ElementName=replicateWindow,Path=SkipPublicHolidays}"/>
+		</StackPanel>
 
 		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
 			<Button Margin="4" Content="OK" Width="80" Command="{StaticResource okCommand}" />

@@ -574,6 +574,7 @@ namespace ePlanifv2.Views
 
 			if (Cell != null)
 			{
+			
 				cellBrush = DisplayOptions.GetBrush(Cell.GetBackground(LayerID));
 				Context.DrawRectangle(cellBrush, null, Rect);
 
@@ -582,6 +583,11 @@ namespace ePlanifv2.Views
 				iconLayout = new Layout( layout.DockTop(CellHeaderMargin)) ;
 
 				activities = Cell.GetActivities(LayerID);
+				if (Cell.IsPublicHoliday)
+				{
+					rect = iconLayout.DockLeft(16);
+					Context.DrawImage(DisplayOptions.DoorImage, rect);
+				}
 
 				if (Cell.HasError)
 				{

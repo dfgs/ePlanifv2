@@ -37,6 +37,7 @@ namespace ePlanifv2.Views
 		public static BitmapImage InterogationImage =  new BitmapImage(new Uri("pack://application:,,,/Images/help.png"));
 		public static BitmapImage CalendarImage = new BitmapImage(new Uri("pack://application:,,,/Images/calendar.png"));
 		public static BitmapImage LargeCalendarImage = new BitmapImage(new Uri("pack://application:,,,/Images/calendar-month-transparent.png"));
+		public static BitmapImage DoorImage = new BitmapImage(new Uri("pack://application:,,,/Images/door--exclamation.png"));
 
 		public static FormattedText FormatText(string Text, Brush Foreground ,double Size=16,double? MaxWidth=null)
 		{

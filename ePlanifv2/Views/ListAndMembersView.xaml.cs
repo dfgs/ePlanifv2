@@ -62,7 +62,7 @@ namespace ePlanifv2.Views
 		private async void AddMemberCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			MembersWindow window;
-			
+
 			window = new MembersWindow() {Owner=Application.Current.MainWindow,DataContext=PotentialMembers };
 			if (window.ShowDialog()??false)
 			{

@@ -109,6 +109,12 @@ namespace ePlanifViewModelsLib
 			get { return reports; }
 		}
 
+		private CountryCodeViewModelCollection countryCodes;
+		public CountryCodeViewModelCollection CountryCodes
+		{
+			get { return countryCodes; }
+		}
+
 		private DayViewModelCollection days;
 		public DayViewModelCollection Days
 		{
@@ -218,6 +224,7 @@ namespace ePlanifViewModelsLib
 
 			reports = new ReportViewModelCollection(this);Children.Add(reports);
 
+			countryCodes = new CountryCodeViewModelCollection(this);Children.Add(countryCodes);
 			days = new DayViewModelCollection(this);Children.Add(days);
 			layers = new LayerViewModelCollection(this); Children.Add(layers);
 			visibleLayers = new FilteredViewModelCollection<LayerViewModel, Layer>(layers, (item) => { return item.IsDisabled!=true; }); Children.Add(visibleLayers);
@@ -261,18 +268,17 @@ namespace ePlanifViewModelsLib
 
 			IePlanifServiceClient client = CreateClient();
 			if (client == null) return false;
-			using (client)
+			try
 			{
-				try
-				{
-					userAccount = await client.GetCurrentAccountAsync();
-					userProfile = await client.GetCurrentProfileAsync();
-					client.Close();
-				}
-				catch
-				{
-					return false;
-				}
+				userAccount = await client.GetCurrentAccountAsync();
+				userProfile = await client.GetCurrentProfileAsync();
+				client.Close();
+			}
+			catch(Exception ex)
+			{
+				Log(ex);
+				client.Abort();
+				return false;
 			}
 			if ((userAccount == null) || (userProfile == null)) return false;
 			return await LoadAsync();

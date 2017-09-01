@@ -4,7 +4,7 @@ using System.Security.Principal;
 
 namespace ePlanifServerLib
 {
-	class ePlanifPrincipal: IPrincipal
+	public class ePlanifPrincipal: IPrincipal
 	{
 		private string[] roles;
 		public string[] Roles

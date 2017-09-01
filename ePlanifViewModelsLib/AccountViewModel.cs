@@ -22,14 +22,14 @@ namespace ePlanifViewModelsLib
 			set { Model.Login = value.ToString().ToLower() ; OnPropertyChanged(); }
 		}
 
-		[ListProperty(Header = "Employee", IsMandatory = false, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.Employees")]
+		[IntListProperty(Header = "Employee", IsMandatory = false, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.Employees")]
 		public int? EmployeeID
 		{
 			get { return Model.EmployeeID; }
 			set { Model.EmployeeID = value; OnPropertyChanged(); }
 		}
 
-		[ListProperty(Header = "Profile", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "ProfileID", SourcePath = "Service.Profiles")]
+		[IntListProperty(Header = "Profile", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "ProfileID", SourcePath = "Service.Profiles")]
 		public int? ProfileID
 		{
 			get { return Model.ProfileID; }

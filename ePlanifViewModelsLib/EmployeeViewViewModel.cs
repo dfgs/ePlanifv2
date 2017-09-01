@@ -7,6 +7,7 @@ using ViewModelLib.Attributes;
 using System;
 using System.Collections.ObjectModel;
 using ViewModelLib;
+using Nager.Date;
 
 namespace ePlanifViewModelsLib
 {
@@ -55,7 +56,10 @@ namespace ePlanifViewModelsLib
 			members = new EmployeeViewMemberViewModelCollection(Service, this);Children.Add(members);
 			visibleMembers = new FilteredViewModelCollection<EmployeeViewMemberViewModel, EmployeeViewMember>(members, (item) => item.IsDisabled != true); Children.Add(visibleMembers);
 		}
-
+		protected override bool GetIsPublicHolyday(DateTime Date, int Row)
+		{
+			return Nager.Date.DateSystem.IsPublicHoliday(Date,visibleMembers[Row].Employee.GetCountryCode() );
+		}
 		protected override int GetLayerID(ActivityViewModel Activity)
 		{
 			return Activity.ActivityType?.LayerID??0;

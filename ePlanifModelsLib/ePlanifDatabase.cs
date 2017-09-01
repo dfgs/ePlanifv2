@@ -2,6 +2,7 @@
 using DatabaseModelLib.Filters;
 using SqlDatabaseModelLib;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -96,17 +97,17 @@ namespace ePlanifModelsLib
 			Profile profile;
 			Group group;
 			Layer layer;
+			SqlCommand command;
 
-
-			await ExecuteAsync(
+			command = new SqlCommand(
 				"CREATE VIEW[dbo].[GrantsPerProfile] " +
 				"AS " +
 				"SELECT        GrantID, ProfileID, GroupID " +
 				"FROM            dbo.[Grant] " +
-				"union select -1,1,1 "
-			);
+				"union select -1,1,1 ");
+			await ExecuteAsync(command);
 
-			await ExecuteAsync(
+			command = new SqlCommand(
 				"CREATE VIEW [dbo].[GrantedGroupsPerProfile] "+
 				"AS " +
 				"WITH RecursiveGroup AS(SELECT dbo.[GrantsPerProfile].ProfileID, dbo.[Group].GroupID " +
@@ -119,14 +120,18 @@ namespace ePlanifModelsLib
 				"SELECT        ProfileID, GroupID " +
 				"FROM            RecursiveGroup AS RecursiveGroup "
 				);
-			await ExecuteAsync(
+			await ExecuteAsync(command);
+
+			command = new SqlCommand(
 				"CREATE VIEW[dbo].[GrantedGroupsPerAccount] "+
 				"AS " +
 				"SELECT DISTINCT dbo.Account.AccountID, dbo.GrantedGroupsPerProfile.GroupID " +
 				"FROM            dbo.GrantedGroupsPerProfile INNER JOIN " +
 				"dbo.Account ON dbo.GrantedGroupsPerProfile.ProfileID = dbo.Account.ProfileID " 
 				);
-			await ExecuteAsync(
+			await ExecuteAsync(command);
+
+			command = new SqlCommand(
 				"CREATE VIEW[dbo].[GroupMembers] "+
 				"AS " +
 				"SELECT        GroupMemberID, dbo.[Group].GroupID, dbo.GroupMember.EmployeeID " +
@@ -136,7 +141,9 @@ namespace ePlanifModelsLib
 				"SELECT - 1, 1, EmployeeID " +
 				"FROM            Employee"
 				);
-			await ExecuteAsync(
+			await ExecuteAsync(command);
+
+			command = new SqlCommand(
 				"CREATE VIEW[dbo].[GrantedEmployeesPerAccount] " +
 				"AS " +
 				"SELECT DISTINCT dbo.Account.AccountID, dbo.GroupMembers.EmployeeID " +
@@ -148,6 +155,7 @@ namespace ePlanifModelsLib
 				"FROM            Account " +
 				"WHERE        EmployeeID IS NOT NULL"
 				);
+			await ExecuteAsync(command);
 
 
 			profile = new Profile() { Name = "Administrator", AdministrateAccounts = true, AdministrateActivityTypes = true,AdministrateEmployees=true,CanRunReports=true };

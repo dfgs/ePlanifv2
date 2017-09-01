@@ -11,6 +11,12 @@
 		</Style.Triggers>
 	</Style>
 
+	<DataTemplate DataType="{x:Type ViewModels:CountryCodeViewModel}">
+		<StackPanel Orientation="Horizontal">
+			<Image Stretch="None" Source="{Binding ImageSource}" />
+			<TextBlock Margin="4,0,0,0" Text="{Binding Model}" />
+		</StackPanel>
+	</DataTemplate>
 
 
 	<DataTemplate DataType="{x:Type ViewModels:ActivityTypeViewModel}">

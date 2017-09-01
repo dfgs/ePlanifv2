@@ -38,7 +38,7 @@ namespace ePlanifViewModelsLib
 			set { Model.TextColor = value; OnPropertyChanged(); }
 		}
 
-		[ListProperty(Header = "Layer", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "LayerID", SourcePath = "Service.VisibleLayers")]
+		[IntListProperty(Header = "Layer", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "LayerID", SourcePath = "Service.VisibleLayers")]
 		public int? LayerID
 		{
 			get { return Model.LayerID; }

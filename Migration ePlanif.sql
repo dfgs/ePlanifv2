@@ -20,7 +20,7 @@ declare @stopMinutes int
 
 
 declare activityCursor CURSOR FORWARD_ONLY FAST_FORWARD READ_ONLY for 
-select MinutesDebut,DATEADD(MINUTE,MinutesDebut,DATEADD(DAY,NumJourDsSemaine+(NumSemaineDsAnnee-1)*7 , '2017-02-01 00:00:00'  ) ), -- attention date inversée si OS anglais
+select MinutesDebut,DATEADD(MINUTE,MinutesDebut,DATEADD(DAY,NumJourDsSemaine+(NumSemaineDsAnnee-1)*7 , '2017-01-02 00:00:00'  ) ), -- attention date inversée si OS anglais
 DATEADD(MINUTE,Duree, TIMEFROMPARTS(0,0,0,0,0)),Duree,DureePause,Commentaire,NumTypeActivite,NumTech,NumeroAffaire,IsNull(NumeroRemedy,'NA'),0 from ePlanif.dbo.Activite where Annee=2017
 
 
@@ -39,8 +39,8 @@ Set Identity_Insert [Employee] On
 --
 --	Employee from Technicien
 --
-insert into [Employee] (EmployeeID,FirstName,LastName, MaxWorkingHoursPerWeek, IsDisabled)
-select NumTech ,Prenom ,Nom ,40,0 from EtraliCommon.dbo.Technicien --where Valide=1 
+insert into [Employee] (EmployeeID,FirstName,LastName, MaxWorkingHoursPerWeek,CountryCode, IsDisabled)
+select NumTech ,Prenom ,Nom ,40,'FR',0 from EtraliCommon.dbo.Technicien where Valide=1 
 Set Identity_Insert [Employee] Off
 
 
@@ -49,21 +49,21 @@ Set Identity_Insert [Employee] Off
 --
 Set Identity_Insert [ActivityType] On
 insert into [ActivityType] (ActivityTypeID,Name,BackgroundColor,TextColor,IsDisabled,LayerID)
-select NumTypeActivite ,Description,'LightGreen', Couleur,0,1 from ePlanif.dbo.TypeActivite-- where Valide=1
+select NumTypeActivite ,Description,'LightGreen', Couleur,0,1 from ePlanif.dbo.TypeActivite where Valide=1
 select @typeJourDelta=max(ActivityTypeID)+1 from ActivityType;
 
 --
 --	Activity type from day type
 --
 insert into [ActivityType] (ActivityTypeID,Name,BackgroundColor,TextColor,IsDisabled,LayerID)
-select NumTypeJour+@typeJourDelta ,Description,Couleur, 'Black',0,1 from EtraliCommon.dbo.TypeJour where NumTypeJour<>1-- where Valide=1 
+select NumTypeJour+@typeJourDelta ,Description,Couleur, 'Black',0,1 from EtraliCommon.dbo.TypeJour where NumTypeJour<>1 and Valide=1 
 select @typeAstreinteDelta=max(ActivityTypeID)+1 from ActivityType;
 
 --
 --	Activity type from on call type
 --
 insert into [ActivityType] (ActivityTypeID,Name,BackgroundColor,TextColor,IsDisabled,LayerID)
-select NumTypeAstreinte+@typeAstreinteDelta ,Description,Couleur, 'Black',0,2 from ePlanif.dbo.TypeAstreinte -- where Valide=1 
+select NumTypeAstreinte+@typeAstreinteDelta ,Description,Couleur, 'Black',0,2 from ePlanif.dbo.TypeAstreinte 
 Set Identity_Insert [ActivityType] Off
 
 
@@ -99,10 +99,10 @@ DEALLOCATE activityCursor
 --
 
 insert into [Activity] (StartDate,Duration,Comment,ActivityTypeID,EmployeeID,ProjectNumber,RemedyRef,IsDraft)
-select DATEADD(MINUTE,8*60+30,DATEADD(DAY,NumJourDsSemaine+(NumSemaineDsAnnee-1)*7 , '2017-02-01 00:00:00'  ) ), -- attention date inversée si OS anglais
+select DATEADD(MINUTE,8*60+30,DATEADD(DAY,NumJourDsSemaine+(NumSemaineDsAnnee-1)*7 , '2017-01-02 00:00:00'  ) ), -- attention date inversée si OS anglais
 DATEADD(MINUTE,240, TIMEFROMPARTS(0,0,0,0,0)),Commentaire,NumTypeJour+@typeJourDelta,NumTech,null,'NA',0 from ePlanif.dbo.Jour where Annee=2017 and NumTypeJour<>1
 insert into [Activity] (StartDate,Duration,Comment,ActivityTypeID,EmployeeID,ProjectNumber,RemedyRef,IsDraft)
-select DATEADD(MINUTE,14*60+00,DATEADD(DAY,NumJourDsSemaine+(NumSemaineDsAnnee-1)*7 , '2017-02-01 00:00:00'  ) ), -- attention date inversée si OS anglais
+select DATEADD(MINUTE,14*60+00,DATEADD(DAY,NumJourDsSemaine+(NumSemaineDsAnnee-1)*7 , '2017-01-02 00:00:00'  ) ), -- attention date inversée si OS anglais
 DATEADD(MINUTE,3*60+32, TIMEFROMPARTS(0,0,0,0,0)),Commentaire,NumTypeJour+@typeJourDelta,NumTech,null,'NA',0 from ePlanif.dbo.Jour where Annee=2017 and NumTypeJour<>1
 
 --
@@ -110,5 +110,5 @@ DATEADD(MINUTE,3*60+32, TIMEFROMPARTS(0,0,0,0,0)),Commentaire,NumTypeJour+@typeJ
 --
 
 insert into [Activity] (StartDate,Duration,Comment,ActivityTypeID,EmployeeID,ProjectNumber,RemedyRef,IsDraft)
-select DATEADD(MINUTE,18*60+00,DATEADD(DAY,NumJourDsSemaine+(NumSemaineDsAnnee-1)*7 , '2017-02-01 00:00:00'  ) ), -- attention date inversée si OS anglais
+select DATEADD(MINUTE,18*60+00,DATEADD(DAY,NumJourDsSemaine+(NumSemaineDsAnnee-1)*7 , '2017-01-02 00:00:00'  ) ), -- attention date inversée si OS anglais
 DATEADD(MINUTE,6*60, TIMEFROMPARTS(0,0,0,0,0)),null,NumTypeAstreinte+@typeAstreinteDelta,NumTech,null,'NA',0 from ePlanif.dbo.Astreinte where Annee=2017 

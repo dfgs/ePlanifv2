@@ -17,23 +17,36 @@ namespace ePlanifServerLib
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
 	public class ePlanifService :Worker, IePlanifService
 	{
-		private ePlanifDatabase database;
+		private IDatabase<SqlConnection,SqlCommand> database;
 
+		private ePlanifPrincipal principal;
 		private ePlanifPrincipal Principal
 		{
-			get { return (ePlanifPrincipal)System.Threading.Thread.CurrentPrincipal; }
+			get { return principal ?? (ePlanifPrincipal)System.Threading.Thread.CurrentPrincipal; ; }
 		}
-
-		public ePlanifService():base("ePlanifService")
+		public ePlanifService(): base("ePlanifService")
 		{
+			
 			database = new ePlanifDatabase("127.0.0.1");
-
+			principal = null;
 		}
+
+		public ePlanifService(ePlanifPrincipal Principal,IDatabase<SqlConnection, SqlCommand> Database) : base("ePlanifService")
+		{
+			this.database = Database;
+			this.principal = Principal;
+		}
+
 
 		private bool AssertPermission(string Role,[CallerMemberName]string CallerName=null)
 		{
-			if (Principal?.IsInRole(Role)??false) return true;
-			WriteLog(LogLevels.Warning, $"User {Principal?.Account?.Login} has no permission to use this fonction", CallerName);
+			if (Principal==null)
+			{
+				WriteLog(LogLevels.Error, $"User is not authenticated", CallerName);
+				return false;
+			}
+			if (Principal.IsInRole(Role)) return true;
+			WriteLog(LogLevels.Warning, $"User {Principal.Account.Login} has no permission to use this fonction", CallerName);
 			return false;
 		}
 
@@ -58,7 +71,7 @@ namespace ePlanifServerLib
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			try
 			{
-				return await database.SelectAsync<ItemType>(()=>new ItemType(),Command);
+				return await database.SelectAsync<ItemType>(Command);
 			}
 			catch (Exception ex)
 			{
@@ -67,7 +80,7 @@ namespace ePlanifServerLib
 			}
 		}
 
-		private async Task<bool> CreateAsync<ItemType>(ItemType Item)
+		private async Task<bool> InsertAsync<ItemType>(ItemType Item)
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			try
@@ -161,7 +174,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.AdministrateEmployees)) return -1;
-			return await CreateAsync(Item) ? Item.EmployeeID.Value : -1;
+			return await InsertAsync(Item) ? Item.EmployeeID.Value : -1;
 		}
 
 		public async Task<bool> UpdateEmployeeAsync(Employee Item)
@@ -182,7 +195,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.AdministrateActivityTypes)) return -1;
-			return await CreateAsync(Item) ? Item.ActivityTypeID.Value : -1;
+			return await InsertAsync(Item) ? Item.ActivityTypeID.Value : -1;
 		}
 
 		public async Task<bool> UpdateActivityTypeAsync(ActivityType Item)
@@ -204,7 +217,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.AdministrateAccounts)) return -1;
-			return await CreateAsync(Item) ? Item.ProfileID.Value : -1;
+			return await InsertAsync(Item) ? Item.ProfileID.Value : -1;
 		}
 
 		public async Task<bool> UpdateProfileAsync(Profile Item)
@@ -226,7 +239,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.AdministrateAccounts)) return -1;
-			return await CreateAsync(Item) ? Item.AccountID.Value : -1;
+			return await InsertAsync(Item) ? Item.AccountID.Value : -1;
 		}
 
 		public async Task<bool> UpdateAccountAsync(Account Item)
@@ -237,17 +250,21 @@ namespace ePlanifServerLib
 		}
 
 
-		public async Task<IEnumerable<Activity>> GetActivitiesAsync(DateTime StartDate, DateTime EndDate)
+		public async Task<IEnumerable<Activity>> GetActivitiesAsync(DateTime Date)
 		{
 			SqlCommand command;
+			DateTime startDate, endDate;
 
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return null;
 
+			startDate = Date.Date;
+			endDate = startDate.AddDays(1);
+
 			command = new SqlCommand("select Activity.* from Activity inner join GrantedEmployeesPerAccount on Activity.EmployeeID=GrantedEmployeesPerAccount.EmployeeID  where AccountID=@AccountID and Activity.StartDate >= @StartDate and Activity.StartDate < @EndDate");
 			command.Parameters.AddWithValue("@AccountID", Principal.Account.AccountID.Value);
-			command.Parameters.AddWithValue("@StartDate", StartDate);
-			command.Parameters.AddWithValue("@EndDate", EndDate);
+			command.Parameters.AddWithValue("@StartDate", startDate);
+			command.Parameters.AddWithValue("@EndDate", endDate);
 
 			return await SelectAsync<Activity>(command);
 		}
@@ -256,7 +273,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return -1;
-			return await CreateAsync(Item) ? Item.ActivityID.Value : -1;
+			return await InsertAsync(Item) ? Item.ActivityID.Value : -1;
 		}
 		public async Task<bool> DeleteActivityAsync(int ItemID)
 		{
@@ -311,7 +328,7 @@ namespace ePlanifServerLib
 			command.Parameters.AddWithValue("@EmployeeID", Item.EmployeeID.Value);
 			groupMember = (await SelectAsync<GroupMember>(command)).FirstOrDefault();
 			if (groupMember != null) return -1;	// cannot duplicate members
-			return await CreateAsync(Item) ? Item.GroupMemberID.Value : -1;
+			return await InsertAsync(Item) ? Item.GroupMemberID.Value : -1;
 		}
 
 		public async Task<bool> DeleteGroupMemberAsync(int ItemID)
@@ -349,7 +366,7 @@ namespace ePlanifServerLib
 			grant = (await SelectAsync<Grant>(command)).FirstOrDefault();
 			if (grant != null) return -1; // cannot duplicate grants
 
-			return await CreateAsync(Item) ? Item.GrantID.Value : -1;
+			return await InsertAsync(Item) ? Item.GrantID.Value : -1;
 		}
 
 		public async Task<bool> DeleteGrantAsync(int ItemID)
@@ -378,7 +395,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.AdministrateEmployees)) return -1;
-			return await CreateAsync(Item) ? Item.GroupID.Value : -1;
+			return await InsertAsync(Item) ? Item.GroupID.Value : -1;
 		}
 
 		public async Task<bool> DeleteGroupAsync(int ItemID)
@@ -408,7 +425,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.AdministrateActivityTypes)) return -1;
-			return await CreateAsync(Item) ? Item.LayerID.Value : -1;
+			return await InsertAsync(Item) ? Item.LayerID.Value : -1;
 		}
 
 		public async Task<bool> UpdateLayerAsync(Layer Item)
@@ -423,7 +440,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return null;
-			return await SelectAsync<EmployeeView>(new EqualFilter<EmployeeView>(EmployeeView.AccountIDColumn, Principal?.Account?.AccountID));
+			return await SelectAsync<EmployeeView>(new EqualFilter<EmployeeView>(EmployeeView.AccountIDColumn, Principal.Account?.AccountID));
 		}
 
 		public async Task<int> CreateEmployeeViewAsync(EmployeeView Item)
@@ -434,7 +451,7 @@ namespace ePlanifServerLib
 			{
 				return -1;
 			}
-			return await CreateAsync(Item) ? Item.EmployeeViewID.Value : -1;
+			return await InsertAsync(Item) ? Item.EmployeeViewID.Value : -1;
 		}
 		public async Task<bool> DeleteEmployeeViewAsync(int ItemID)
 		{
@@ -453,7 +470,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return null;
-			return await SelectAsync<ActivityTypeView>(new EqualFilter<ActivityTypeView>(ActivityTypeView.AccountIDColumn, Principal?.Account?.AccountID));
+			return await SelectAsync<ActivityTypeView>(new EqualFilter<ActivityTypeView>(ActivityTypeView.AccountIDColumn, Principal.Account?.AccountID));
 		}
 		public async Task<int> CreateActivityTypeViewAsync(ActivityTypeView Item)
 		{
@@ -463,7 +480,7 @@ namespace ePlanifServerLib
 			{
 				return -1;
 			}
-			return await CreateAsync(Item) ? Item.ActivityTypeViewID.Value : -1;
+			return await InsertAsync(Item) ? Item.ActivityTypeViewID.Value : -1;
 		}
 		public async Task<bool> DeleteActivityTypeViewAsync(int ItemID)
 		{
@@ -503,7 +520,7 @@ namespace ePlanifServerLib
 			if (!AssertPermission(Roles.ePlanifUser)) return -1;
 			member = (await SelectAsync<EmployeeViewMember>(new AndFilter<EmployeeViewMember>(new EqualFilter<EmployeeViewMember>(EmployeeViewMember.EmployeeViewIDColumn, Item.EmployeeViewID.Value), new EqualFilter<EmployeeViewMember>(EmployeeViewMember.EmployeeIDColumn, Item.EmployeeID.Value) ))).FirstOrDefault();
 			if (member != null) return -1;//cannot duplicate view member
-			return await CreateAsync(Item) ? Item.EmployeeViewMemberID.Value : -1;
+			return await InsertAsync(Item) ? Item.EmployeeViewMemberID.Value : -1;
 		}
 
 		public async Task<bool> DeleteEmployeeViewMemberAsync(int ItemID)
@@ -535,7 +552,7 @@ namespace ePlanifServerLib
 			member = (await SelectAsync<ActivityTypeViewMember>(new AndFilter<ActivityTypeViewMember>(new EqualFilter<ActivityTypeViewMember>(ActivityTypeViewMember.ActivityTypeViewIDColumn, Item.ActivityTypeViewID.Value), new EqualFilter<ActivityTypeViewMember>(ActivityTypeViewMember.ActivityTypeIDColumn, Item.ActivityTypeID.Value)))).FirstOrDefault();
 			if (member != null) return -1;//cannot duplicate view member
 
-			return await CreateAsync(Item) ? Item.ActivityTypeViewMemberID.Value : -1;
+			return await InsertAsync(Item) ? Item.ActivityTypeViewMemberID.Value : -1;
 		}
 
 		public async Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID)

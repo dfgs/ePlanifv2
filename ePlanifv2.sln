@@ -51,6 +51,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUpgraderLib", "..\MVVMLib\DatabaseUpgraderLib\DatabaseUpgraderLib.csproj", "{DAB4CCAA-92DE-4D6C-912C-E561D2321252}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -136,5 +139,8 @@ Global
 		{DD332EDF-6C16-4DC8-BA62-1D3F67FE54F8} = {4E5D550A-024E-4CFD-8E23-D61D9EF273AD}
 		{17AAEB57-4F55-4E14-9E6D-B4BB59D33560} = {4E5D550A-024E-4CFD-8E23-D61D9EF273AD}
 		{DAB4CCAA-92DE-4D6C-912C-E561D2321252} = {00BF55E3-3718-4D80-9F89-3C6680F54A10}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

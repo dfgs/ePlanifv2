@@ -38,16 +38,18 @@ namespace ePlanifViewModelsLib
 		}
 
 
-		
+		public static readonly DependencyProperty IsPublicHolidayProperty = DependencyProperty.Register("IsPublicHoliday", typeof(bool), typeof(CellViewModel));
+		public bool IsPublicHoliday
+		{
+			get { return (bool)GetValue(IsPublicHolidayProperty); }
+			set { SetValue(IsPublicHolidayProperty, value); }
+		}
+
+
 
 
 		private Dictionary<int,ObservableCollection<ActivityViewModel>> dictionary;
-		/*public Dictionary<int, ObservableCollection<ActivityViewModel>> ActivitiesDictionary
-		{
-			get { return activitiesDictionary; }
-		}*/
-
-		
+				
 
 		private DateTime date;
 		public DateTime Date
@@ -60,9 +62,9 @@ namespace ePlanifViewModelsLib
 		{
 			get { return rowID; }
 		}
-		public CellViewModel(DateTime Date,int RowID )
+		public CellViewModel(DateTime Date,int RowID,bool IsPublicHoliday )
 		{
-			this.date = Date;this.rowID = RowID;
+			this.date = Date;this.rowID = RowID;this.IsPublicHoliday = IsPublicHoliday;
 			if ((Date.DayOfWeek == DayOfWeek.Saturday) || (Date.DayOfWeek == DayOfWeek.Sunday)) Background = "DarkGray";
 			else Background = "LightGray";
 
@@ -74,6 +76,7 @@ namespace ePlanifViewModelsLib
 		public string GetBackground(int LayerID)
 		{
 			ObservableCollection<ActivityViewModel> items;
+			if (IsPublicHoliday) return "DarkGray";
 			items = GetActivities(LayerID);
 			return items.FirstOrDefault()?.Color?.ToString()??Background;
 		}

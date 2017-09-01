@@ -44,7 +44,13 @@ namespace ePlanifViewModelsLib
 
 		protected override async Task<IEnumerable<Activity>> OnLoadModelAsync(IePlanifServiceClient Client)
 		{
-			return await Client.GetActivitiesAsync(  Service.StartDate, Service.StartDate.AddDays(Service.DaysCount));
+			List<Activity> result;
+			result = new List<Activity>();
+			for(int t=0;t<Service.DaysCount;t++)
+			{
+				result.AddRange( await Client.GetActivitiesAsync(Service.StartDate.AddDays(t)) );
+			}
+			return result;
 		}
 
 		protected override async Task<bool> OnAddInModelAsync(IePlanifServiceClient Client, ActivityViewModel ViewModel)

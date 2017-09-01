@@ -73,18 +73,20 @@ namespace ePlanifViewModelsLib
         }
 
 
-		[ListProperty(Header = "Activity", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "ActivityTypeID", SourcePath = "Service.VisibleActivityTypes")]
+		[IntListProperty(Header = "Activity", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "ActivityTypeID", SourcePath = "Service.VisibleActivityTypes")]
 		public int? ActivityTypeID
 		{
 			get { return Model.ActivityTypeID; }
 			set { Model.ActivityTypeID = value; OnPropertyChanged(); OnPropertyChanged("ActivityType"); }
 		}
+
+		private ActivityTypeViewModel activityType;
 		public ActivityTypeViewModel ActivityType
 		{
-			get { return (Service).ActivityTypes.FirstOrDefault(item => item.ActivityTypeID == ActivityTypeID); }
+			get { return activityType; }
 		}
 
-		[ListProperty(Header = "Employee", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.VisibleEmployees")]
+		[IntListProperty(Header = "Employee", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.VisibleEmployees")]
 		public int? EmployeeID
 		{
 			get { return Model.EmployeeID; }
@@ -136,6 +138,12 @@ namespace ePlanifViewModelsLib
 		{
 			
 			
+		}
+
+		protected override async Task OnLoadedAsync()
+		{
+			activityType = Service.ActivityTypes.FirstOrDefault(item => item.ActivityTypeID == ActivityTypeID);
+			await base.OnLoadedAsync();
 		}
 
 		public override bool IsModelEqualTo(Activity Other)

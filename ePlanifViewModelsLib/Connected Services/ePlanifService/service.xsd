@@ -124,8 +124,7 @@
   <xs:element name="GetActivities">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
-        <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

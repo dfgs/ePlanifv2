@@ -53,6 +53,16 @@ namespace ePlanifModelsLib
 		}
 
 
+		public static readonly Column<Employee, Text> CountryCodeColumn = new Column<Employee, Text>();
+		[DataMember]
+		public Text? CountryCode
+		{
+			get { return CountryCodeColumn.GetValue(this); }
+			set { CountryCodeColumn.SetValue(this, value); }
+		}
+
+
+
 
 
 

@@ -70,10 +70,10 @@ namespace ePlanifViewModelsLib.ePlanifService {
         System.Threading.Tasks.Task<bool> UpdateProfileAsync(ePlanifModelsLib.Profile Item);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetActivities", ReplyAction="http://tempuri.org/IePlanifService/GetActivitiesResponse")]
-        ePlanifModelsLib.Activity[] GetActivities(System.DateTime StartDate, System.DateTime EndDate);
+        ePlanifModelsLib.Activity[] GetActivities(System.DateTime Date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetActivities", ReplyAction="http://tempuri.org/IePlanifService/GetActivitiesResponse")]
-        System.Threading.Tasks.Task<ePlanifModelsLib.Activity[]> GetActivitiesAsync(System.DateTime StartDate, System.DateTime EndDate);
+        System.Threading.Tasks.Task<ePlanifModelsLib.Activity[]> GetActivitiesAsync(System.DateTime Date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/CreateActivity", ReplyAction="http://tempuri.org/IePlanifService/CreateActivityResponse")]
         int CreateActivity(ePlanifModelsLib.Activity Item);
@@ -391,12 +391,12 @@ namespace ePlanifViewModelsLib.ePlanifService {
             return base.Channel.UpdateProfileAsync(Item);
         }
         
-        public ePlanifModelsLib.Activity[] GetActivities(System.DateTime StartDate, System.DateTime EndDate) {
-            return base.Channel.GetActivities(StartDate, EndDate);
+        public ePlanifModelsLib.Activity[] GetActivities(System.DateTime Date) {
+            return base.Channel.GetActivities(Date);
         }
         
-        public System.Threading.Tasks.Task<ePlanifModelsLib.Activity[]> GetActivitiesAsync(System.DateTime StartDate, System.DateTime EndDate) {
-            return base.Channel.GetActivitiesAsync(StartDate, EndDate);
+        public System.Threading.Tasks.Task<ePlanifModelsLib.Activity[]> GetActivitiesAsync(System.DateTime Date) {
+            return base.Channel.GetActivitiesAsync(Date);
         }
         
         public int CreateActivity(ePlanifModelsLib.Activity Item) {
