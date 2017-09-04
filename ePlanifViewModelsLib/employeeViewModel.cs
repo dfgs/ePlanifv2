@@ -48,7 +48,10 @@ namespace ePlanifViewModelsLib
 			set { Model.MaxWorkingHoursPerWeek = value; OnPropertyChanged(); }
 		}
 
-		
+		public bool? WriteAccess
+		{
+			get { return Model.WriteAccess; }
+		}
 
 
 		public string FullName

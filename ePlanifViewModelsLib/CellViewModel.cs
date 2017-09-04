@@ -62,8 +62,21 @@ namespace ePlanifViewModelsLib
 		{
 			get { return rowID; }
 		}
-		public CellViewModel(DateTime Date,int RowID,bool IsPublicHoliday )
+
+		private int row;
+		public int Row
 		{
+			get { return row; }
+		}
+
+		private int column;
+		public int Column
+		{
+			get { return column; }
+		}
+		public CellViewModel(int Column,int Row, DateTime Date,int RowID,bool IsPublicHoliday )
+		{
+			this.column = Column;this.row = Row;
 			this.date = Date;this.rowID = RowID;this.IsPublicHoliday = IsPublicHoliday;
 			if ((Date.DayOfWeek == DayOfWeek.Saturday) || (Date.DayOfWeek == DayOfWeek.Sunday)) Background = "DarkGray";
 			else Background = "LightGray";

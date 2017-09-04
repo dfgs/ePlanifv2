@@ -78,7 +78,11 @@ namespace ePlanifViewModelsLib
             return Task.FromResult(Model);
         }
 
-		
+		protected override bool HasWriteAccessOnRow(int RowID)
+		{
+			return true;
+		}
+
 
 		async Task<bool> IGroupViewModel.AddMemberAsync(object Member)
 		{

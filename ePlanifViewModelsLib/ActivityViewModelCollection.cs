@@ -114,7 +114,19 @@ namespace ePlanifViewModelsLib
 			return result;
 		}
 
-		
+		public async Task<bool> HasWriteAccessAsync()
+		{
+			IePlanifServiceClient client = Service.CreateClient();
+			if (client == null) return false;
+			using (client)
+			{
+				foreach (ActivityViewModel activity in Service.Activities.SelectedItems)
+				{
+					if (!((await client.HasWriteAccessAsync(activity.ActivityID.Value)))) return false;
+				}
+			}
+			return true;
+		}
 		/*
 		public ActivityViewModel SearchProject(string Reference, ActivityViewModel CurrentActivity)
 		{

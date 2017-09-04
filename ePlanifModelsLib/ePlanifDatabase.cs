@@ -102,30 +102,27 @@ namespace ePlanifModelsLib
 			command = new SqlCommand(
 				"CREATE VIEW[dbo].[GrantsPerProfile] " +
 				"AS " +
-				"SELECT        GrantID, ProfileID, GroupID " +
+				"SELECT        GrantID, ProfileID, GroupID, WriteAccess " +
 				"FROM            dbo.[Grant] " +
-				"union select -1,1,1 ");
+				"union select -1,1,1,CAST(1 as BIT)");
 			await ExecuteAsync(command);
 
 			command = new SqlCommand(
-				"CREATE VIEW [dbo].[GrantedGroupsPerProfile] "+
+				"CREATE VIEW [dbo].[GrantedGroupsPerProfile] " +
 				"AS " +
-				"WITH RecursiveGroup AS(SELECT dbo.[GrantsPerProfile].ProfileID, dbo.[Group].GroupID " +
-				"FROM  dbo.[GrantsPerProfile] INNER JOIN " +
-				"dbo.[Group] ON dbo.[GrantsPerProfile].GroupID = dbo.[Group].GroupID " +
+				"WITH RecursiveGroup AS(SELECT  dbo.GrantsPerProfile.ProfileID, dbo.[Group].GroupID, CAST(dbo.GrantsPerProfile.WriteAccess as int) as WriteAccess " +
+				"FROM            dbo.GrantsPerProfile INNER JOIN " +
+				"dbo.[Group] ON dbo.GrantsPerProfile.GroupID = dbo.[Group].GroupID " +
 				"UNION ALL " +
-				"SELECT        ParentGroup.ProfileID, ChildGroup.GroupID " +
-				"FROM            dbo.[Group] AS ChildGroup INNER JOIN " +
-				"RecursiveGroup AS ParentGroup ON ChildGroup.ParentGroupID = ParentGroup.GroupID) " +
-				"SELECT        ProfileID, GroupID " +
-				"FROM            RecursiveGroup AS RecursiveGroup "
-				);
+				"SELECT        ParentGroup.ProfileID, ChildGroup.GroupID, WriteAccess " +
+				"FROM            dbo.[Group] AS ChildGroup INNER JOIN RecursiveGroup AS ParentGroup ON ChildGroup.ParentGroupID = ParentGroup.GroupID) " +
+				"SELECT distinct ProfileID, GroupID, CAST(MAX(WriteAccess) as bit) as WriteAccess FROM RecursiveGroup AS RecursiveGroup group by ProfileID, GroupID); ");
 			await ExecuteAsync(command);
 
 			command = new SqlCommand(
 				"CREATE VIEW[dbo].[GrantedGroupsPerAccount] "+
 				"AS " +
-				"SELECT DISTINCT dbo.Account.AccountID, dbo.GrantedGroupsPerProfile.GroupID " +
+				"SELECT DISTINCT dbo.Account.AccountID, dbo.GrantedGroupsPerProfile.GroupID,dbo.GrantedGroupsPerProfile.WriteAccess " +
 				"FROM            dbo.GrantedGroupsPerProfile INNER JOIN " +
 				"dbo.Account ON dbo.GrantedGroupsPerProfile.ProfileID = dbo.Account.ProfileID " 
 				);
@@ -146,15 +143,28 @@ namespace ePlanifModelsLib
 			command = new SqlCommand(
 				"CREATE VIEW[dbo].[GrantedEmployeesPerAccount] " +
 				"AS " +
-				"SELECT DISTINCT dbo.Account.AccountID, dbo.GroupMembers.EmployeeID " +
+				"select distinct AccountID, EmployeeID, CAST(MAX(WriteAccess) as bit) as WriteAccess " +
+				"from " +
+				"(SELECT dbo.Account.AccountID, dbo.GroupMembers.EmployeeID, CAST(dbo.GrantedGroupsPerAccount.WriteAccess as int) as WriteAccess " +
 				"FROM            dbo.GrantedGroupsPerAccount INNER JOIN " +
-				"dbo.Account ON dbo.GrantedGroupsPerAccount.AccountID = dbo.Account.AccountID INNER JOIN " +
-				"dbo.GroupMembers ON dbo.GrantedGroupsPerAccount.GroupID = dbo.GroupMembers.GroupID " +
+				"						 dbo.Account ON dbo.GrantedGroupsPerAccount.AccountID = dbo.Account.AccountID INNER JOIN " +
+				"						 dbo.GroupMembers ON dbo.GrantedGroupsPerAccount.GroupID = dbo.GroupMembers.GroupID " +
 				"UNION " +
-				"SELECT        AccountID, EmployeeID " +
+				"SELECT        AccountID, EmployeeID, CAST(SelfWriteAccess as int) " +
 				"FROM            Account " +
-				"WHERE        EmployeeID IS NOT NULL"
-				);
+				"WHERE        EmployeeID IS NOT NULL) as tmp " +
+				"group by AccountID, EmployeeID); ");
+			await ExecuteAsync(command);
+
+			command = new SqlCommand(
+				"CREATE FUNCTION[dbo].[HasWriteAccess](@AccountID int, @EmployeeID int) RETURNS bit " +
+				"AS BEGIN " +
+					"DECLARE @result bit " +
+					"SELECT @result =[WriteAccess] from[dbo].[GrantedEmployeesPerAccount] "+
+					"where EmployeeID = @EmployeeID and AccountID = @AccountID " +
+					"RETURN @result " +
+				"END "
+			);
 			await ExecuteAsync(command);
 
 

@@ -24,6 +24,23 @@ namespace ePlanifv2.Views
 	/// </summary>
 	public partial class ListAndMembersView : UserControl
 	{
+
+		public static readonly DependencyProperty EditButtonVisibilityProperty = DependencyProperty.Register("EditButtonVisibility", typeof(Visibility), typeof(ListAndMembersView));
+		public Visibility EditButtonVisibility
+		{
+			get { return (Visibility)GetValue(EditButtonVisibilityProperty); }
+			set { SetValue(EditButtonVisibilityProperty, value); }
+		}
+
+
+		public static readonly DependencyProperty ParentListHeaderProperty = DependencyProperty.Register("ParentListHeader", typeof(string), typeof(ListAndMembersView));
+		public string ParentListHeader
+		{
+			get { return (string)GetValue(ParentListHeaderProperty); }
+			set { SetValue(ParentListHeaderProperty, value); }
+		}
+
+
 		private IGroupViewModel SelectedGroup
 		{
 			get {return listBox.SelectedItem as IGroupViewModel; }

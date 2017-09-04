@@ -62,7 +62,7 @@ namespace ePlanifViewModelsLib
 		}
 		protected override int GetLayerID(ActivityViewModel Activity)
 		{
-			return Activity.ActivityType?.LayerID??0;
+			return Activity.ActivityType?.LayerID ?? 0;
 		}
 
 		public override bool IsModelEqualTo(EmployeeView Other)
@@ -75,7 +75,10 @@ namespace ePlanifViewModelsLib
             return Task.FromResult(Model);
         }
 
-		
+		protected override bool HasWriteAccessOnRow(int RowID)
+		{
+			return visibleMembers[RowID].Employee.WriteAccess==true;
+		}
 
 		async Task<bool> IGroupViewModel.AddMemberAsync(object Member)
 		{

@@ -17,6 +17,7 @@ namespace ePlanifViewModelsLib
 		}
 
 		Task<bool> ReplicateActivitiesAsync(DateTime EndDate,bool SkipPublicHolidays);
+		//Task<bool> HasWriteAccessAsync();
 
 		CellViewModel GetCellContent(int Col, int Row);
 		//DayViewModel GetColumnContent(int Index);

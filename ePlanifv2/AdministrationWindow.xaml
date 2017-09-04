@@ -36,14 +36,14 @@
 			<TabItem Header="Groups" Visibility="{Binding UserProfile.AdministrateEmployees,Converter={StaticResource boolToVisibilityConverter}}">
 				<Views:GroupsView Groups="{Binding Groups}" PotentialMembers="{Binding Employees}"/>
 			</TabItem>
-			<TabItem Header="Profiles" Visibility="{Binding UserProfile.AdministrateAccounts,Converter={StaticResource boolToVisibilityConverter}}">
-				<Views:ListAndMembersView Groups="{Binding Profiles}" PotentialMembers="{Binding Groups}" />
+			<TabItem Header="Profiles"  Visibility="{Binding UserProfile.AdministrateAccounts,Converter={StaticResource boolToVisibilityConverter}}">
+				<Views:ListAndMembersView Groups="{Binding Profiles}" PotentialMembers="{Binding Groups}" ParentListHeader="Profiles" EditButtonVisibility="Visible" />
 			</TabItem>
 			<TabItem Header="Employee views">
-				<Views:ListAndMembersView Groups="{Binding EmployeeViews}" PotentialMembers="{Binding Employees}" />
+				<Views:ListAndMembersView Groups="{Binding EmployeeViews}" PotentialMembers="{Binding Employees}" ParentListHeader="Employee views" EditButtonVisibility="Hidden"/>
 			</TabItem>
 			<TabItem Header="Activity type views">
-				<Views:ListAndMembersView Groups="{Binding ActivityTypeViews}" PotentialMembers="{Binding ActivityTypes}" />
+				<Views:ListAndMembersView Groups="{Binding ActivityTypeViews}" PotentialMembers="{Binding ActivityTypes}" ParentListHeader="Activity type views" EditButtonVisibility="Hidden"/>
 			</TabItem>
 		</TabControl>
     </DockPanel>

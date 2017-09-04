@@ -156,11 +156,6 @@ namespace ePlanifv2.Views
 			set { SetValue(LayerIDProperty, value); }
 		}
 
-
-	
-
-
-
 		#region IScrollInfo
 		private bool canVerticallyScroll;
 		public bool CanVerticallyScroll

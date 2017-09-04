@@ -1,6 +1,7 @@
 ﻿using ePlanifModelsLib;
 using ModelLib;
 using System.Threading.Tasks;
+using ViewModelLib;
 using ViewModelLib.Attributes;
 
 namespace ePlanifViewModelsLib
@@ -29,12 +30,22 @@ namespace ePlanifViewModelsLib
 			set { Model.EmployeeID = value; OnPropertyChanged(); }
 		}
 
+
+		[BoolProperty(Header = "Self write access", IsMandatory = true, IsReadOnly = false)]
+		public bool? SelfWriteAccess
+		{
+			get { return Model.SelfWriteAccess; }
+			set { Model.SelfWriteAccess = value; OnPropertyChanged(); }
+		}
+
 		[IntListProperty(Header = "Profile", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "ProfileID", SourcePath = "Service.Profiles")]
 		public int? ProfileID
 		{
 			get { return Model.ProfileID; }
 			set { Model.ProfileID = value; OnPropertyChanged(); }
 		}
+
+
 
 		public AccountViewModel(ePlanifServiceViewModel Service)
 			:base(Service)

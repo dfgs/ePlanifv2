@@ -50,6 +50,22 @@ namespace ePlanifServerLib
 			return false;
 		}
 
+
+		private async Task<ValType?> ExecuteAsync<ValType>(SqlCommand Command)
+			where ValType:struct
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			try
+			{
+				return await database.ExecuteAsync<ValType>(Command);
+			}
+			catch (Exception ex)
+			{
+				WriteLog(ex);
+				return null;
+			}
+		}
+
 		private async Task<IEnumerable<ItemType>> SelectAsync<ItemType>(Filter<ItemType> Filter = null, params IColumn<ItemType>[] Orders)
 			where ItemType : class, new()
 		{
@@ -164,7 +180,7 @@ namespace ePlanifServerLib
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return null;
 
-			command = new SqlCommand("select Employee.* from Employee inner join GrantedEmployeesPerAccount on Employee.EmployeeID=GrantedEmployeesPerAccount.EmployeeID where AccountID=@AccountID order by LastName,FirstName");
+			command = new SqlCommand("select Employee.*,GrantedEmployeesPerAccount.WriteAccess from Employee inner join GrantedEmployeesPerAccount on Employee.EmployeeID=GrantedEmployeesPerAccount.EmployeeID where AccountID=@AccountID order by LastName,FirstName");
 			command.Parameters.AddWithValue("@AccountID", Principal.Account.AccountID.Value);
 			return await SelectAsync<Employee>(command);
 
@@ -302,6 +318,23 @@ namespace ePlanifServerLib
 			return await UpdateAsync(Item);
 		}
 
+		public async Task<bool> HasWriteAccessAsync(int EmployeeID)
+		{
+			SqlCommand command;
+			bool? result;
+
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.ePlanifUser)) return false;
+
+			command = new SqlCommand("SELECT [dbo].[HasWriteAccess] (@AccountID,@EmployeeID)");
+			command.Parameters.AddWithValue("@AccountID", Principal.Account.AccountID.Value);
+			command.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+
+			result= await ExecuteAsync<bool>(command);
+			return result == true;
+		}
+
+
 
 		public async Task<IEnumerable<GroupMember>> GetGroupMembersAsync(int GroupID)
 		{
@@ -376,7 +409,15 @@ namespace ePlanifServerLib
 			if (ItemID == -1) return false;	// cannot remove virtual grant
 			return await DeleteAsync<Grant>(ItemID);
 		}
-		
+
+		public async Task<bool> UpdateGrantAsync(Grant Item)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.AdministrateAccounts)) return false;
+			if (Item.GrantID == -1) return false; // cannot remove virtual grant
+			return await UpdateAsync<Grant>(Item);
+		}
+
 
 		public async Task<IEnumerable<Group>> GetGroupsAsync()
 		{

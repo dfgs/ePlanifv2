@@ -44,14 +44,11 @@ namespace ePlanifViewModelsLib
 		protected override async Task<bool> OnRemoveFromModelAsync(IePlanifServiceClient Client, GrantViewModel ViewModel)
 		{
 			return await Client.DeleteGrantAsync(ViewModel.GrantID.Value);
-			
-
 		}
 
-		protected override Task<bool> OnEditInModelAsync(IePlanifServiceClient Client, GrantViewModel ViewModel)
+		protected override async Task<bool> OnEditInModelAsync(IePlanifServiceClient Client, GrantViewModel ViewModel)
 		{
-			throw (new NotImplementedException("Cannot update grant"));
-
+			return await Client.UpdateGrantAsync(ViewModel.Model);
 		}
 
 

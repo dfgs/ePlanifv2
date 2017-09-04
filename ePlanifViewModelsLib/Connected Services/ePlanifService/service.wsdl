@@ -125,6 +125,12 @@
   <wsdl:message name="IePlanifService_UpdateActivity_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateActivityResponse" />
   </wsdl:message>
+  <wsdl:message name="IePlanifService_HasWriteAccess_InputMessage">
+    <wsdl:part name="parameters" element="tns:HasWriteAccess" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_HasWriteAccess_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HasWriteAccessResponse" />
+  </wsdl:message>
   <wsdl:message name="IePlanifService_GetGroupMembers_InputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupMembers" />
   </wsdl:message>
@@ -160,6 +166,12 @@
   </wsdl:message>
   <wsdl:message name="IePlanifService_DeleteGrant_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteGrantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateGrant_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGrant" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateGrant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGrantResponse" />
   </wsdl:message>
   <wsdl:message name="IePlanifService_GetGroups_InputMessage">
     <wsdl:part name="parameters" element="tns:GetGroups" />
@@ -374,6 +386,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivity" message="tns:IePlanifService_UpdateActivity_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateActivityResponse" message="tns:IePlanifService_UpdateActivity_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="HasWriteAccess">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/HasWriteAccess" message="tns:IePlanifService_HasWriteAccess_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/HasWriteAccessResponse" message="tns:IePlanifService_HasWriteAccess_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetGroupMembers">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetGroupMembers" message="tns:IePlanifService_GetGroupMembers_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetGroupMembersResponse" message="tns:IePlanifService_GetGroupMembers_OutputMessage" />
@@ -397,6 +413,10 @@
     <wsdl:operation name="DeleteGrant">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteGrant" message="tns:IePlanifService_DeleteGrant_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteGrantResponse" message="tns:IePlanifService_DeleteGrant_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGrant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateGrant" message="tns:IePlanifService_UpdateGrant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateGrantResponse" message="tns:IePlanifService_UpdateGrant_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetGroups">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetGroups" message="tns:IePlanifService_GetGroups_InputMessage" />
@@ -633,6 +653,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="HasWriteAccess">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/HasWriteAccess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetGroupMembers">
       <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetGroupMembers" style="document" />
       <wsdl:input>
@@ -680,6 +709,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteGrant">
       <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteGrant" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGrant">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateGrant" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

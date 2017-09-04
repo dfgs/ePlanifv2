@@ -43,7 +43,16 @@ namespace ePlanifModelsLib
 		}
 
 
-		
+		public static readonly Column<Employee, bool> WriteAccessColumn = new Column<Employee, bool>() {IsVirtual=true };
+		[DataMember]
+		public bool? WriteAccess
+		{
+			get { return WriteAccessColumn.GetValue(this); }
+			set { WriteAccessColumn.SetValue(this, value); }
+		}
+
+
+
 		public static readonly Column<Employee, byte> MaxWorkingHoursPerWeekColumn = new Column<Employee, byte>() { IsNullable = true };
 		[DataMember]
 		public byte? MaxWorkingHoursPerWeek

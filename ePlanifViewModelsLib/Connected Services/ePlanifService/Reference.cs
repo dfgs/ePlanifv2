@@ -99,6 +99,12 @@ namespace ePlanifViewModelsLib.ePlanifService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateActivity", ReplyAction="http://tempuri.org/IePlanifService/UpdateActivityResponse")]
         System.Threading.Tasks.Task<bool> UpdateActivityAsync(ePlanifModelsLib.Activity Item);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccess", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessResponse")]
+        bool HasWriteAccess(int ItemID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccess", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessResponse")]
+        System.Threading.Tasks.Task<bool> HasWriteAccessAsync(int ItemID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetGroupMembers", ReplyAction="http://tempuri.org/IePlanifService/GetGroupMembersResponse")]
         ePlanifModelsLib.GroupMember[] GetGroupMembers(int GroupID);
         
@@ -134,6 +140,12 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeleteGrant", ReplyAction="http://tempuri.org/IePlanifService/DeleteGrantResponse")]
         System.Threading.Tasks.Task<bool> DeleteGrantAsync(int ItemID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateGrant", ReplyAction="http://tempuri.org/IePlanifService/UpdateGrantResponse")]
+        bool UpdateGrant(ePlanifModelsLib.Grant Item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateGrant", ReplyAction="http://tempuri.org/IePlanifService/UpdateGrantResponse")]
+        System.Threading.Tasks.Task<bool> UpdateGrantAsync(ePlanifModelsLib.Grant Item);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetGroups", ReplyAction="http://tempuri.org/IePlanifService/GetGroupsResponse")]
         ePlanifModelsLib.Group[] GetGroups();
@@ -431,6 +443,14 @@ namespace ePlanifViewModelsLib.ePlanifService {
             return base.Channel.UpdateActivityAsync(Item);
         }
         
+        public bool HasWriteAccess(int ItemID) {
+            return base.Channel.HasWriteAccess(ItemID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> HasWriteAccessAsync(int ItemID) {
+            return base.Channel.HasWriteAccessAsync(ItemID);
+        }
+        
         public ePlanifModelsLib.GroupMember[] GetGroupMembers(int GroupID) {
             return base.Channel.GetGroupMembers(GroupID);
         }
@@ -477,6 +497,14 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         public System.Threading.Tasks.Task<bool> DeleteGrantAsync(int ItemID) {
             return base.Channel.DeleteGrantAsync(ItemID);
+        }
+        
+        public bool UpdateGrant(ePlanifModelsLib.Grant Item) {
+            return base.Channel.UpdateGrant(Item);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateGrantAsync(ePlanifModelsLib.Grant Item) {
+            return base.Channel.UpdateGrantAsync(Item);
         }
         
         public ePlanifModelsLib.Group[] GetGroups() {

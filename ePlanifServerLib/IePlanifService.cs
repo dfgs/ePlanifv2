@@ -45,6 +45,8 @@ namespace ePlanifServerLib
 		Task<bool> BulkDeleteActivitiesAsync(DateTime StartDate,DateTime EndDate,int EmployeeID);
 		[OperationContract]
 		Task<bool> UpdateActivityAsync(Activity Item);
+		[OperationContract]
+		Task<bool> HasWriteAccessAsync(int EmployeeID);
 
 
 		[OperationContract]
@@ -60,6 +62,8 @@ namespace ePlanifServerLib
 		Task<int> CreateGrantAsync(Grant Item);
 		[OperationContract]
 		Task<bool> DeleteGrantAsync(int ItemID);
+		[OperationContract]
+		Task<bool> UpdateGrantAsync(Grant Item);
 
 		[OperationContract]
 		Task<IEnumerable<Group>> GetGroupsAsync();

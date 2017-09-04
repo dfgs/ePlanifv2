@@ -612,5 +612,8 @@
   <ItemGroup>
     <Resource Include="Images\door--exclamation.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lock-warning.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

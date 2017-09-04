@@ -77,7 +77,7 @@ namespace ePlanifViewModelsLib
 		public int? ActivityTypeID
 		{
 			get { return Model.ActivityTypeID; }
-			set { Model.ActivityTypeID = value; OnPropertyChanged(); OnPropertyChanged("ActivityType"); }
+			set { Model.ActivityTypeID = value; activityType = Service.ActivityTypes.FirstOrDefault(item => item.ActivityTypeID == ActivityTypeID); OnPropertyChanged(); OnPropertyChanged("ActivityType"); }
 		}
 
 		private ActivityTypeViewModel activityType;

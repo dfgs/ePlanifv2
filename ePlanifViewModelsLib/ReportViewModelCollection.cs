@@ -30,13 +30,13 @@ namespace ePlanifViewModelsLib
 
 		protected override async Task<IEnumerable<string>> OnLoadModelAsync(IePlanifServiceClient Client)
 		{
-			//List<string> results;
+			List<string> results;
 
 			if (Service.UserProfile.CanRunReports == false) return new string[0];
 			if (IsLoaded) return await System.Threading.Tasks.Task.FromResult(Model); //.Select(item=>item.Model)
 
-			return await System.Threading.Tasks.Task.FromResult(new string[0]);
-			/*return await System.Threading.Tasks.Task.Run<IEnumerable<string>>(() =>
+			//return await System.Threading.Tasks.Task.FromResult(new string[0]);
+			return await System.Threading.Tasks.Task.Run<IEnumerable<string>>(() =>
 			{
 				results = new List<string>();
 				ePlanifViewModelsLib.ReportingServices.ReportingService2010 rs;
@@ -59,7 +59,7 @@ namespace ePlanifViewModelsLib
 					Dispatcher.Invoke(() => { results.Add(item.Name); });
 				}
 				return results;
-			});*/
+			});//*/
 		}
 
 		protected override async Task<bool> OnRemoveFromModelAsync(IePlanifServiceClient Client, ReportViewModel ViewModel)

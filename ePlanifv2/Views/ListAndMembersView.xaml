@@ -20,7 +20,7 @@
 			<ColumnDefinition Width="2*"/>
 		</Grid.ColumnDefinitions>
 		<DockPanel Grid.Column="0" DataContext="{Binding ElementName=window,Path=Groups}">
-			<TextBlock Text="Views" FontWeight="Bold" DockPanel.Dock="Top"/>
+			<TextBlock Text="{Binding ElementName=window,Path=ParentListHeader}" FontWeight="Bold" DockPanel.Dock="Top"/>
 			<ViewLib:CollectionActionsView DockPanel.Dock="Top"/>
 			<ListBox x:Name="listBox" ItemsSource="{Binding}" SelectedItem="{Binding SelectedItem}" Margin="0,-1,0,1"/>
 		</DockPanel>
@@ -34,6 +34,9 @@
 				</Button>
 				<Button Command="{Binding RemoveCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Remove members" >
 					<Image Source="/ViewLib;component/Images/delete.png" Stretch="None"/>
+				</Button>
+				<Button Command="{Binding EditCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Edit members" Visibility="{Binding ElementName=window,Path=EditButtonVisibility}" >
+					<Image Source="/ViewLib;component/Images/pencil.png" Stretch="None"/>
 				</Button>
 			</StackPanel>
 			<ListBox ItemsSource="{Binding}" SelectedItem="{Binding SelectedItem}"/>

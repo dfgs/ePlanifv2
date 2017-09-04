@@ -48,7 +48,10 @@ namespace ePlanifv2.Views
 			pos = DisplayOptions.GetTextPosition(layout.FreeRect, text, HorizontalAlignment.Left, VerticalAlignment.Top);
 			Context.DrawText(text, pos);
 
-			
+			if (employee.WriteAccess!=true)
+			{
+				Context.DrawImage(DisplayOptions.LockImage, new Rect(Rect.Right - 20, Rect.Top+4, 16, 16));
+			}
 
 		}
 

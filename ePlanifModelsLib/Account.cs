@@ -1,13 +1,16 @@
 ﻿using DatabaseModelLib;
 using ModelLib;
+using System.Runtime.Serialization;
 
 namespace ePlanifModelsLib
 {
+	[DataContract]
 	public class Account:ePlanifModel
 	{
 
 
 		public static readonly Column<Account, int> AccountIDColumn = new Column<Account, int>() { IsPrimaryKey = true, IsIdentity = true };
+		[DataMember]
 		public int? AccountID
 		{
 			get { return AccountIDColumn.GetValue(this); }
@@ -16,6 +19,7 @@ namespace ePlanifModelsLib
 
 
 		public static readonly Column<Account, Text> LoginColumn = new Column<Account, Text>();
+		[DataMember]
 		public Text? Login
 		{
 			get { return LoginColumn.GetValue(this); }
@@ -24,6 +28,7 @@ namespace ePlanifModelsLib
 
 		
 		public static readonly Column<Account, int> ProfileIDColumn = new Column<Account, int>() ;
+		[DataMember]
 		public int? ProfileID
 		{
 			get { return ProfileIDColumn.GetValue(this); }
@@ -33,14 +38,26 @@ namespace ePlanifModelsLib
 
 
 		public static readonly Column<Account, int> EmployeeIDColumn = new Column<Account, int>() { IsNullable = true };
+		[DataMember]
 		public int? EmployeeID
 		{
 			get { return EmployeeIDColumn.GetValue(this); }
 			set { EmployeeIDColumn.SetValue(this, value); }
 		}
 
+		//[Revision(2)]
+		public static readonly Column<Account, bool> SelfWriteAccessColumn = new Column<Account, bool>() { DefaultValue = true };
+		[DataMember]
+		public bool? SelfWriteAccess
+		{
+			get { return SelfWriteAccessColumn.GetValue(this); }
+			set { SelfWriteAccessColumn.SetValue(this, value); }
+		}
+
+
 
 		public static readonly Column<Account, bool> IsDisabledColumn = new Column<Account, bool>() { DefaultValue = false };
+		[DataMember]
 		public override bool? IsDisabled
 		{
 			get { return IsDisabledColumn.GetValue(this); }

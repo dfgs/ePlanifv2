@@ -118,6 +118,7 @@ namespace ePlanifViewModelsLib
 		protected abstract bool OnValidateCell(CellViewModel Cell);
 		protected abstract int GetLayerID(ActivityViewModel Activity);
 		protected abstract bool GetIsPublicHolyday(DateTime Data, int Row);
+		protected abstract bool HasWriteAccessOnRow(int Row);
 
 		protected bool Overlap(ActivityViewModel A, ActivityViewModel B)
 		{
@@ -143,7 +144,7 @@ namespace ePlanifViewModelsLib
 			{
 				for(int c=0;c<columnCount;c++)
 				{
-					cells[c, r] = new CellViewModel(Service.Days[c].Date,VisibleMembers[r].RowID,GetIsPublicHolyday(Service.Days[c].Date,r));
+					cells[c, r] = new CellViewModel(c,r, Service.Days[c].Date,VisibleMembers[r].RowID,GetIsPublicHolyday(Service.Days[c].Date,r));
 				}
 			}
 			OnPropertyChanged("Cells");
@@ -227,16 +228,24 @@ namespace ePlanifViewModelsLib
 		}
 		public async Task Edit()
 		{
+			foreach(ActivityViewModel activity in Service.Activities.SelectedItems)
+			{
+				if (activity.Employee.WriteAccess != true) return;
+			}
+
 			await Service.Activities.EditAsync(null);	
 		}
 		public async Task Add(CellViewModel Cell)
 		{
 			ActivityViewModel vm;
-
-			vm=await Service.Activities.CreateActivityAsync(Cell.Date,Cell.RowID);
-			vm.Date = Cell.Date;
-			SetRowID(vm, Cell.RowID);
-			await Service.Activities.AddAsync(vm,true, true);
+			
+			if (HasWriteAccessOnRow(Cell.Row))
+			{
+				vm = await Service.Activities.CreateActivityAsync(Cell.Date, Cell.RowID);
+				vm.Date = Cell.Date;
+				SetRowID(vm, Cell.RowID);
+				await Service.Activities.AddAsync(vm, true, true);
+			}
 		}
 
 		public int GetColumnIndex(ActivityViewModel Activity)
@@ -244,7 +253,6 @@ namespace ePlanifViewModelsLib
 			return (Activity.Date.Value.Date - Service.StartDate).Days;
 		}
 
-		
 
 		/*public int GetColumn(CellViewModel Cell)
 		{

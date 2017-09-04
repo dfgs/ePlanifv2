@@ -1,4 +1,5 @@
 ﻿using DatabaseModelLib;
+using ModelLib;
 using System.Runtime.Serialization;
 
 
@@ -32,6 +33,15 @@ namespace ePlanifModelsLib
 		{
 			get { return GroupIDColumn.GetValue(this); }
 			set { GroupIDColumn.SetValue(this, value); }
+		}
+
+		//[Revision(2)]
+		public static readonly Column<Grant, bool> WriteAccessColumn = new Column<Grant, bool>() { DefaultValue = true };
+		[DataMember]
+		public bool? WriteAccess
+		{
+			get { return WriteAccessColumn.GetValue(this); }
+			set { WriteAccessColumn.SetValue(this, value); }
 		}
 
 
