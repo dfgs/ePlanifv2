@@ -61,10 +61,12 @@
     <Compile Include="ePlanifDatabaseBehavior.cs" />
     <Compile Include="ePlanifPrincipal.cs" />
     <Compile Include="ePlanifPolicy.cs" />
+    <Compile Include="IDataProvider.cs" />
     <Compile Include="IePlanifService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ePlanifService.cs" />
     <Compile Include="Roles.cs" />
+    <Compile Include="SqlDataProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -106,7 +108,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
         <WcfProjectProperties>
-          <AutoStart>True</AutoStart>
+          <AutoStart>False</AutoStart>
         </WcfProjectProperties>
       </FlavorProperties>
     </VisualStudio>

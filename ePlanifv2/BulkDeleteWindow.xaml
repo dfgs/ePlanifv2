@@ -22,7 +22,8 @@
 		<TextBlock Margin="4" Text="Delete activities to:" FontWeight="Bold"/>
 		<DatePicker Margin="4" SelectedDate="{Binding ElementName=window,Path=EndDate}" />
 		<TextBlock Margin="4" Text="Employee:" FontWeight="Bold"/>
-		<ComboBox Margin="4" ItemsSource="{Binding ElementName=window,Path=ePlanifServiceViewModel.Employees}" SelectedValue="{Binding ElementName=window,Path=EmployeeID}" SelectedValuePath="EmployeeID" DisplayMemberPath="FullName" />
+		<ComboBox Margin="4" ItemsSource="{Binding ElementName=window,Path=ePlanifServiceViewModel.WriteableEmployees}" SelectedValue="{Binding ElementName=window,Path=EmployeeID}"
+				  SelectedValuePath="EmployeeID" DisplayMemberPath="FullName" />
 
 		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
 			<Button Margin="4" Content="OK" Width="80" Command="{StaticResource okCommand}" />

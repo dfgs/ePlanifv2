@@ -418,7 +418,7 @@ namespace ePlanifViewModelsLib
 		}
 		private bool OnPasteCommandCanExecute(object Parameter)
 		{
-			return (Clipboard.CanPaste) && (SelectedCell!=null);
+			return (Clipboard.CanPaste) && (SelectedCell!=null) ;
 		}
 		private async void OnPasteCommandExecute(object Parameter)
 		{
@@ -463,7 +463,7 @@ namespace ePlanifViewModelsLib
 		}
 		private bool OnDeleteCommandCanExecute(object Parameter)
 		{
-			return Service.Activities.SelectedItem != null;
+			return (Service.Activities.SelectedItem != null) && (Service.Activities.SelectedItem?.Employee?.WriteAccess==true);
 		}
 		private async void OnDeleteCommandExecute(object Parameter)
 		{

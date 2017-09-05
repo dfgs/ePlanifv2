@@ -86,14 +86,14 @@ namespace ePlanifViewModelsLib
 			get { return activityType; }
 		}
 
-		[IntListProperty(Header = "Employee", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.VisibleEmployees")]
+		[IntListProperty(Header = "Employee", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.WriteableEmployees")]
 		public int? EmployeeID
 		{
 			get { return Model.EmployeeID; }
 			set { Model.EmployeeID = value; OnPropertyChanged(); OnPropertyChanged("Employee"); }
 		}
 
-		[TextProperty(Header = "Project number", IsMandatory = false, IsReadOnly = false)]
+		[IntProperty(Header = "Project number", IsMandatory = false, IsReadOnly = false)]
 		public int? ProjectNumber
 		{
 			get { return Model.ProjectNumber; }

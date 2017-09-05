@@ -33,11 +33,21 @@ namespace ePlanifv2.Views
 			FormattedText text;
 			Point pos;
 			Brush textBrush;
+			Layout layout;
+			Rect rect;
+
+			layout = new Layout(Rect);
+
+			if (Content.Employee.WriteAccess!=true)
+			{
+				rect = layout.DockRight(Rect.Height);
+				Context.DrawImage(DisplayOptions.LockImage, rect);
+			}
 
 			textBrush = DisplayOptions.GetBrush(Content.TextColor.ToString());
-			text = DisplayOptions.FormatText(Content.Employee.FullName, textBrush, 12, Rect.Width);
+			text = DisplayOptions.FormatText(Content.Employee.FullName, textBrush, 12, layout.FreeRect.Width);
 			if (Content.Employee.IsDisabled.Value) text.SetTextDecorations(TextDecorations.Strikethrough);
-			pos = DisplayOptions.GetTextPosition(Rect, text, HorizontalAlignment.Left, VerticalAlignment.Center);
+			pos = DisplayOptions.GetTextPosition(layout.FreeRect, text, HorizontalAlignment.Left, VerticalAlignment.Center);
 			Context.DrawText(text, pos);
 		}
 

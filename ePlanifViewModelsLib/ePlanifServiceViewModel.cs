@@ -154,6 +154,12 @@ namespace ePlanifViewModelsLib
 			get { return visibleEmployees; }
 		}
 
+		private FilteredViewModelCollection<EmployeeViewModel, Employee> writeableEmployees;
+		public FilteredViewModelCollection<EmployeeViewModel, Employee> WriteableEmployees
+		{
+			get { return writeableEmployees; }
+		}
+
 		private AccountViewModelCollection accounts;
 		public AccountViewModelCollection Accounts
 		{
@@ -234,6 +240,7 @@ namespace ePlanifViewModelsLib
 			profiles = new ProfileViewModelCollection(this); Children.Add(profiles); // profiles must be loaded before users in order to build query
 			employees = new EmployeeViewModelCollection(this);Children.Add(employees);
 			visibleEmployees = new FilteredViewModelCollection<EmployeeViewModel, Employee>(employees, (item) => { return item.IsDisabled !=true; }); Children.Add(visibleEmployees);
+			writeableEmployees = new FilteredViewModelCollection<EmployeeViewModel, Employee>(employees, (item) => { return (item.IsDisabled != true) && (item.WriteAccess==true); }); Children.Add(writeableEmployees);
 			accounts = new AccountViewModelCollection(this);Children.Add(accounts);
 			groups = new GroupViewModelCollection(this);Children.Add(groups);
 

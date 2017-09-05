@@ -116,7 +116,7 @@ namespace ePlanifModelsLib
 				"UNION ALL " +
 				"SELECT        ParentGroup.ProfileID, ChildGroup.GroupID, WriteAccess " +
 				"FROM            dbo.[Group] AS ChildGroup INNER JOIN RecursiveGroup AS ParentGroup ON ChildGroup.ParentGroupID = ParentGroup.GroupID) " +
-				"SELECT distinct ProfileID, GroupID, CAST(MAX(WriteAccess) as bit) as WriteAccess FROM RecursiveGroup AS RecursiveGroup group by ProfileID, GroupID); ");
+				"SELECT distinct ProfileID, GroupID, CAST(MAX(WriteAccess) as bit) as WriteAccess FROM RecursiveGroup AS RecursiveGroup group by ProfileID, GroupID ");
 			await ExecuteAsync(command);
 
 			command = new SqlCommand(
@@ -153,11 +153,11 @@ namespace ePlanifModelsLib
 				"SELECT        AccountID, EmployeeID, CAST(SelfWriteAccess as int) " +
 				"FROM            Account " +
 				"WHERE        EmployeeID IS NOT NULL) as tmp " +
-				"group by AccountID, EmployeeID); ");
+				"group by AccountID, EmployeeID ");
 			await ExecuteAsync(command);
 
 			command = new SqlCommand(
-				"CREATE FUNCTION[dbo].[HasWriteAccess](@AccountID int, @EmployeeID int) RETURNS bit " +
+				"CREATE FUNCTION[dbo].[HasWriteAccessToEmployee](@AccountID int, @EmployeeID int) RETURNS bit " +
 				"AS BEGIN " +
 					"DECLARE @result bit " +
 					"SELECT @result =[WriteAccess] from[dbo].[GrantedEmployeesPerAccount] "+
@@ -167,6 +167,16 @@ namespace ePlanifModelsLib
 			);
 			await ExecuteAsync(command);
 
+			command = new SqlCommand(
+				"CREATE FUNCTION[dbo].[HasWriteAccessToActivity](@AccountID int, @ActivityID int) RETURNS bit " +
+				"AS BEGIN " +
+					"DECLARE @result bit " +
+					"SELECT @result =[WriteAccess] from [dbo].[GrantedEmployeesPerAccount] inner join Activity On GrantedEmployeesPerAccount.EmployeeID=Activity.EmployeeID " +
+					"where ActivityID = @ActivityID and AccountID = @AccountID " +
+					"RETURN @result " +
+				"END "
+			);
+			await ExecuteAsync(command);
 
 			profile = new Profile() { Name = "Administrator", AdministrateAccounts = true, AdministrateActivityTypes = true,AdministrateEmployees=true,CanRunReports=true };
 			await InsertAsync(profile);
