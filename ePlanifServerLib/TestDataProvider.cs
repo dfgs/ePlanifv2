@@ -5,6 +5,7 @@ using LogUtils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,19 +15,19 @@ namespace ePlanifServerLib
 {
 	public class TestDataProvider : Worker, IDataProvider
 	{
-		private List<Activity> Activities = new List<Activity>();
-		private List<ActivityType> ActivityTypes = new List<ActivityType>();
-		private List<Employee> Employees = new List<Employee>();
-		private List<Account> Accounts = new List<Account>();
-		private List<Profile> Profiles = new List<Profile>();
-		private List<Group> Groups = new List<Group>();
-		private List<GroupMember> Members = new List<GroupMember>();
-		private List<Grant> Grants = new List<Grant>();
-		private List<Layer> Layers = new List<Layer>();
-		private List<EmployeeView> EmployeeViews = new List<EmployeeView>();
-		private List<ActivityTypeView> ActivityTypeViews = new List<ActivityTypeView>();
-		private List<EmployeeViewMember> EmployeeViewMembers = new List<EmployeeViewMember>();
-		private List<ActivityTypeViewMember> ActivityTypeViewMembers = new List<ActivityTypeViewMember>();
+		public List<Activity> Activities = new List<Activity>();
+		public List<ActivityType> ActivityTypes = new List<ActivityType>();
+		public List<Employee> Employees = new List<Employee>();
+		public List<Account> Accounts = new List<Account>();
+		public List<Profile> Profiles = new List<Profile>();
+		public List<Group> Groups = new List<Group>();
+		public List<GroupMember> GroupMembers = new List<GroupMember>();
+		public List<Grant> Grants = new List<Grant>();
+		public List<Layer> Layers = new List<Layer>();
+		public List<EmployeeView> EmployeeViews = new List<EmployeeView>();
+		public List<ActivityTypeView> ActivityTypeViews = new List<ActivityTypeView>();
+		public List<EmployeeViewMember> EmployeeViewMembers = new List<EmployeeViewMember>();
+		public List<ActivityTypeViewMember> ActivityTypeViewMembers = new List<ActivityTypeViewMember>();
 
 		private string fakeLogin;
 
@@ -57,12 +58,13 @@ namespace ePlanifServerLib
 			Groups.Add(new Group() { GroupID = 2, Name = "Simpsons", ParentGroupID = 1 });
 			Groups.Add(new Group() { GroupID = 3, Name = "Parents", ParentGroupID = 2 });
 			Groups.Add(new Group() { GroupID = 4, Name = "Children", ParentGroupID = 2 });
+			Groups.Add(new Group() { GroupID = 5, Name = "Flanders", ParentGroupID = 1 });
 
-			Members.Add(new GroupMember() { GroupMemberID = 1, GroupID = 3, EmployeeID = 1 });
-			Members.Add(new GroupMember() { GroupMemberID = 1, GroupID = 3, EmployeeID = 2 });
-			Members.Add(new GroupMember() { GroupMemberID = 1, GroupID = 4, EmployeeID = 3 });
-			Members.Add(new GroupMember() { GroupMemberID = 1, GroupID = 4, EmployeeID = 4 });
-			Members.Add(new GroupMember() { GroupMemberID = 1, GroupID = 4, EmployeeID = 5 });
+			GroupMembers.Add(new GroupMember() { GroupMemberID = 1, GroupID = 3, EmployeeID = 1 });
+			GroupMembers.Add(new GroupMember() { GroupMemberID = 2, GroupID = 3, EmployeeID = 2 });
+			GroupMembers.Add(new GroupMember() { GroupMemberID = 3, GroupID = 4, EmployeeID = 3 });
+			GroupMembers.Add(new GroupMember() { GroupMemberID = 4, GroupID = 4, EmployeeID = 4 });
+			GroupMembers.Add(new GroupMember() { GroupMemberID = 5, GroupID = 4, EmployeeID = 5 });
 
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 1, BackgroundColor = "LightGreen", LayerID = 1, MinEmployees = 1, Name = "Monitor nuclear plant", TextColor = "Red" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 2, BackgroundColor = "Green", LayerID = 1, MinEmployees = 0, Name = "Send security report", TextColor = "Black" });
@@ -71,17 +73,19 @@ namespace ePlanifServerLib
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 5, BackgroundColor = "LightBlue", LayerID = 1, MinEmployees = 2, Name = "Go to school", TextColor = "Black" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 6, BackgroundColor = "Lavender", LayerID = 2, MinEmployees = 0, Name = "Clean house", TextColor = "Black" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 7, BackgroundColor = "Lavender", LayerID = 2, MinEmployees = 0, Name = "Repair car", TextColor = "Black" });
-			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 8, BackgroundColor = "Lavender", LayerID = 2, MinEmployees = 0, Name = "Feed pets", TextColor = "Black" });
+			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 8, BackgroundColor = "Lavender", LayerID = 2, MinEmployees = 1, Name = "Feed pets", TextColor = "Black" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 9, BackgroundColor = "SteelBlue", LayerID = 3, MinEmployees = 0, Name = "Go the Moe's bar", TextColor = "Black" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 10, BackgroundColor = "SteelBlue", LayerID = 3, MinEmployees = 0, Name = "Read book", TextColor = "Black" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 11, BackgroundColor = "LightSteelBlue", LayerID = 3, MinEmployees = 0, Name = "Play sax", TextColor = "Black" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 12, BackgroundColor = "LightSteelBlue", LayerID = 3, MinEmployees = 0, Name = "Play skate", TextColor = "Black" });
+			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 13, BackgroundColor = "Pink", LayerID = 1, MinEmployees = 0, Name = "Enjoy life", TextColor = "Blue" });
 
 
 			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 1, AccountID = 1, Name = "All" });
 			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 2, AccountID = 1, Name = "Parents" });
 			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 3, AccountID = 1, Name = "Children" });
-			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID=1,AccountID=1,Name="All" });
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 1, AccountID = 1, Name = "All" });
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 2, AccountID = 1, Name = "Empty" });
 
 			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 1, EmployeeViewID = 1, EmployeeID = 1 });
 			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 2, EmployeeViewID = 1, EmployeeID = 2 });
@@ -99,53 +103,185 @@ namespace ePlanifServerLib
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 3, ActivityTypeViewID = 1, ActivityTypeID = 3 });
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 4, ActivityTypeViewID = 1, ActivityTypeID = 4 });
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 5, ActivityTypeViewID = 1, ActivityTypeID = 5 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 6, ActivityTypeViewID = 1, ActivityTypeID = 6 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 7, ActivityTypeViewID = 1, ActivityTypeID = 7 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 8, ActivityTypeViewID = 1, ActivityTypeID = 8 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 9, ActivityTypeViewID = 1, ActivityTypeID = 9 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 10, ActivityTypeViewID = 1, ActivityTypeID = 10 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 11, ActivityTypeViewID = 1, ActivityTypeID = 11 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 12, ActivityTypeViewID = 1, ActivityTypeID = 12 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 13, ActivityTypeViewID = 1, ActivityTypeID = 13 });
 
 			Grants.Add(new Grant() { GrantID = 1, ProfileID = 2, GroupID = 3, WriteAccess = false });
 			Grants.Add(new Grant() { GrantID = 2, ProfileID = 2, GroupID = 4, WriteAccess = true });
 			Grants.Add(new Grant() { GrantID = 3, ProfileID = 3, GroupID = 2, WriteAccess = true });
+
+			int id = 0;
+			DateTime firstDay=FirstDayOfWeek(DateTime.Now);
+			DateTime currentDay;
+			for(int t=0;t<14;t++)
+			{
+				currentDay = firstDay.AddDays(t);
+				switch(currentDay.DayOfWeek)
+				{
+					case DayOfWeek.Monday:
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 7, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = true });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 9, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 3, StartDate = currentDay.AddMinutes(420), Duration = TimeSpan.FromMinutes(480), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 8, StartDate = currentDay.AddMinutes(1200), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 10, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 3, ActivityTypeID = 5, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false});
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 5, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 5, ActivityTypeID = 13, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(600), TrackedDuration = null, IsDraft = false });
+						break;
+					case DayOfWeek.Tuesday:
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 1, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(420), TrackedDuration = TimeSpan.FromMinutes(210), IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 9, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 3, StartDate = currentDay.AddMinutes(420), Duration = TimeSpan.FromMinutes(480), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 8, StartDate = currentDay.AddMinutes(1200), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 10, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 3, ActivityTypeID = 5, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 5, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 5, ActivityTypeID = 13, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(600), TrackedDuration = null, IsDraft = false });
+						break;
+					case DayOfWeek.Wednesday:
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 1, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(420), TrackedDuration = TimeSpan.FromMinutes(210), IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 9, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 10, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 4, StartDate = currentDay.AddMinutes(600), Duration = TimeSpan.FromMinutes(60), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 3, ActivityTypeID = 12, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 3, ActivityTypeID = 8, StartDate = currentDay.AddMinutes(1200), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 3, StartDate = currentDay.AddMinutes(420), Duration = TimeSpan.FromMinutes(480), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 11, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 8, StartDate = currentDay.AddMinutes(1200), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 5, ActivityTypeID = 13, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(600), TrackedDuration = null, IsDraft = false });
+						break;
+					case DayOfWeek.Thursday:
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 1, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(420), TrackedDuration = TimeSpan.FromMinutes(210), IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 9, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 3, StartDate = currentDay.AddMinutes(420), Duration = TimeSpan.FromMinutes(480), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 4, StartDate = currentDay.AddMinutes(600), Duration = TimeSpan.FromMinutes(60), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 8, StartDate = currentDay.AddMinutes(1200), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 10, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 3, ActivityTypeID = 5, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 5, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 5, ActivityTypeID = 13, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(600), TrackedDuration = null, IsDraft = false });
+						break;
+					case DayOfWeek.Friday:
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 1, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(420), TrackedDuration = TimeSpan.FromMinutes(210), IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 2, StartDate = currentDay.AddMinutes(960), Duration = TimeSpan.FromMinutes(60), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 9, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 3, StartDate = currentDay.AddMinutes(420), Duration = TimeSpan.FromMinutes(480), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 8, StartDate = currentDay.AddMinutes(1200), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 10, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 3, ActivityTypeID = 5, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 5, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 5, ActivityTypeID = 13, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(600), TrackedDuration = null, IsDraft = false });
+						break;
+					case DayOfWeek.Saturday:
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 7, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = true });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 8, StartDate = currentDay.AddMinutes(1200), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 9, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 3, StartDate = currentDay.AddMinutes(420), Duration = TimeSpan.FromMinutes(480), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 10, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 3, ActivityTypeID = 12, StartDate = currentDay.AddMinutes(480), Duration = TimeSpan.FromMinutes(420), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 11, StartDate = currentDay.AddMinutes(480), Duration = TimeSpan.FromMinutes(420), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 5, ActivityTypeID = 13, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(600), TrackedDuration = null, IsDraft = false });
+						break;
+					case DayOfWeek.Sunday:
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 7, StartDate = currentDay.AddMinutes(840), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = true });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 6, StartDate = currentDay.AddMinutes(480), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 1, ActivityTypeID = 9, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 3, StartDate = currentDay.AddMinutes(420), Duration = TimeSpan.FromMinutes(480), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 8, StartDate = currentDay.AddMinutes(1200), Duration = TimeSpan.FromMinutes(360), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 2, ActivityTypeID = 10, StartDate = currentDay.AddMinutes(1260), Duration = TimeSpan.FromMinutes(180), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 3, ActivityTypeID = 12, StartDate = currentDay.AddMinutes(480), Duration = TimeSpan.FromMinutes(420), TrackedDuration = null, IsDraft = false });
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 4, ActivityTypeID = 11, StartDate = currentDay.AddMinutes(480), Duration = TimeSpan.FromMinutes(420), TrackedDuration = null, IsDraft = false });
+
+						Activities.Add(new Activity() { ActivityID = id++, EmployeeID = 5, ActivityTypeID = 13, StartDate = currentDay.AddMinutes(540), Duration = TimeSpan.FromMinutes(600), TrackedDuration = null, IsDraft = false });
+						break;
+				}
+			}
 		}
 
+		public static DateTime FirstDayOfWeek(DateTime Date)
+		{
+			int diff = Date.DayOfWeek - CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+			if (diff < 0) diff += 7;
+			return Date.AddDays(-1 * diff).Date;
+		}
+		public static DateTime FirstMondayOfWeek(DateTime Date)
+		{
+			DateTime date = FirstDayOfWeek(Date);
+			while (date.DayOfWeek != DayOfWeek.Monday) date=date.AddDays(1);
+			return date;
+		}
 
 		private int GetProfileID(int AccountID)
 		{
 			return Accounts.First(item => item.AccountID == AccountID).ProfileID.Value;
 		}
 
-		private IEnumerable<Grant> GrantsPerProfile()
+		private IEnumerable<Grant> GetGrantsPerProfile()
 		{
 			return
 				(from grant in Grants
 				select grant).Union(new Grant[] { new Grant() { GrantID=-1,GroupID=1,ProfileID=1,WriteAccess=true } } );
 		}
 
-		private IEnumerable<GroupMember> GroupMembers()
+		private IEnumerable<GroupMember> GetGroupMembers()
 		{
 			return
-				(from groupMember in Members
+				(from groupMember in GroupMembers
 					select groupMember).Union( 
 					from employee in Employees
 					select new GroupMember() { GroupMemberID=-1, EmployeeID=employee.EmployeeID,GroupID=1 }
 					);
 		}
 
-		private IEnumerable<(int ParentGroupID, Group Group)> GroupChildren(int ParentGroupID)
+		private IEnumerable<(int ParentGroupID, Group Group)> GetGroupChildren(int ParentGroupID)
 		{
 			foreach(Group group in Groups.Where(item=>item.ParentGroupID==ParentGroupID))
 			{
 				yield return (ParentGroupID,group);
-				foreach((int,Group) item in GroupChildren(group.GroupID.Value))
+				foreach((int,Group) item in GetGroupChildren(group.GroupID.Value))
 				{
 					yield return (ParentGroupID, item.Item2);
 				}
 			}
 		}
 
-		private IEnumerable<(int ParentGroupID,Group Group)> GroupHierarchy()
+		private IEnumerable<(int ParentGroupID,Group Group)> GetGroupHierarchy()
 		{
 			foreach (Group group in Groups)
 			{
 				yield return (group.GroupID.Value,group);
-				foreach ((int,Group) item in GroupChildren(group.GroupID.Value))
+				foreach ((int,Group) item in GetGroupChildren(group.GroupID.Value))
 				{
 					yield return (group.GroupID.Value, item.Item2);
 				}
@@ -154,16 +290,16 @@ namespace ePlanifServerLib
 
 		private IEnumerable<Group> GetGrantedGroups(int ProfileID)
 		{
-			return (from grant in GrantsPerProfile()
-					join grantedGroup in GroupHierarchy() on grant.GroupID equals grantedGroup.ParentGroupID
+			return (from grant in GetGrantsPerProfile()
+					join grantedGroup in GetGroupHierarchy() on grant.GroupID equals grantedGroup.ParentGroupID
 					select grantedGroup.Group).Distinct();
 		}
 
 		private IEnumerable<Employee> GetGrantedEmployees(int ProfileID)
 		{
-			return from grant in GrantsPerProfile() where grant.ProfileID==ProfileID
-				   join grantedGroup in GroupHierarchy() on grant.GroupID equals grantedGroup.ParentGroupID
-				   join member in Members on grantedGroup.Group.GroupID equals member.GroupID
+			return from grant in GetGrantsPerProfile() where grant.ProfileID==ProfileID
+				   join grantedGroup in GetGroupHierarchy() on grant.GroupID equals grantedGroup.ParentGroupID
+				   join member in GroupMembers on grantedGroup.Group.GroupID equals member.GroupID
 				   join employee in Employees on member.EmployeeID equals employee.EmployeeID
 				   group  new Employee(employee) { WriteAccess=grant.WriteAccess }  by new { employee.EmployeeID, employee.FirstName, employee.LastName, employee.CountryCode, employee.IsDisabled, employee.MaxWorkingHoursPerWeek } into employeeGroup
 				   select new Employee()
@@ -361,7 +497,7 @@ namespace ePlanifServerLib
 			}
 			else
 			{
-				foreach(GroupMember member in Members.Where(item => item.GroupID == GroupID))
+				foreach(GroupMember member in GroupMembers.Where(item => item.GroupID == GroupID))
 				{
 					result.Add(member);
 				}
@@ -372,13 +508,13 @@ namespace ePlanifServerLib
 		public async Task<int> CreateGroupMemberAsync(GroupMember Item)
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
-			return await Task.FromResult(Insert(Members, Item));
+			return await Task.FromResult(Insert(GroupMembers, Item));
 		}
 
 		public async Task<bool> DeleteGroupMemberAsync(int ItemID)
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
-			return await Task.FromResult(Delete(Members, ItemID));
+			return await Task.FromResult(Delete(GroupMembers, ItemID));
 		}
 
 
@@ -386,7 +522,7 @@ namespace ePlanifServerLib
 		public async Task<IEnumerable<Grant>> GetGrantsAsync(int ProfileID)
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
-			return  await Task.FromResult( from grant in GrantsPerProfile() where grant.ProfileID==ProfileID select grant );
+			return  await Task.FromResult( from grant in GetGrantsPerProfile() where grant.ProfileID==ProfileID select grant );
 		}
 
 		public async Task<int> CreateGrantAsync(Grant Item)

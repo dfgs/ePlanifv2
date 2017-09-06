@@ -52,20 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminUnitTest.cs" />
     <Compile Include="Connected Services\ePlanifService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="ePlanifServerUnitTest.cs" />
-    <Compile Include="ImpersonatedSession.cs" />
+    <Compile Include="BaseUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SafeTokenHandle.cs" />
-    <Compile Include="TestContext.cs" />
-    <Compile Include="TestContextDisable.cs" />
-    <Compile Include="TestContextInvalid.cs" />
-    <Compile Include="TestContextUser.cs" />
-    <Compile Include="TestContextAdmin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -113,9 +107,17 @@
       <Project>{42A08CD2-8118-4990-A7C7-CF66CC9A887E}</Project>
       <Name>SqlDatabaseModelLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\WorkerLib\WorkerLib\WorkerLib.csproj">
+      <Project>{DD332EDF-6C16-4DC8-BA62-1D3F67FE54F8}</Project>
+      <Name>WorkerLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ePlanifModelsLib\ePlanifModelsLib.csproj">
       <Project>{ebc42cf1-eff8-456c-b9d6-b8874d790fd8}</Project>
       <Name>ePlanifModelsLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ePlanifServerLib\ePlanifServerLib.csproj">
+      <Project>{C5F201D3-F862-4654-87C2-ECFD51A4F370}</Project>
+      <Name>ePlanifServerLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

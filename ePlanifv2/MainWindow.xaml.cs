@@ -64,14 +64,11 @@ namespace ePlanifv2
 				global::ePlanifv2.Properties.Settings.Default.Server = window.Server;
 				global::ePlanifv2.Properties.Settings.Default.Save();
 
-								
 				vm = new ePlanifServiceViewModel();
-				if (await vm.ConnectAsync(window.Server))
+				DataContext = vm;
+				if (!await vm.ConnectAsync(window.Server))
 				{
-					DataContext = vm;
-				}
-				else
-				{
+					DataContext = null;
 					vm = null;
 					ShowError(new Exception("Cannot connect to server"));
 				}

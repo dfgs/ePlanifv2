@@ -25,7 +25,7 @@ namespace ePlanifServerLib
 			binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
 
 			AddServiceEndpoint(typeof(IePlanifService), binding, uri);
-			AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexTcpBinding(), "net.tcp://localhost/ePlanif/mex/");
+			AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexTcpBinding(), "net.tcp://localhost:8523/ePlanif/mex/");
 		}
 
 

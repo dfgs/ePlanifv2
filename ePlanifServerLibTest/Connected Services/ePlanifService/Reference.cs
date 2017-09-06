@@ -70,10 +70,10 @@ namespace ePlanifServerLibTest.ePlanifService {
         System.Threading.Tasks.Task<bool> UpdateProfileAsync(ePlanifModelsLib.Profile Item);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetActivities", ReplyAction="http://tempuri.org/IePlanifService/GetActivitiesResponse")]
-        ePlanifModelsLib.Activity[] GetActivities(System.DateTime StartDate, System.DateTime EndDate);
+        ePlanifModelsLib.Activity[] GetActivities(System.DateTime Date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetActivities", ReplyAction="http://tempuri.org/IePlanifService/GetActivitiesResponse")]
-        System.Threading.Tasks.Task<ePlanifModelsLib.Activity[]> GetActivitiesAsync(System.DateTime StartDate, System.DateTime EndDate);
+        System.Threading.Tasks.Task<ePlanifModelsLib.Activity[]> GetActivitiesAsync(System.DateTime Date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/CreateActivity", ReplyAction="http://tempuri.org/IePlanifService/CreateActivityResponse")]
         int CreateActivity(ePlanifModelsLib.Activity Item);
@@ -86,6 +86,12 @@ namespace ePlanifServerLibTest.ePlanifService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeleteActivity", ReplyAction="http://tempuri.org/IePlanifService/DeleteActivityResponse")]
         System.Threading.Tasks.Task<bool> DeleteActivityAsync(int ItemID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/BulkDeleteActivities", ReplyAction="http://tempuri.org/IePlanifService/BulkDeleteActivitiesResponse")]
+        bool BulkDeleteActivities(System.DateTime StartDate, System.DateTime EndDate, int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/BulkDeleteActivities", ReplyAction="http://tempuri.org/IePlanifService/BulkDeleteActivitiesResponse")]
+        System.Threading.Tasks.Task<bool> BulkDeleteActivitiesAsync(System.DateTime StartDate, System.DateTime EndDate, int EmployeeID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateActivity", ReplyAction="http://tempuri.org/IePlanifService/UpdateActivityResponse")]
         bool UpdateActivity(ePlanifModelsLib.Activity Item);
@@ -128,6 +134,12 @@ namespace ePlanifServerLibTest.ePlanifService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeleteGrant", ReplyAction="http://tempuri.org/IePlanifService/DeleteGrantResponse")]
         System.Threading.Tasks.Task<bool> DeleteGrantAsync(int ItemID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateGrant", ReplyAction="http://tempuri.org/IePlanifService/UpdateGrantResponse")]
+        bool UpdateGrant(ePlanifModelsLib.Grant Item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateGrant", ReplyAction="http://tempuri.org/IePlanifService/UpdateGrantResponse")]
+        System.Threading.Tasks.Task<bool> UpdateGrantAsync(ePlanifModelsLib.Grant Item);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetGroups", ReplyAction="http://tempuri.org/IePlanifService/GetGroupsResponse")]
         ePlanifModelsLib.Group[] GetGroups();
@@ -284,6 +296,18 @@ namespace ePlanifServerLibTest.ePlanifService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember", ReplyAction="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMemberResponse")]
         System.Threading.Tasks.Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployee", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToEmployeeResponse")]
+        bool HasWriteAccessToEmployee(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployee", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToEmployeeResponse")]
+        System.Threading.Tasks.Task<bool> HasWriteAccessToEmployeeAsync(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToActivity", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToActivityResponse")]
+        bool HasWriteAccessToActivity(int ActivityID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToActivity", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToActivityResponse")]
+        System.Threading.Tasks.Task<bool> HasWriteAccessToActivityAsync(int ActivityID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -385,12 +409,12 @@ namespace ePlanifServerLibTest.ePlanifService {
             return base.Channel.UpdateProfileAsync(Item);
         }
         
-        public ePlanifModelsLib.Activity[] GetActivities(System.DateTime StartDate, System.DateTime EndDate) {
-            return base.Channel.GetActivities(StartDate, EndDate);
+        public ePlanifModelsLib.Activity[] GetActivities(System.DateTime Date) {
+            return base.Channel.GetActivities(Date);
         }
         
-        public System.Threading.Tasks.Task<ePlanifModelsLib.Activity[]> GetActivitiesAsync(System.DateTime StartDate, System.DateTime EndDate) {
-            return base.Channel.GetActivitiesAsync(StartDate, EndDate);
+        public System.Threading.Tasks.Task<ePlanifModelsLib.Activity[]> GetActivitiesAsync(System.DateTime Date) {
+            return base.Channel.GetActivitiesAsync(Date);
         }
         
         public int CreateActivity(ePlanifModelsLib.Activity Item) {
@@ -407,6 +431,14 @@ namespace ePlanifServerLibTest.ePlanifService {
         
         public System.Threading.Tasks.Task<bool> DeleteActivityAsync(int ItemID) {
             return base.Channel.DeleteActivityAsync(ItemID);
+        }
+        
+        public bool BulkDeleteActivities(System.DateTime StartDate, System.DateTime EndDate, int EmployeeID) {
+            return base.Channel.BulkDeleteActivities(StartDate, EndDate, EmployeeID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> BulkDeleteActivitiesAsync(System.DateTime StartDate, System.DateTime EndDate, int EmployeeID) {
+            return base.Channel.BulkDeleteActivitiesAsync(StartDate, EndDate, EmployeeID);
         }
         
         public bool UpdateActivity(ePlanifModelsLib.Activity Item) {
@@ -463,6 +495,14 @@ namespace ePlanifServerLibTest.ePlanifService {
         
         public System.Threading.Tasks.Task<bool> DeleteGrantAsync(int ItemID) {
             return base.Channel.DeleteGrantAsync(ItemID);
+        }
+        
+        public bool UpdateGrant(ePlanifModelsLib.Grant Item) {
+            return base.Channel.UpdateGrant(Item);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateGrantAsync(ePlanifModelsLib.Grant Item) {
+            return base.Channel.UpdateGrantAsync(Item);
         }
         
         public ePlanifModelsLib.Group[] GetGroups() {
@@ -671,6 +711,22 @@ namespace ePlanifServerLibTest.ePlanifService {
         
         public System.Threading.Tasks.Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID) {
             return base.Channel.DeleteActivityTypeViewMemberAsync(ItemID);
+        }
+        
+        public bool HasWriteAccessToEmployee(int EmployeeID) {
+            return base.Channel.HasWriteAccessToEmployee(EmployeeID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> HasWriteAccessToEmployeeAsync(int EmployeeID) {
+            return base.Channel.HasWriteAccessToEmployeeAsync(EmployeeID);
+        }
+        
+        public bool HasWriteAccessToActivity(int ActivityID) {
+            return base.Channel.HasWriteAccessToActivity(ActivityID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> HasWriteAccessToActivityAsync(int ActivityID) {
+            return base.Channel.HasWriteAccessToActivityAsync(ActivityID);
         }
     }
 }

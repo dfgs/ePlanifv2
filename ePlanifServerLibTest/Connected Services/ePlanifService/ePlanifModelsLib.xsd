@@ -12,10 +12,12 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ePlanifModel">
         <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="CountryCode" nillable="true" type="q1:Text" />
           <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
-          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="FirstName" nillable="true" type="q1:Text" />
-          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="LastName" nillable="true" type="q2:Text" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="FirstName" nillable="true" type="q2:Text" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="LastName" nillable="true" type="q3:Text" />
           <xs:element minOccurs="0" name="MaxWorkingHoursPerWeek" nillable="true" type="xs:unsignedByte" />
+          <xs:element minOccurs="0" name="WriteAccess" nillable="true" type="xs:boolean" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -38,11 +40,11 @@
       <xs:extension base="tns:ePlanifModel">
         <xs:sequence>
           <xs:element minOccurs="0" name="ActivityTypeID" nillable="true" type="xs:int" />
-          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="BackgroundColor" nillable="true" type="q3:Text" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="BackgroundColor" nillable="true" type="q4:Text" />
           <xs:element minOccurs="0" name="LayerID" nillable="true" type="xs:int" />
           <xs:element minOccurs="0" name="MinEmployees" nillable="true" type="xs:int" />
-          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q4:Text" />
-          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="TextColor" nillable="true" type="q5:Text" />
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q5:Text" />
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="TextColor" nillable="true" type="q6:Text" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -62,7 +64,7 @@
           <xs:element minOccurs="0" name="AdministrateActivityTypes" nillable="true" type="xs:boolean" />
           <xs:element minOccurs="0" name="AdministrateEmployees" nillable="true" type="xs:boolean" />
           <xs:element minOccurs="0" name="CanRunReports" nillable="true" type="xs:boolean" />
-          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q6:Text" />
+          <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q7:Text" />
           <xs:element minOccurs="0" name="ProfileID" nillable="true" type="xs:int" />
         </xs:sequence>
       </xs:extension>
@@ -79,12 +81,12 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ActivityID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="ActivityTypeID" nillable="true" type="xs:int" />
-      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Comment" nillable="true" type="q7:Text" />
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Comment" nillable="true" type="q8:Text" />
       <xs:element minOccurs="0" name="Duration" nillable="true" type="ser:duration" />
       <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="IsDraft" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="ProjectNumber" nillable="true" type="xs:int" />
-      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="RemedyRef" nillable="true" type="q8:Text" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="RemedyRef" nillable="true" type="q9:Text" />
       <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="TrackedDuration" nillable="true" type="ser:duration" />
     </xs:sequence>
@@ -115,6 +117,7 @@
       <xs:element minOccurs="0" name="GrantID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="GroupID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="ProfileID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="WriteAccess" nillable="true" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Grant" nillable="true" type="tns:Grant" />
@@ -127,7 +130,7 @@
   <xs:complexType name="Group">
     <xs:sequence>
       <xs:element minOccurs="0" name="GroupID" nillable="true" type="xs:int" />
-      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q9:Text" />
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q10:Text" />
       <xs:element minOccurs="0" name="ParentGroupID" nillable="true" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
@@ -144,8 +147,9 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:int" />
           <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
-          <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Login" nillable="true" type="q10:Text" />
+          <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Login" nillable="true" type="q11:Text" />
           <xs:element minOccurs="0" name="ProfileID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="SelfWriteAccess" nillable="true" type="xs:boolean" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -161,9 +165,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ePlanifModel">
         <xs:sequence>
-          <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Color" nillable="true" type="q11:Text" />
+          <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Color" nillable="true" type="q12:Text" />
           <xs:element minOccurs="0" name="LayerID" nillable="true" type="xs:int" />
-          <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q12:Text" />
+          <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q13:Text" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -179,7 +183,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="EmployeeViewID" nillable="true" type="xs:int" />
-      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q13:Text" />
+      <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q14:Text" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EmployeeView" nillable="true" type="tns:EmployeeView" />
@@ -193,7 +197,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="ActivityTypeViewID" nillable="true" type="xs:int" />
-      <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q14:Text" />
+      <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/ModelLib" minOccurs="0" name="Name" nillable="true" type="q15:Text" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ActivityTypeView" nillable="true" type="tns:ActivityTypeView" />

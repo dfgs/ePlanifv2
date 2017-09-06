@@ -304,7 +304,7 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.AdministrateActivityTypes)) return false;
-			if (Item.LayerID == 1)  return false; // cannot delete default layer
+			if ((Item.LayerID == 1) && (Item.IsDisabled==true))  return false; // cannot delete default layer
 			return await dataProvider.UpdateLayerAsync(Item);
 		}
 
