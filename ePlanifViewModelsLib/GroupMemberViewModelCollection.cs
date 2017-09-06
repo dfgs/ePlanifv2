@@ -2,6 +2,7 @@
 using ePlanifViewModelsLib.ePlanifService;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ePlanifViewModelsLib
@@ -33,7 +34,7 @@ namespace ePlanifViewModelsLib
 
 		protected override async Task<IEnumerable<GroupMember>> OnLoadModelAsync(IePlanifServiceClient Client)
 		{
-			if (group.GroupID == null) return new GroupMember[] { };
+			if ((group.GroupID == null) || (Service.UserProfile.AdministrateAccounts!=true)) return Enumerable.Empty<GroupMember>();
 			return await Client.GetGroupMembersAsync(group.GroupID.Value);
 		}
 

@@ -78,20 +78,7 @@ namespace ePlanifModelsLib
 			
         }
 
-		/*public async Task<Account> GetAccountAsync(string Login)
-		{
-			IEnumerable<Account> accounts;
-			accounts = await SelectAsync<Account>(new AndFilter<Account>( new EqualFilter<Account>(Account.LoginColumn, Login), new EqualFilter<Account>(Account.IsDisabledColumn, false)));
-			return accounts.FirstOrDefault();
-		}
-		public async Task<Profile> GetProfileAsync(Account Account)
-		{
-			IEnumerable<Profile> profiles;
-			profiles = await SelectAsync<Profile>(new EqualFilter<Profile>(Profile.ProfileIDColumn, Account.ProfileID));
-			return profiles.FirstOrDefault();
-		}*/
-
-
+		
 		protected override async Task OnCreatedAsync()
 		{
 			Profile profile;

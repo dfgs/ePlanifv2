@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +54,10 @@
     <ProjectReference Include="..\..\LogUtils\LogUtils\LogUtils.csproj">
       <Project>{17aaeb57-4f55-4e14-9e6d-b4bb59d33560}</Project>
       <Name>LogUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WorkerLib\WorkerLib\WorkerLib.csproj">
+      <Project>{DD332EDF-6C16-4DC8-BA62-1D3F67FE54F8}</Project>
+      <Name>WorkerLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\ePlanifServerLib\ePlanifServerLib.csproj">
       <Project>{c5f201d3-f862-4654-87c2-ecfd51a4f370}</Project>

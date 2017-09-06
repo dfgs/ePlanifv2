@@ -2,8 +2,10 @@
 using LogUtils;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Policy;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Description;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +18,7 @@ namespace ePlanifServerHost
 		static void Main(string[] args)
 		{
 			ServiceHost serviceHost;
+			IDataProvider dataProvider;
 
 			Logger.DebugLog += Logger_DebugLog;
 			Logger.InformationLog += Logger_InformationLog;
@@ -27,7 +30,10 @@ namespace ePlanifServerHost
 			{
 				string path = System.IO.Path.Combine(@"C:\ProgramData", "ePlanifServer");
 				Logger.StartLogToFile(path);
-				serviceHost = new ServiceHost(typeof(ePlanifService));
+
+				//dataProvider = new SqlDataProvider();
+				dataProvider = new TestDataProvider("admin");
+				serviceHost = new ePlanifServiceHost(dataProvider);
 				serviceHost.Open();
 				Logger.WriteLog(LogLevels.Debug,"main",0,"ePlanif server started successfully");
 			}

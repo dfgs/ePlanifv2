@@ -9,7 +9,9 @@ namespace ePlanifServerLib
 {
 	public interface IDataProvider
 	{
-		
+		Account GetAccount(string Login);
+		Profile GetProfile(int ProfileID);
+
 		Task<IEnumerable<Employee>> GetEmployeesAsync(int AccountID);
 		Task<int> CreateEmployeeAsync(Employee Item);
 		Task<bool> UpdateEmployeeAsync(Employee Item);

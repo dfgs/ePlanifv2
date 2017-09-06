@@ -129,7 +129,7 @@ namespace ePlanifViewModelsLib
 
 		protected override async Task OnLoadedAsync()
 		{
-
+			bool writeAccess;
 			await base.OnLoadedAsync();
 
 
@@ -142,9 +142,10 @@ namespace ePlanifViewModelsLib
 			this.cells = new CellViewModel[columnCount, rowCount];
 			for(int r=0;r<rowCount;r++)
 			{
+				writeAccess = HasWriteAccessOnRow(r);
 				for(int c=0;c<columnCount;c++)
 				{
-					cells[c, r] = new CellViewModel(c,r, Service.Days[c].Date,VisibleMembers[r].RowID,GetIsPublicHolyday(Service.Days[c].Date,r));
+					cells[c, r] = new CellViewModel(c,r, Service.Days[c].Date,VisibleMembers[r].RowID,GetIsPublicHolyday(Service.Days[c].Date,r),writeAccess);
 				}
 			}
 			OnPropertyChanged("Cells");
@@ -410,7 +411,7 @@ namespace ePlanifViewModelsLib
 		}
 		private bool OnCutCommandCanExecute(object Parameter)
 		{
-			return Service.Activities.SelectedItem != null;
+			return (Service.Activities.SelectedItem != null) && (Service.Activities.Select(item=>item.Employee).All(item=>item.WriteAccess==true));
 		}
 		private void OnCutCommandExecute(object Parameter)
 		{
@@ -418,7 +419,7 @@ namespace ePlanifViewModelsLib
 		}
 		private bool OnPasteCommandCanExecute(object Parameter)
 		{
-			return (Clipboard.CanPaste) && (SelectedCell!=null) ;
+			return (Clipboard.CanPaste) && (SelectedCell!=null) && (SelectedCell.WriteAccess);
 		}
 		private async void OnPasteCommandExecute(object Parameter)
 		{

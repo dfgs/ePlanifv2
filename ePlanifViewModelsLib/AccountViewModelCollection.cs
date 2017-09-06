@@ -2,6 +2,7 @@
 using ePlanifViewModelsLib.ePlanifService;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ePlanifViewModelsLib
@@ -25,8 +26,8 @@ namespace ePlanifViewModelsLib
 
 		protected override async Task<IEnumerable<Account>> OnLoadModelAsync(IePlanifServiceClient Client)
 		{
-			
-			return await Client.GetAccountsAsync();
+			if (Service.UserProfile.AdministrateAccounts==true) return await Client.GetAccountsAsync();
+			else return Enumerable.Empty<Account>();
 		}
 
 		protected override async Task<bool> OnAddInModelAsync(IePlanifServiceClient Client,AccountViewModel ViewModel)

@@ -14,26 +14,18 @@ using WorkerLib;
 
 namespace ePlanifServerLib
 {
-	[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)] // necessary for self host
 	public class ePlanifService :Worker, IePlanifService
 	{
 		private IDataProvider dataProvider;
 
-		private ePlanifPrincipal principal;
 		private ePlanifPrincipal Principal
 		{
-			get { return principal ?? (ePlanifPrincipal)System.Threading.Thread.CurrentPrincipal; ; }
+			get { return (ePlanifPrincipal)System.Threading.Thread.CurrentPrincipal; ; }
 		}
-		public ePlanifService(): base("ePlanifService")
+		public ePlanifService(IDataProvider DataProvider) : base("ePlanifService")
 		{
-			dataProvider = new SqlDataProvider();
-			principal = null;
-		}
-
-		public ePlanifService(ePlanifPrincipal Principal,IDataProvider DataProvider) : base("ePlanifService")
-		{
-			this.dataProvider = DataProvider;
-			this.principal = Principal;
+			dataProvider = DataProvider;
 		}
 
 
@@ -55,6 +47,7 @@ namespace ePlanifServerLib
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return null;
 			return await Task.FromResult(Principal.Account);
+			
 		}
 
 		public async Task<Profile> GetCurrentProfileAsync()

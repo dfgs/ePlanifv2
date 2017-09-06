@@ -70,6 +70,14 @@ namespace ePlanifModelsLib
 			set { CountryCodeColumn.SetValue(this, value); }
 		}
 
+		public Employee()
+		{
+
+		}
+		public Employee(Employee Model)
+		{
+			Schema<Employee>.Clone(Model, this);
+		}
 
 
 

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ePlanifServerLib
 {
-	class ePlanifPolicy : IAuthorizationPolicy
+	public class ePlanifPolicy : IAuthorizationPolicy
 	{
 		private string id;
 		public string Id
@@ -25,15 +25,22 @@ namespace ePlanifServerLib
 			get { return ClaimSet.System; }
 		}
 
+		private IDataProvider dataProvider;
+
+		public ePlanifPolicy(IDataProvider DataProvider)
+		{
+			this.dataProvider = DataProvider;
+		}
+
 		// this method gets called after the authentication stage
 		public bool Evaluate(EvaluationContext evaluationContext, ref object state)
 		{
 			Account account;
 			Profile profile;
-			ePlanifDatabase db;
 
 			id = Guid.NewGuid().ToString();
 
+			
 			// will hold the combined roles
 			List<string> roles = new List<string>();
 			account = null;
@@ -51,11 +58,11 @@ namespace ePlanifServerLib
 				//roles.AddRange(GetWindowsRoles(windowsClient)); // keep in case....
 
 				// add application defined roles
-				db = new ePlanifDatabase("localhost");
 				try
 				{
-					account = db.SelectAsync<Account>(new EqualFilter<Account>(Account.LoginColumn, windowsClient.Name.ToLower())).Result.FirstOrDefault();
-					if (account != null) profile = db.SelectAsync<Profile>(new EqualFilter<Profile>(Profile.ProfileIDColumn, account.ProfileID)).Result.FirstOrDefault();
+					account=dataProvider.GetAccount(windowsClient.Name);
+					if (account != null) profile = dataProvider.GetProfile(account.ProfileID.Value);
+					if (profile == null) account = null;
 				}
 				catch
 				{

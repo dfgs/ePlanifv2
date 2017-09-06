@@ -17,7 +17,7 @@ namespace ePlanifServer
 	{
 		private const string source = "ePlanifServer";
 
-		private ServiceHost serviceHost;
+		private ePlanifServiceHost serviceHost;
 
 		public Service()
 		{
@@ -36,7 +36,7 @@ namespace ePlanifServer
 				string path = System.IO.Path.Combine(@"C:\ProgramData", "ePlanifServer");
 				Logger.StartLogToFile(path);
 				if (serviceHost != null) serviceHost.Close();
-				serviceHost = new ServiceHost(typeof(ePlanifService));
+				serviceHost = new ePlanifServiceHost(new SqlDataProvider());
 				serviceHost.Open();
 				EventLog.WriteEntry(source, "ePlanif server started successfully", EventLogEntryType.Information);
 			}

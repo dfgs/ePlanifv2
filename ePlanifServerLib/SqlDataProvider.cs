@@ -129,6 +129,18 @@ namespace ePlanifServerLib
 
 		#endregion
 
+		public Account GetAccount(string Login)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return SelectAsync<Account>(new AndFilter<Account>( new EqualFilter<Account>(Account.IsDisabledColumn,false), new EqualFilter<Account>(Account.LoginColumn,Login ) )).Result.FirstOrDefault();
+		}
+
+		public Profile GetProfile(int ProfileID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return SelectAsync<Profile>(new AndFilter<Profile>(new EqualFilter<Profile>(Profile.IsDisabledColumn, false), new EqualFilter<Profile>(Profile.ProfileIDColumn, ProfileID))).Result.FirstOrDefault();
+		}
+
 		public async Task<IEnumerable<Employee>> GetEmployeesAsync(int AccountID)
 		{
 			SqlCommand command;
