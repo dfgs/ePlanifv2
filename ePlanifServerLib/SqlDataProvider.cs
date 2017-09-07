@@ -445,6 +445,17 @@ namespace ePlanifServerLib
 
 			return await SelectAsync<EmployeeViewMember>(command);
 		}
+		public async Task<IEnumerable<EmployeeViewMember>> GetEmployeeViewMembersAsync(int AccountID)
+		{
+			SqlCommand command;
+
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+
+			command = new SqlCommand("select EmployeeViewMember.* from EmployeeViewMember inner join GrantedEmployeesPerAccount on EmployeeViewMember.EmployeeID = GrantedEmployeesPerAccount.EmployeeID inner join Employee on EmployeeViewMember.EmployeeID=Employee.EmployeeID where GrantedEmployeesPerAccount.AccountID = @AccountID order by LastName,FirstName");
+			command.Parameters.AddWithValue("@AccountID", AccountID);
+
+			return await SelectAsync<EmployeeViewMember>(command);
+		}
 
 		public async Task<int> CreateEmployeeViewMemberAsync(EmployeeViewMember Item)
 		{
@@ -463,14 +474,23 @@ namespace ePlanifServerLib
 			SqlCommand command;
 
 			WriteLog(LogLevels.Debug, LogActions.Enter);
-			
+
 			command = new SqlCommand("select ActivityTypeViewMember.* from ActivityTypeViewMember inner join ActivityType on  ActivityTypeViewMember.ActivityTypeID=ActivityType.ActivityTypeID where ActivityTypeViewID = @ActivityTypeViewID order by Name");
 			command.Parameters.AddWithValue("@ActivityTypeViewID", ViewID);
 
 			return await SelectAsync<ActivityTypeViewMember>(command);
-
-
 		}
+		public async Task<IEnumerable<ActivityTypeViewMember>> GetActivityTypeViewMembersAsync()
+		{
+			SqlCommand command;
+
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+
+			command = new SqlCommand("select ActivityTypeViewMember.* from ActivityTypeViewMember inner join ActivityType on  ActivityTypeViewMember.ActivityTypeID=ActivityType.ActivityTypeID order by Name");
+
+			return await SelectAsync<ActivityTypeViewMember>(command);
+		}
+
 		public async Task<int> CreateActivityTypeViewMemberAsync(ActivityTypeViewMember Item)
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);

@@ -12,9 +12,9 @@ namespace ePlanifServerLib
 	public class ePlanifServiceHost: ServiceHost
 	{
 
-		private static Uri uri = new Uri("net.tcp://localhost:8523/ePlanif");
+		//private static Uri uri = new Uri("net.tcp://localhost:8523/ePlanif");
 
-		public ePlanifServiceHost(IDataProvider DataProvider) :base(new ePlanifService(DataProvider),uri)
+		public ePlanifServiceHost(IDataProvider DataProvider,int Port=8523) :base(new ePlanifService(DataProvider),new Uri($"net.tcp://localhost:{Port}/ePlanif"))
 		{
 			Description.Behaviors.Add(new ServiceMetadataBehavior() { HttpGetEnabled = false });
 
@@ -24,8 +24,8 @@ namespace ePlanifServerLib
 			NetTcpBinding binding = new NetTcpBinding(SecurityMode.Transport);
 			binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
 
-			AddServiceEndpoint(typeof(IePlanifService), binding, uri);
-			AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexTcpBinding(), "net.tcp://localhost:8523/ePlanif/mex/");
+			AddServiceEndpoint(typeof(IePlanifService), binding, new Uri($"net.tcp://localhost:{Port}/ePlanif"));
+			AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexTcpBinding(), $"net.tcp://localhost:{Port}/ePlanif/mex");
 		}
 
 

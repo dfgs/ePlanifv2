@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LizaUnitTest.cs" />
     <Compile Include="AdminUnitTest.cs" />
     <Compile Include="Connected Services\ePlanifService\Reference.cs">
       <AutoGen>True</AutoGen>

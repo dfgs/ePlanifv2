@@ -395,7 +395,9 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return false;
-			EmployeeView view = (await dataProvider.GetEmployeeViewsAsync(Principal.Account.AccountID.Value)).FirstOrDefault(item => item.EmployeeViewID == ItemID);
+			EmployeeViewMember member = (await dataProvider.GetEmployeeViewMembersAsync(Principal.Account.AccountID.Value)).FirstOrDefault(item => item.EmployeeViewMemberID == ItemID);
+			if (member == null) return false;
+			EmployeeView view = (await dataProvider.GetEmployeeViewsAsync(Principal.Account.AccountID.Value)).FirstOrDefault(item => item.EmployeeViewID == member.EmployeeViewID);
 			if (view == null) return false; // trying to hack an existing view
 			return await dataProvider.DeleteEmployeeViewMemberAsync(ItemID);
 		}
@@ -423,7 +425,9 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return false;
-			ActivityTypeView view = (await dataProvider.GetActivityTypeViewsAsync(Principal.Account.AccountID.Value)).FirstOrDefault(item => item.ActivityTypeViewID == ItemID);
+			ActivityTypeViewMember member= (await dataProvider.GetActivityTypeViewMembersAsync()).FirstOrDefault(item => item.ActivityTypeViewMemberID == ItemID);
+			if (member == null) return false;
+			ActivityTypeView view = (await dataProvider.GetActivityTypeViewsAsync(Principal.Account.AccountID.Value)).FirstOrDefault(item => item.ActivityTypeViewID == member.ActivityTypeViewID.Value);
 			if (view == null) return false; // trying to hack an existing view
 			return await dataProvider.DeleteActivityTypeViewMemberAsync(ItemID);
 		}

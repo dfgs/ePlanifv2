@@ -19,14 +19,17 @@ namespace ePlanifServerLibTest
 	public abstract class BaseUnitTest
 	{
 
-
+		protected abstract int ServicePort
+		{
+			get;
+		}
 		
 
 		protected IePlanifServiceClient CreateClient()
 		{
 			IePlanifServiceClient client;
 
-			client = new IePlanifServiceClient("ePlanif", "net.tcp://localhost:8523/ePlanif");
+			client = new IePlanifServiceClient("ePlanif", $"net.tcp://localhost:{ServicePort}/ePlanif");
 			client.Open();
 
 			return client;

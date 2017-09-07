@@ -66,19 +66,21 @@ namespace ePlanifServerLib
 		Task<bool> DeleteEmployeeViewAsync(int ItemID);
 		Task<bool> UpdateEmployeeViewAsync(EmployeeView Item);
 
-		
+
 		Task<IEnumerable<ActivityTypeView>> GetActivityTypeViewsAsync(int AccountID);
 		Task<int> CreateActivityTypeViewAsync(ActivityTypeView Item);
 		Task<bool> DeleteActivityTypeViewAsync(int ItemID);
 		Task<bool> UpdateActivityTypeViewAsync(ActivityTypeView Item);
 
-		
-		Task<IEnumerable<EmployeeViewMember>> GetEmployeeViewMembersAsync(int AccountID,int ViewID);
+
+		Task<IEnumerable<EmployeeViewMember>> GetEmployeeViewMembersAsync(int AccountID, int ViewID);
+		Task<IEnumerable<EmployeeViewMember>> GetEmployeeViewMembersAsync(int AccountID);
 		Task<int> CreateEmployeeViewMemberAsync(EmployeeViewMember Item);
 		Task<bool> DeleteEmployeeViewMemberAsync(int ItemID);
 
-		
+
 		Task<IEnumerable<ActivityTypeViewMember>> GetActivityTypeViewMembersAsync(int ViewID);
+		Task<IEnumerable<ActivityTypeViewMember>> GetActivityTypeViewMembersAsync();
 		Task<int> CreateActivityTypeViewMemberAsync(ActivityTypeViewMember Item);
 		Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
 

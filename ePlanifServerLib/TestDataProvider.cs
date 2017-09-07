@@ -174,19 +174,19 @@ namespace ePlanifServerLib
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 25, ActivityTypeViewID = 4, ActivityTypeID = 12 });
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 26, ActivityTypeViewID = 4, ActivityTypeID = 13 });
 
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 27, ActivityTypeViewID = 6, ActivityTypeID = 1 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 28, ActivityTypeViewID = 6, ActivityTypeID = 2 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 29, ActivityTypeViewID = 6, ActivityTypeID = 3 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 30, ActivityTypeViewID = 6, ActivityTypeID = 4 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 31, ActivityTypeViewID = 6, ActivityTypeID = 5 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 32, ActivityTypeViewID = 6, ActivityTypeID = 6 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 33, ActivityTypeViewID = 6, ActivityTypeID = 7 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 34, ActivityTypeViewID = 6, ActivityTypeID = 8 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 35, ActivityTypeViewID = 6, ActivityTypeID = 9 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 36, ActivityTypeViewID = 6, ActivityTypeID = 10 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 37, ActivityTypeViewID = 6, ActivityTypeID = 11 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 38, ActivityTypeViewID = 6, ActivityTypeID = 12 });
-			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 39, ActivityTypeViewID = 6, ActivityTypeID = 13 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 27, ActivityTypeViewID = 7, ActivityTypeID = 1 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 28, ActivityTypeViewID = 7, ActivityTypeID = 2 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 29, ActivityTypeViewID = 7, ActivityTypeID = 3 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 30, ActivityTypeViewID = 7, ActivityTypeID = 4 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 31, ActivityTypeViewID = 7, ActivityTypeID = 5 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 32, ActivityTypeViewID = 7, ActivityTypeID = 6 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 33, ActivityTypeViewID = 7, ActivityTypeID = 7 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 34, ActivityTypeViewID = 7, ActivityTypeID = 8 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 35, ActivityTypeViewID = 7, ActivityTypeID = 9 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 36, ActivityTypeViewID = 7, ActivityTypeID = 10 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 37, ActivityTypeViewID = 7, ActivityTypeID = 11 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 38, ActivityTypeViewID = 7, ActivityTypeID = 12 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 39, ActivityTypeViewID = 7, ActivityTypeID = 13 });
 
 			Grants.Add(new Grant() { GrantID = 1, ProfileID = 2, GroupID = 3, WriteAccess = false });
 			Grants.Add(new Grant() { GrantID = 2, ProfileID = 2, GroupID = 4, WriteAccess = true });
@@ -711,14 +711,28 @@ namespace ePlanifServerLib
 
 
 
-		public async Task<IEnumerable<EmployeeViewMember>> GetEmployeeViewMembersAsync(int AccountID,int ViewID)
+		public async Task<IEnumerable<EmployeeViewMember>> GetEmployeeViewMembersAsync(int AccountID, int ViewID)
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			List<Employee> grantedEmployees = new List<Employee>(GetGrantedEmployees(GetProfileID(AccountID)));
 			List<EmployeeViewMember> result;
 
 			result = new List<EmployeeViewMember>();
-			foreach (EmployeeViewMember member in EmployeeViewMembers.Where(item => item.EmployeeViewID==ViewID))
+			foreach (EmployeeViewMember member in EmployeeViewMembers.Where(item => item.EmployeeViewID == ViewID))
+			{
+				if (grantedEmployees.FirstOrDefault(item => item.EmployeeID == member.EmployeeID) == null) continue;
+				result.Add(member);
+			}
+			return await Task.FromResult(result);
+		}
+		public async Task<IEnumerable<EmployeeViewMember>> GetEmployeeViewMembersAsync(int AccountID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			List<Employee> grantedEmployees = new List<Employee>(GetGrantedEmployees(GetProfileID(AccountID)));
+			List<EmployeeViewMember> result;
+
+			result = new List<EmployeeViewMember>();
+			foreach (EmployeeViewMember member in EmployeeViewMembers)
 			{
 				if (grantedEmployees.FirstOrDefault(item => item.EmployeeID == member.EmployeeID) == null) continue;
 				result.Add(member);
@@ -742,6 +756,11 @@ namespace ePlanifServerLib
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			return await Task.FromResult(ActivityTypeViewMembers.Where(item => item.ActivityTypeViewID == ViewID));
+		}
+		public async Task<IEnumerable<ActivityTypeViewMember>> GetActivityTypeViewMembersAsync()
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(ActivityTypeViewMembers);
 		}
 		public async Task<int> CreateActivityTypeViewMemberAsync(ActivityTypeViewMember Item)
 		{

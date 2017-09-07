@@ -15,19 +15,19 @@ namespace ePlanifServerLibTest
 {
 		
 	[TestClass]
-	public class AdminUnitTest:BaseUnitTest
+	public class LizaUnitTest:BaseUnitTest
 	{
 		protected override int ServicePort
 		{
-			get { return 8523; }
+			get { return 8524; }
 		}
 
 		protected static TestDataProvider dataProvider;
 		protected static ePlanifServiceHost serviceHost;
 
-		private static int accountID = 1;
-		private static int otherAccountID = 2;
-		private static string login = "admin";
+		private static int accountID = 2;
+		private static int otherAccountID = 1;
+		private static string login = "liza";
 
 
 		#region Initialize
@@ -35,7 +35,7 @@ namespace ePlanifServerLibTest
 		public static void Initialize(TestContext Context)
 		{
 			dataProvider = new TestDataProvider(login);
-			serviceHost = new ePlanifServiceHost(dataProvider,8523);
+			serviceHost = new ePlanifServiceHost(dataProvider,8524);
 			serviceHost.Open();
 		}
 		[ClassCleanup]
@@ -80,14 +80,14 @@ namespace ePlanifServerLibTest
 			AssertGetItems(true, (client) => client.GetEmployees, dataProvider.Employees);
 		}
 		[TestMethod, TestCategory("Employee")]
-		public void Should_Success_When_CreateEmployee()
+		public void Should_Fail_When_CreateEmployee()
 		{
-			AssertCreateItem(true, (client) =>  client.CreateEmployee, new Employee() { CountryCode = "FR", FirstName = "Test", LastName = "Test", MaxWorkingHoursPerWeek = null, WriteAccess = false });
+			AssertCreateItem(false, (client) =>  client.CreateEmployee, new Employee() { CountryCode = "FR", FirstName = "Test", LastName = "Test", MaxWorkingHoursPerWeek = null, WriteAccess = false });
 		}
 		[TestMethod, TestCategory("Employee")]
-		public void Should_Success_When_UpdateEmployee()
+		public void Should_Fail_When_UpdateEmployee()
 		{
-			AssertUpdateItem(true, (client) => client.UpdateEmployee, dataProvider.Employees[0]);
+			AssertUpdateItem(false, (client) => client.UpdateEmployee, dataProvider.Employees[0]);
 		}
 		#endregion
 
@@ -98,32 +98,32 @@ namespace ePlanifServerLibTest
 			AssertGetItems(true, (client) => client.GetActivityTypes, dataProvider.ActivityTypes);
 		}
 		[TestMethod, TestCategory("ActivityType")]
-		public void Should_Success_When_CreateActivityType()
+		public void Should_Fail_When_CreateActivityType()
 		{
-			AssertCreateItem(true, (client) => client.CreateActivityType, new ActivityType() { BackgroundColor="Red", LayerID=1, MinEmployees=1, Name="Test", TextColor="Black"  });
+			AssertCreateItem(false, (client) => client.CreateActivityType, new ActivityType() { BackgroundColor="Red", LayerID=1, MinEmployees=1, Name="Test", TextColor="Black"  });
 		}
 		[TestMethod, TestCategory("ActivityType")]
-		public void Should_Success_When_UpdateActivityType()
+		public void Should_Fail_When_UpdateActivityType()
 		{
-			AssertUpdateItem(true, (client) => client.UpdateActivityType, dataProvider.ActivityTypes[0]);
+			AssertUpdateItem(false, (client) => client.UpdateActivityType, dataProvider.ActivityTypes[0]);
 		}
 		#endregion
 
 		#region Profile
 		[TestMethod, TestCategory("Profile")]
-		public void Should_Success_When_GetProfiles()
+		public void Should_Fail_When_GetProfiles()
 		{
-			AssertGetItems(true, (client) => client.GetProfiles, dataProvider.Profiles);
+			AssertGetItems(false, (client) => client.GetProfiles, dataProvider.Profiles);
 		}
 		[TestMethod, TestCategory("Profile")]
-		public void Should_Success_When_CreateProfile()
+		public void Should_Fail_When_CreateProfile()
 		{
-			AssertCreateItem(true, (client) => client.CreateProfile, new Profile() { AdministrateAccounts=true, AdministrateActivityTypes=true, AdministrateEmployees=true, CanRunReports=true, IsDisabled=false, Name="test" } );
+			AssertCreateItem(false, (client) => client.CreateProfile, new Profile() { AdministrateAccounts=true, AdministrateActivityTypes=true, AdministrateEmployees=true, CanRunReports=true, IsDisabled=false, Name="test" } );
 		}
 		[TestMethod, TestCategory("Profile")]
-		public void Should_Success_When_UpdateProfile()
+		public void Should_Fail_When_UpdateProfile()
 		{
-			AssertUpdateItem(true, (client) => client.UpdateProfile, dataProvider.Profiles[1]);
+			AssertUpdateItem(false, (client) => client.UpdateProfile, dataProvider.Profiles[1]);
 		}
 		[TestMethod, TestCategory("Profile")]
 		public void Should_Fail_When_UpdateAdminProfile()
@@ -142,56 +142,56 @@ namespace ePlanifServerLibTest
 		[TestMethod, TestCategory("Activity")]
 		public void Should_Success_When_CreateActivity()
 		{
-			AssertCreateItem(true, (client) => client.CreateActivity, new Activity() { ActivityTypeID=1, Comment="test", Duration=TimeSpan.FromHours(1), EmployeeID=1, IsDraft=false, ProjectNumber=1234, RemedyRef="None", StartDate=DateTime.Now, TrackedDuration=null  });
+			AssertCreateItem(true, (client) => client.CreateActivity, new Activity() { ActivityTypeID = 1, Comment = "test", Duration = TimeSpan.FromHours(1), EmployeeID = 4, IsDraft = false, ProjectNumber = 1234, RemedyRef = "None", StartDate = DateTime.Now, TrackedDuration = null });
 		}
 		[TestMethod, TestCategory("Activity")]
-		public void Should_Success_When_CreateActivityForAnotherEmployee()
+		public void Should_Fail_When_CreateActivityForAnotherEmployee()
 		{
-			AssertCreateItem(true, (client) => client.CreateActivity, new Activity() { ActivityTypeID = 1, Comment = "test", Duration = TimeSpan.FromHours(1), EmployeeID = 4, IsDraft = false, ProjectNumber = 1234, RemedyRef = "None", StartDate = DateTime.Now, TrackedDuration = null });
+			AssertCreateItem(false, (client) => client.CreateActivity, new Activity() { ActivityTypeID = 1, Comment = "test", Duration = TimeSpan.FromHours(1), EmployeeID = 1, IsDraft = false, ProjectNumber = 1234, RemedyRef = "None", StartDate = DateTime.Now, TrackedDuration = null });
 		}
 		[TestMethod, TestCategory("Activity")]
 		public void Should_Success_When_DeleteActivity()
 		{
-			AssertDeleteItem(true, (client) => client.DeleteActivity, dataProvider.Activities.First(item => item.EmployeeID == 1));
-		}
-		[TestMethod, TestCategory("Activity")]
-		public void Should_Success_When_DeleteActivityForAnotherEmployee()
-		{
-			AssertDeleteItem(true, (client) => client.DeleteActivity, dataProvider.Activities.First(item => item.EmployeeID == 2));
 			AssertDeleteItem(true, (client) => client.DeleteActivity, dataProvider.Activities.First(item => item.EmployeeID == 3));
 			AssertDeleteItem(true, (client) => client.DeleteActivity, dataProvider.Activities.First(item => item.EmployeeID == 4));
 			AssertDeleteItem(true, (client) => client.DeleteActivity, dataProvider.Activities.First(item => item.EmployeeID == 5));
 		}
 		[TestMethod, TestCategory("Activity")]
-		public void Should_Success_When_UpdateActivity()
+		public void Should_Fail_When_DeleteActivityForAnotherEmployee()
 		{
-			AssertUpdateItem(true, (client) => client.UpdateActivity, dataProvider.Activities.First(item => item.EmployeeID == 1));
-			AssertUpdateItem(true, (client) => client.UpdateActivity, dataProvider.Activities.First(item => item.EmployeeID == 2));
+			AssertDeleteItem(false, (client) => client.DeleteActivity, dataProvider.Activities.First(item => item.EmployeeID == 1));
+			AssertDeleteItem(false, (client) => client.DeleteActivity, dataProvider.Activities.First(item => item.EmployeeID == 2));
 		}
 		[TestMethod, TestCategory("Activity")]
-		public void Should_Success_When_UpdateActivityForAnotherEmployee()
+		public void Should_Success_When_UpdateActivity()
 		{
 			AssertUpdateItem(true, (client) => client.UpdateActivity, dataProvider.Activities.First(item => item.EmployeeID == 3));
 			AssertUpdateItem(true, (client) => client.UpdateActivity, dataProvider.Activities.First(item => item.EmployeeID == 4));
 			AssertUpdateItem(true, (client) => client.UpdateActivity, dataProvider.Activities.First(item => item.EmployeeID == 5));
 		}
+		[TestMethod, TestCategory("Activity")]
+		public void Should_Fail_When_UpdateActivitForAnotherEmployeey()
+		{
+			AssertUpdateItem(false, (client) => client.UpdateActivity, dataProvider.Activities.First(item => item.EmployeeID == 1));
+			AssertUpdateItem(false, (client) => client.UpdateActivity, dataProvider.Activities.First(item => item.EmployeeID == 2));
+		}
 		#endregion
 
 		#region GroupMember
 		[TestMethod, TestCategory("GroupMember")]
-		public void Should_Success_When_GetRootGroupMembers()
+		public void Should_Fail_When_GetRootGroupMembers()
 		{
-			AssertGetItems(true, (client) => delegate () { return client.GetGroupMembers(1); }, dataProvider.Employees.Select((item) => new GroupMember() { EmployeeID = item.EmployeeID, GroupID = 1, GroupMemberID = -1 }));
+			AssertGetItems(false, (client) => delegate () { return client.GetGroupMembers(1); }, dataProvider.Employees.Select((item) => new GroupMember() { EmployeeID = item.EmployeeID, GroupID = 1, GroupMemberID = -1 }));
 		}
 		[TestMethod, TestCategory("GroupMember")]
-		public void Should_Success_When_GetEmptyGroupMembers()
+		public void Should_Fail_When_GetEmptyGroupMembers()
 		{
-			AssertGetItems(true, (client) => delegate () { return client.GetGroupMembers(2); }, Enumerable.Empty<GroupMember>());
+			AssertGetItems(false, (client) => delegate () { return client.GetGroupMembers(2); }, Enumerable.Empty<GroupMember>());
 		}
 		[TestMethod, TestCategory("GroupMember")]
-		public void Should_Success_When_GetGroupMembers()
+		public void Should_Fail_When_GetGroupMembers()
 		{
-			AssertGetItems(true, (client) => delegate () { return client.GetGroupMembers(3); }, dataProvider.GroupMembers.Where(item => item.GroupID == 3));
+			AssertGetItems(false, (client) => delegate () { return client.GetGroupMembers(3); }, dataProvider.GroupMembers.Where(item => item.GroupID == 3));
 		}
 		[TestMethod, TestCategory("GroupMember")]
 		public void Should_Fail_When_DuplicateGroupMember()
@@ -200,9 +200,9 @@ namespace ePlanifServerLibTest
 			AssertCreateItem(false, (client) => client.CreateGroupMember, new GroupMember() { GroupID = 4, EmployeeID = 3 }); // duplicate must fail
 		}
 		[TestMethod, TestCategory("GroupMember")]
-		public void Should_Success_When_CreateGroupMember()
+		public void Should_Fail_When_CreateGroupMember()
 		{
-			AssertCreateItem(true, (client) => client.CreateGroupMember, new GroupMember() { GroupID = 4, EmployeeID = 1 });  // not a duplicate
+			AssertCreateItem(false, (client) => client.CreateGroupMember, new GroupMember() { GroupID = 4, EmployeeID = 1 });  // not a duplicate
 		}
 		[TestMethod, TestCategory("GroupMember")]
 		public void Should_Fail_When_DeleteVirtualGroupMember()
@@ -210,23 +210,23 @@ namespace ePlanifServerLibTest
 			AssertDeleteItem(false, (client) => client.DeleteGroupMember, new GroupMember() { GroupMemberID = -1 }); // virtual item must fail
 		}
 		[TestMethod, TestCategory("GroupMember")]
-		public void Should_Success_When_DeleteGroupMember()
+		public void Should_Fail_When_DeleteGroupMember()
 		{
-			AssertDeleteItem(true, (client) => client.DeleteGroupMember, dataProvider.GroupMembers[0]);
+			AssertDeleteItem(false, (client) => client.DeleteGroupMember, dataProvider.GroupMembers[0]);
 		}
 		#endregion
 
 		#region Grant
 		[TestMethod, TestCategory("Grant")]
-		public void Should_Success_When_GetVirtualGrants()
+		public void Should_Fail_When_GetVirtualGrants()
 		{
-			AssertGetItems(true, (client) => delegate () { return client.GetGrants(1); }, new Grant[] { new Grant() { GrantID = -1, GroupID = 1, WriteAccess = true, ProfileID = 1 } });
+			AssertGetItems(false, (client) => delegate () { return client.GetGrants(1); }, new Grant[] { new Grant() { GrantID = -1, GroupID = 1, WriteAccess = true, ProfileID = 1 } });
 		}
 		[TestMethod, TestCategory("Grant")]
-		public void Should_Success_When_GetGrants()
+		public void Should_Fail_When_GetGrants()
 		{
-			AssertGetItems(true, (client) => delegate () { return client.GetGrants(2); }, dataProvider.Grants.Where(item => item.ProfileID == 2));
-			AssertGetItems(true, (client) => delegate () { return client.GetGrants(3); }, dataProvider.Grants.Where(item => item.ProfileID == 3));
+			AssertGetItems(false, (client) => delegate () { return client.GetGrants(2); }, dataProvider.Grants.Where(item => item.ProfileID == 2));
+			AssertGetItems(false, (client) => delegate () { return client.GetGrants(3); }, dataProvider.Grants.Where(item => item.ProfileID == 3));
 		}
 		[TestMethod, TestCategory("Grant")]
 		public void Should_Fail_When_DuplicateGrant()
@@ -235,9 +235,9 @@ namespace ePlanifServerLibTest
 			AssertCreateItem(false, (client) => client.CreateGrant, new Grant() { ProfileID = 2, GroupID = 4 }); // duplicate must fail
 		}
 		[TestMethod, TestCategory("Grant")]
-		public void Should_Success_When_CreateGrant()
+		public void Should_Fail_When_CreateGrant()
 		{
-			AssertCreateItem(true, (client) => client.CreateGrant, new Grant() { ProfileID = 3, GroupID = 4 });  // not a duplicate
+			AssertCreateItem(false, (client) => client.CreateGrant, new Grant() { ProfileID = 3, GroupID = 4 });  // not a duplicate
 		}
 		[TestMethod, TestCategory("Grant")]
 		public void Should_Fail_When_DeleteVirtualGrant()
@@ -245,9 +245,9 @@ namespace ePlanifServerLibTest
 			AssertDeleteItem(false, (client) => client.DeleteGrant, new Grant() { GrantID = -1 }); // virtual item must fail
 		}
 		[TestMethod, TestCategory("Grant")]
-		public void Should_Success_When_DeleteGrant()
+		public void Should_Fail_When_DeleteGrant()
 		{
-			AssertDeleteItem(true, (client) => client.DeleteGrant, dataProvider.Grants[0]);
+			AssertDeleteItem(false, (client) => client.DeleteGrant, dataProvider.Grants[0]);
 		}
 		#endregion
 
@@ -258,9 +258,9 @@ namespace ePlanifServerLibTest
 			AssertGetItems(true, (client) => client.GetGroups,dataProvider.Groups );
 		}
 		[TestMethod, TestCategory("Group")]
-		public void Should_Success_When_CreateGroup()
+		public void Should_Fail_When_CreateGroup()
 		{
-			AssertCreateItem(true, (client) => client.CreateGroup, new Group() {  Name="test", ParentGroupID=1 }); 
+			AssertCreateItem(false, (client) => client.CreateGroup, new Group() {  Name="test", ParentGroupID=1 }); 
 		}
 		[TestMethod, TestCategory("Group")]
 		public void Should_Fail_When_DeleteRootGroup()
@@ -268,32 +268,32 @@ namespace ePlanifServerLibTest
 			AssertDeleteItem(false, (client) => client.DeleteGroup, dataProvider.Groups[0]);
 		}
 		[TestMethod, TestCategory("Group")]
-		public void Should_Success_When_DeleteGroup()
+		public void Should_Fail_When_DeleteGroup()
 		{
-			AssertDeleteItem(true, (client) => client.DeleteGroup, dataProvider.Groups[4]);
+			AssertDeleteItem(false, (client) => client.DeleteGroup, dataProvider.Groups[4]);
 		}
 		[TestMethod, TestCategory("Group")]
-		public void Should_Success_When_UpdateGroup()
+		public void Should_Fail_When_UpdateGroup()
 		{
-			AssertUpdateItem(true, (client) => client.UpdateGroup, dataProvider.Groups[0]);
+			AssertUpdateItem(false, (client) => client.UpdateGroup, dataProvider.Groups[0]);
 		}
 		#endregion
 
 		#region Account
 		[TestMethod, TestCategory("Account")]
-		public void Should_Success_When_GetAccounts()
+		public void Should_Fail_When_GetAccounts()
 		{
-			AssertGetItems(true, (client) => client.GetAccounts, dataProvider.Accounts);
+			AssertGetItems(false, (client) => client.GetAccounts, dataProvider.Accounts);
 		}
 		[TestMethod, TestCategory("Account")]
-		public void Should_Success_When_CreateAccount()
+		public void Should_Fail_When_CreateAccount()
 		{
-			AssertCreateItem(true, (client) => client.CreateAccount, new Account() {  EmployeeID=1, IsDisabled=false, Login="test", ProfileID=1, SelfWriteAccess=true });
+			AssertCreateItem(false, (client) => client.CreateAccount, new Account() {  EmployeeID=1, IsDisabled=false, Login="test", ProfileID=1, SelfWriteAccess=true });
 		}
 		[TestMethod, TestCategory("Account")]
-		public void Should_Success_When_UpdateAccount()
+		public void Should_Fail_When_UpdateAccount()
 		{
-			AssertUpdateItem(true, (client) => client.UpdateAccount, dataProvider.Accounts[0]);
+			AssertUpdateItem(false, (client) => client.UpdateAccount, dataProvider.Accounts[0]);
 		}
 		#endregion
 
@@ -304,9 +304,9 @@ namespace ePlanifServerLibTest
 			AssertGetItems(true, (client) => client.GetLayers, dataProvider.Layers);
 		}
 		[TestMethod, TestCategory("Layer")]
-		public void Should_Success_When_CreateLayer()
+		public void Should_Fail_When_CreateLayer()
 		{
-			AssertCreateItem(true, (client) => client.CreateLayer, new Layer() { Color="Red", IsDisabled=false, Name="test" });
+			AssertCreateItem(false, (client) => client.CreateLayer, new Layer() { Color="Red", IsDisabled=false, Name="test" });
 		}
 		[TestMethod, TestCategory("Layer")]
 		public void Should_Fail_When_DisableDefaultLayer()
@@ -314,9 +314,9 @@ namespace ePlanifServerLibTest
 			AssertUpdateItem(false, (client) => client.UpdateLayer, new Layer() { LayerID = 1, IsDisabled = true });
 		}
 		[TestMethod, TestCategory("Layer")]
-		public void Should_Success_When_UpdateLayer()
+		public void Should_Fail_When_UpdateLayer()
 		{
-			AssertUpdateItem(true, (client) => client.UpdateLayer, dataProvider.Layers[0]);
+			AssertUpdateItem(false, (client) => client.UpdateLayer, dataProvider.Layers[0]);
 		}
 		#endregion
 
