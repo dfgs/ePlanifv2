@@ -15,11 +15,24 @@ ePlanif is an open source tool for employees task planification. It can be used 
 
 |          User right management           |
 | :--------------------------------------: |
-| ![User right management](Images/readme3.png)  |
+| ![User right management](Images/readme3.png) |
 | You can keep control on who can see or change planning using hierarchical groups management and windows authentication |
 
 |             Layered display              |
 | :--------------------------------------: |
-|    ![Layered display](Images/readme4.png)     |
+|  ![Layered display](Images/readme4.png)  |
 | Keep your views clear using the layer system |
 
+|             Reporting              |
+| :--------------------------------------: |
+|  ![Reporting](Images/readme5.png)  |
+| ePlanif integrates seamlessly with Microsoft Reporting Service in order to provide you beautifull reports |
+
+
+**Learn more about other features into the wiki pages !**
+
+
+
+# Credits
+
+ePlanif uses some third party components. Those parts are discribed in details in wiki
