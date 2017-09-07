@@ -84,8 +84,33 @@ namespace ePlanifServerLib
 			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 1, AccountID = 1, Name = "All" });
 			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 2, AccountID = 1, Name = "Parents" });
 			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 3, AccountID = 1, Name = "Children" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 4, AccountID = 1, Name = "Empty" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 5, AccountID = 1, Name = "TBD" });
+
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 6, AccountID = 2, Name = "All" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 7, AccountID = 2, Name = "Parents" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 8, AccountID = 2, Name = "Children" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 9, AccountID = 2, Name = "Empty" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 10, AccountID = 2, Name = "TBD" });
+
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 11, AccountID = 3, Name = "All" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 12, AccountID = 3, Name = "Parents" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 13, AccountID = 3, Name = "Children" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 14, AccountID = 3, Name = "Empty" });
+			EmployeeViews.Add(new EmployeeView() { EmployeeViewID = 15, AccountID = 3, Name = "TBD" });
+
 			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 1, AccountID = 1, Name = "All" });
 			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 2, AccountID = 1, Name = "Empty" });
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 3, AccountID = 1, Name = "TBD" });
+
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 4, AccountID = 2, Name = "All" });
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 5, AccountID = 2, Name = "Empty" });
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 6, AccountID = 2, Name = "TBD" });
+
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 7, AccountID = 3, Name = "All" });
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 8, AccountID = 3, Name = "Empty" });
+			ActivityTypeViews.Add(new ActivityTypeView() { ActivityTypeViewID = 9, AccountID = 3, Name = "TBD" });
+
 
 			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 1, EmployeeViewID = 1, EmployeeID = 1 });
 			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 2, EmployeeViewID = 1, EmployeeID = 2 });
@@ -97,6 +122,29 @@ namespace ePlanifServerLib
 			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 8, EmployeeViewID = 3, EmployeeID = 3 });
 			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 9, EmployeeViewID = 3, EmployeeID = 4 });
 			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 10, EmployeeViewID = 3, EmployeeID = 5 });
+
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 11, EmployeeViewID = 6, EmployeeID = 1 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 12, EmployeeViewID = 6, EmployeeID = 2 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 13, EmployeeViewID = 6, EmployeeID = 3 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 14, EmployeeViewID = 6, EmployeeID = 4 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 15, EmployeeViewID = 6, EmployeeID = 5 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 16, EmployeeViewID = 7, EmployeeID = 1 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 17, EmployeeViewID = 7, EmployeeID = 2 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 18, EmployeeViewID = 8, EmployeeID = 3 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 19, EmployeeViewID = 8, EmployeeID = 4 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 20, EmployeeViewID = 8, EmployeeID = 5 });
+
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 21, EmployeeViewID = 10, EmployeeID = 1 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 22, EmployeeViewID = 10, EmployeeID = 2 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 23, EmployeeViewID = 10, EmployeeID = 3 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 24, EmployeeViewID = 10, EmployeeID = 4 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 25, EmployeeViewID = 10, EmployeeID = 5 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 26, EmployeeViewID = 11, EmployeeID = 1 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 27, EmployeeViewID = 11, EmployeeID = 2 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 28, EmployeeViewID = 12, EmployeeID = 3 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 29, EmployeeViewID = 12, EmployeeID = 4 });
+			EmployeeViewMembers.Add(new EmployeeViewMember() { EmployeeViewMemberID = 30, EmployeeViewID = 12, EmployeeID = 5 });
+
 
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 1, ActivityTypeViewID = 1, ActivityTypeID = 1 });
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 2, ActivityTypeViewID = 1, ActivityTypeID = 2 });
@@ -111,6 +159,34 @@ namespace ePlanifServerLib
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 11, ActivityTypeViewID = 1, ActivityTypeID = 11 });
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 12, ActivityTypeViewID = 1, ActivityTypeID = 12 });
 			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 13, ActivityTypeViewID = 1, ActivityTypeID = 13 });
+
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 14, ActivityTypeViewID = 4, ActivityTypeID = 1 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 15, ActivityTypeViewID = 4, ActivityTypeID = 2 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 16, ActivityTypeViewID = 4, ActivityTypeID = 3 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 17, ActivityTypeViewID = 4, ActivityTypeID = 4 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 18, ActivityTypeViewID = 4, ActivityTypeID = 5 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 19, ActivityTypeViewID = 4, ActivityTypeID = 6 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 20, ActivityTypeViewID = 4, ActivityTypeID = 7 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 21, ActivityTypeViewID = 4, ActivityTypeID = 8 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 22, ActivityTypeViewID = 4, ActivityTypeID = 9 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 23, ActivityTypeViewID = 4, ActivityTypeID = 10 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 24, ActivityTypeViewID = 4, ActivityTypeID = 11 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 25, ActivityTypeViewID = 4, ActivityTypeID = 12 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 26, ActivityTypeViewID = 4, ActivityTypeID = 13 });
+
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 27, ActivityTypeViewID = 6, ActivityTypeID = 1 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 28, ActivityTypeViewID = 6, ActivityTypeID = 2 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 29, ActivityTypeViewID = 6, ActivityTypeID = 3 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 30, ActivityTypeViewID = 6, ActivityTypeID = 4 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 31, ActivityTypeViewID = 6, ActivityTypeID = 5 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 32, ActivityTypeViewID = 6, ActivityTypeID = 6 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 33, ActivityTypeViewID = 6, ActivityTypeID = 7 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 34, ActivityTypeViewID = 6, ActivityTypeID = 8 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 35, ActivityTypeViewID = 6, ActivityTypeID = 9 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 36, ActivityTypeViewID = 6, ActivityTypeID = 10 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 37, ActivityTypeViewID = 6, ActivityTypeID = 11 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 38, ActivityTypeViewID = 6, ActivityTypeID = 12 });
+			ActivityTypeViewMembers.Add(new ActivityTypeViewMember() { ActivityTypeViewMemberID = 39, ActivityTypeViewID = 6, ActivityTypeID = 13 });
 
 			Grants.Add(new Grant() { GrantID = 1, ProfileID = 2, GroupID = 3, WriteAccess = false });
 			Grants.Add(new Grant() { GrantID = 2, ProfileID = 2, GroupID = 4, WriteAccess = true });

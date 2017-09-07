@@ -51,6 +51,11 @@ namespace ePlanifServerLibTest
 			{
 				var deleg = Func(client);
 				var result = deleg.Invoke();
+				if (!SuccessExpected)
+				{
+					if (result!=null) Assert.Fail("Collection is not empty");
+					return;
+				}
 				AssertCollectionAreIdentical<ItemType>(Items, result);
 			}
 		}
@@ -86,52 +91,7 @@ namespace ePlanifServerLibTest
 		}
 
 
-		public abstract void TestInstantiateClient();
-		public abstract void TestGetEmployees();
-		public abstract void TestCreateEmployee();
-		public abstract void TestUpdateEmployee();
-		public abstract void TestGetActivityTypes();
-		public abstract void TestCreateActivityType();
-		public abstract void TestUpdateActivityType();
-		public abstract void TestGetProfiles();
-		public abstract void TestCreateProfile();
-		public abstract void TestUpdateProfile();
-		public abstract void TestGetActivities();
-		public abstract void TestCreateActivity();
-		public abstract void TestDeleteActivity();
-		public abstract void TestUpdateActivity();
-		public abstract void TestGetGroupMembers();
-		public abstract void TestCreateGroupMember();
-		public abstract void TestDeleteGroupMember();
-		public abstract void TestGetGrants();
-		public abstract void TestCreateGrant();
-		public abstract void TestDeleteGrant();
-		public abstract void TestGetGroups();
-		public abstract void TestCreateGroup();
-		public abstract void TestDeleteGroup();
-		public abstract void TestUpdateGroup();
-		public abstract void TestGetAccounts();
-		public abstract void TestCreateAccount();
-		public abstract void TestUpdateAccount();
-		public abstract void TestGetCurrentAccount();
-		public abstract void TestGetCurrentProfile();
-		public abstract void TestGetLayers();
-		public abstract void TestCreateLayer();
-		public abstract void TestUpdateLayer();
-		public abstract void TestGetEmployeeViews();
-		public abstract void TestCreateEmployeeView();
-		public abstract void TestDeleteEmployeeView();
-		public abstract void TestUpdateEmployeeView();
-		public abstract void TestGetActivityTypeViews();
-		public abstract void TestCreateActivityTypeView();
-		public abstract void TestDeleteActivityTypeView();
-		public abstract void TestUpdateActivityTypeView();
-		public abstract void TestGetEmployeeViewMembers();
-		public abstract void TestCreateEmployeeViewMember();
-		public abstract void TestDeleteEmployeeViewMember();
-		public abstract void TestGetActivityTypeViewMembers();
-		public abstract void TestCreateActivityTypeViewMember();
-		public abstract void TestDeleteActivityTypeViewMember();
+		
 
 
 	}
