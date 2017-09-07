@@ -19,11 +19,11 @@ namespace ePlanifViewModelsLib
 		}
 		public string DayOfWeek
 		{
-			get { return CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(Model.DayOfWeek); }
+			get { return CultureInfo.InvariantCulture.DateTimeFormat.GetDayName(Model.DayOfWeek); }
 		}
 		public string MonthWithYear
 		{
-			get { return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month)+" "+Model.Year.ToString(); }
+			get { return CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(Model.Month)+" "+Model.Year.ToString(); }
 		}
 		public DateTime Date
 		{
