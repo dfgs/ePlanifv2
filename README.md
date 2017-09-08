@@ -29,10 +29,14 @@ ePlanif is an open source tool for employees task planification. It can be used 
 | ePlanif integrates seamlessly with Microsoft Reporting Service in order to provide you beautifull reports |
 
 
-**Learn more about other features into the wiki pages !**
 
+**Learn more about other features into the wiki pages !**
+* Activity alerts
+* Multiple weeks display
+* Bulk activity creation/deletion
+* and more to come in the future !
 
 
 # Credits
 
-ePlanif uses some third party components. Those parts are discribed in details in wiki
+ePlanif uses some third party components. Those parts are discribed in details in [wiki](https://github.com/dfgs/ePlanifv2/wiki "wiki")

@@ -58,6 +58,10 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ePlanifSetup", "ePlanifSetu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ePlanifServerHost", "ePlanifServerHost\ePlanifServerHost.csproj", "{4C103059-20A1-49C1-9950-010CEBD8AD80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ePlanifModelLibTest", "ePlanifModelLibTest\ePlanifModelLibTest.csproj", "{44CC175D-F027-4DA7-B3CE-D938A966AA13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseModelListTest", "..\MVVMLib\DatabaseModelListTest\DatabaseModelListTest.csproj", "{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,6 +136,14 @@ Global
 		{4C103059-20A1-49C1-9950-010CEBD8AD80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C103059-20A1-49C1-9950-010CEBD8AD80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C103059-20A1-49C1-9950-010CEBD8AD80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44CC175D-F027-4DA7-B3CE-D938A966AA13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44CC175D-F027-4DA7-B3CE-D938A966AA13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44CC175D-F027-4DA7-B3CE-D938A966AA13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44CC175D-F027-4DA7-B3CE-D938A966AA13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,6 +167,8 @@ Global
 		{418A727E-9924-4EFF-8F12-1A02D8D741A2} = {09B374F7-BEDC-4931-BFF6-FC410FEAC33A}
 		{3311D267-A899-4DB7-AFE9-B00A742F7CDA} = {09B374F7-BEDC-4931-BFF6-FC410FEAC33A}
 		{4C103059-20A1-49C1-9950-010CEBD8AD80} = {4E5D550A-024E-4CFD-8E23-D61D9EF273AD}
+		{44CC175D-F027-4DA7-B3CE-D938A966AA13} = {909AB1C7-B584-4D0D-A8C3-AA36B7E7CC99}
+		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E} = {909AB1C7-B584-4D0D-A8C3-AA36B7E7CC99}
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

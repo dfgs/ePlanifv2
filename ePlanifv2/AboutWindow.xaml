@@ -4,15 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ePlanifv2"
-        mc:Ignorable="d" ResizeMode="NoResize"
-        Title="About ePlanif" Height="480" Width="640">
+        mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="About ePlanif" Height="480" Width="640" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <DockPanel>
-		<TextBlock DockPanel.Dock="Top" Text="Credits:"/>
-		<TabControl>
-			<TabItem Header="Silk icons">
-				<RichTextBox IsReadOnly="True">
+		<StackPanel DockPanel.Dock="Top"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+			<Image Source="Images/calendar-month.png" Stretch="None" />
+			<TextBlock Text="ePlanif v2" VerticalAlignment="Center" FontSize="24" Margin="8,0,0,0" Foreground="SteelBlue"/>
+		</StackPanel>
+		<TextBlock DockPanel.Dock="Top" Text="Credits:" HorizontalAlignment="Center" FontSize="24" Margin="0,16,0,0"/>
+		<TabControl Margin="0,16,0,0">
+			<TabItem Header="Silk icon set 1.3">
+				<RichTextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible">
 					<FlowDocument>
-						<Paragraph>
+						<Paragraph >
 							<Run Text="Silk icon set 1.3"/>
 							<LineBreak/>
 							<Run Text=""/>
@@ -71,8 +75,616 @@
 						</Paragraph>
 					</FlowDocument>
 				</RichTextBox>
-				
 			</TabItem>
+			<TabItem Header="Fugue icons">
+				<RichTextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible">
+					<FlowDocument>
+						<Paragraph>
+							<Run Text="Fugue Icons"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(C) 2013 Yusuke Kamiyamane. All rights reserved."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="These icons are licensed under a Creative Commons"/>
+							<LineBreak/>
+							<Run Text="Attribution 3.0 License."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://creativecommons.org/licenses/by/3.0/">
+								<Run Text="&lt;http://creativecommons.org/licenses/by/3.0/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="If you can't or don't want to provide attribution, please"/>
+							<LineBreak/>
+							<Run Text="purchase a royalty-free license."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://p.yusukekamiyamane.com/">
+								<Run Text="&lt;http://p.yusukekamiyamane.com/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="I'm unavailable for custom icon design work. But your"/>
+							<LineBreak/>
+							<Run Text="suggestions are always welcome!"/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="mailto:p@yusukekamiyamane.com">
+								<Run Text="&lt;mailto:p@yusukekamiyamane.com>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="------------------------------------------------------------"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="All logos and trademarks in some icons are property of their"/>
+							<LineBreak/>
+							<Run Text="respective owners."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="------------------------------------------------------------"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="- geotag"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(C) Geotag Icon Project. All rights reserved."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://www.geotagicons.com/">
+								<Run Text="&lt;http://www.geotagicons.com/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Geotag icon is licensed under a Creative Commons"/>
+							<LineBreak/>
+							<Run Text="Attribution-Share Alike 3.0 License or LGPL."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/3.0/">
+								<Run Text="&lt;http://creativecommons.org/licenses/by-sa/3.0/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://opensource.org/licenses/lgpl-license.php">
+								<Run Text="&lt;http://opensource.org/licenses/lgpl-license.php>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="- language"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(C) Language Icon Project. All rights reserved."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://www.languageicon.org/">
+								<Run Text="&lt;http://www.languageicon.org/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Language icon is licensed under a Creative Commons"/>
+							<LineBreak/>
+							<Run Text="Attribution-Share Alike 3.0 License."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/3.0/">
+								<Run Text="&lt;http://creativecommons.org/licenses/by-sa/3.0/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="- open-share"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<LineBreak/>
+							<Run Text="(C) Open Share Icon Project. All rights reserved."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://www.openshareicons.com/">
+								<Run Text="&lt;http://www.openshareicons.com/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Open Share icon is licensed under a Creative Commons"/>
+							<LineBreak/>
+							<Run Text="Attribution-Share Alike 3.0 License."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/3.0/">
+								<Run Text="&lt;http://creativecommons.org/licenses/by-sa/3.0/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="- opml"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(C) OPML Icon Project. All rights reserved."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://opmlicons.com/">
+								<Run Text="&lt;http://opmlicons.com/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="OPML icon is licensed under a Creative Commons"/>
+							<LineBreak/>
+							<Run Text="Attribution-Share Alike 2.5 License."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/2.5/">
+								<Run Text="&lt;http://creativecommons.org/licenses/by-sa/2.5/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="- share"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(C) Share Icon Project. All rights reserved."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://shareicons.com/">
+								<Run Text="&lt;http://shareicons.com/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Share icon is licensed under a GPL or LGPL or BSD or"/>
+							<LineBreak/>
+							<Run Text="Creative Commons Attribution 2.5 License."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://opensource.org/licenses/gpl-license.php">
+								<Run Text="&lt;http://opensource.org/licenses/gpl-license.php>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://opensource.org/licenses/lgpl-license.php">
+								<Run Text="&lt;http://opensource.org/licenses/lgpl-license.php>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://opensource.org/licenses/bsd-license.php">
+								<Run Text="&lt;http://opensource.org/licenses/bsd-license.php>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://creativecommons.org/licenses/by/2.5/">
+								<Run Text="&lt;http://creativecommons.org/licenses/by/2.5/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="- xfn"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(C) Wolfgang Bartelme. All rights reserved."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://www.bartelme.at/">
+								<Run Text="&lt;http://www.bartelme.at/>"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="XFN icon is licensed under a Creative Commons"/>
+							<LineBreak/>
+							<Run Text="Attribution-Share Alike 2.5 License."/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/2.5/">
+								<Run Text="&lt;http://creativecommons.org/licenses/by-sa/2.5/>"/>
+							</Hyperlink>
+							<LineBreak/>
+						</Paragraph>
+					</FlowDocument>
+				</RichTextBox>
+			</TabItem>
+			<TabItem Header="wpftoolkit">
+				<RichTextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible">
+					<FlowDocument>
+						<Paragraph>
+
+							<Run Text="Microsoft Public License (Ms-PL)" FontWeight="Bold"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="1. Definitions" FontWeight="Bold"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="The terms &quot;reproduce,&quot; &quot;reproduction,&quot; &quot;derivative works,&quot; and &quot;distribution&quot; have the same meaning here as under U.S. copyright law."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="A &quot;contribution&quot; is the original software, or any additions or changes to the software."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="A &quot;contributor&quot; is any person that distributes its contribution under this license."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Licensed patents&quot; are a contributor's patent claims that read directly on its contribution."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="2. Grant of Rights" FontWeight="Bold"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(A) Copyright Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free copyright license to reproduce its contribution, prepare derivative works of its contribution, and distribute its contribution or any derivative works that you create."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(B) Patent Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise dispose of its contribution in the software or derivative works of the contribution in the software."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="3. Conditions and Limitations" FontWeight="Bold"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(A) No Trademark License- This license does not grant you rights to use any contributors' name, logo, or trademarks."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(B) If you bring a patent claim against any contributor over patents that you claim are infringed by the software, your patent license from such contributor to the software ends automatically."/>
+							<LineBreak/>
+							<LineBreak/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and attribution notices that are present in the software."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(D) If you distribute any portion of the software in source code form, you may do so only under this license by including a complete copy of this license with your distribution. If you distribute any portion of the software in compiled or object code form, you may only do so under a license that complies with this license."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(E) The software is licensed &quot;as-is.&quot; You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement."/>
+							<LineBreak/>
+						</Paragraph> 
+					</FlowDocument>
+				</RichTextBox>
+			</TabItem>
+			<TabItem Header="Nager.Date">
+				<RichTextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible">
+					<FlowDocument>
+						<Paragraph TextAlignment="Center">
+							<Run Text="Apache License" />
+							<LineBreak/>
+							<Run Text="Version 2.0, January 2004"/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://www.apache.org/licenses/">
+								<Run Text="http://www.apache.org/licenses/"/>
+							</Hyperlink>
+							<LineBreak/>
+						</Paragraph>
+						<Paragraph>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION" FontWeight="Bold"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="1. Definitions." FontWeight="Bold"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;License&quot; shall mean the terms and conditions for use, reproduction, and distribution as defined by Sections 1 through 9 of this document."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Licensor&quot; shall mean the copyright owner or entity authorized by the copyright owner that is granting the License."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Legal Entity&quot; shall mean the union of the acting entity and all other entities that control, are controlled by, or are under common control with that entity. For the purposes of this definition, &quot;control&quot; means (i) the power, direct or indirect, to cause the direction or management of such entity, whether by contract or"/>
+							<Run Text="otherwise, or (ii) ownership of fifty percent (50%) or more of the"/>
+							<Run Text="outstanding shares, or (iii) beneficial ownership of such entity."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;You&quot; (or &quot;Your&quot;) shall mean an individual or Legal Entity"/>
+							<Run Text="exercising permissions granted by this License."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Source&quot; form shall mean the preferred form for making modifications,"/>
+							<Run Text="including but not limited to software source code, documentation"/>
+							<Run Text="source, and configuration files."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Objec&quot; form shall mean any form resulting from mechanical"/>
+							<Run Text="transformation or translation of a Source form, including but"/>
+							<Run Text="not limited to compiled object code, generated documentation,"/>
+							<Run Text="and conversions to other media types."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Work&quot; shall mean the work of authorship, whether in Source or"/>
+							<Run Text="Object form, made available under the License, as indicated by a"/>
+							<Run Text="copyright notice that is included in or attached to the work"/>
+							<Run Text="(an example is provided in the Appendix below)."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Derivative Works&quot; shall mean any work, whether in Source or Object"/>
+							<Run Text="form, that is based on (or derived from) the Work and for which the"/>
+							<Run Text="editorial revisions, annotations, elaborations, or other modifications"/>
+							<Run Text="represent, as a whole, an original work of authorship. For the purposes"/>
+							<Run Text="of this License, Derivative Works shall not include works that remain"/>
+							<Run Text="separable from, or merely link (or bind by name) to the interfaces of,"/>
+							<Run Text="the Work and Derivative Works thereof."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Contribution&quot; shall mean any work of authorship, including"/>
+							<Run Text="the original version of the Work and any modifications or additions"/>
+							<Run Text="to that Work or Derivative Works thereof, that is intentionally"/>
+							<Run Text="submitted to Licensor for inclusion in the Work by the copyright owner"/>
+							<Run Text="or by an individual or Legal Entity authorized to submit on behalf of"/>
+							<Run Text="the copyright owner. For the purposes of this definition, &quot;submitted&quot;"/>
+							<Run Text="means any form of electronic, verbal, or written communication sent"/>
+							<Run Text="to the Licensor or its representatives, including but not limited to"/>
+							<Run Text="communication on electronic mailing lists, source code control systems,"/>
+							<Run Text="and issue tracking systems that are managed by, or on behalf of, the"/>
+							<Run Text="Licensor for the purpose of discussing and improving the Work, but"/>
+							<Run Text="excluding communication that is conspicuously marked or otherwise"/>
+							<Run Text="designated in writing by the copyright owner as &quot;Not a Contribution.&quot;"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="&quot;Contributo&quot; shall mean Licensor and any individual or Legal Entity"/>
+							<Run Text="on behalf of whom a Contribution has been received by Licensor and"/>
+							<Run Text="subsequently incorporated within the Work."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="2. Grant of Copyright License." FontWeight="Bold"/>
+							<Run Text="Subject to the terms and conditions of"/>
+							<Run Text="this License, each Contributor hereby grants to You a perpetual,"/>
+							<Run Text="worldwide, non-exclusive, no-charge, royalty-free, irrevocable"/>
+							<Run Text="copyright license to reproduce, prepare Derivative Works of,"/>
+							<Run Text="publicly display, publicly perform, sublicense, and distribute the"/>
+							<Run Text="Work and such Derivative Works in Source or Object form."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="3. Grant of Patent License." FontWeight="Bold"/>
+							<Run Text="Subject to the terms and conditions of"/>
+							<Run Text="this License, each Contributor hereby grants to You a perpetual,"/>
+							<Run Text="worldwide, non-exclusive, no-charge, royalty-free, irrevocable"/>
+							<Run Text="(except as stated in this section) patent license to make, have made,"/>
+							<Run Text="use, offer to sell, sell, import, and otherwise transfer the Work,"/>
+							<Run Text="where such license applies only to those patent claims licensable"/>
+							<Run Text="by such Contributor that are necessarily infringed by their"/>
+							<Run Text="Contribution(s) alone or by combination of their Contribution(s)"/>
+							<Run Text="with the Work to which such Contribution(s) was submitted. If You"/>
+							<Run Text="institute patent litigation against any entity (including a"/>
+							<Run Text="cross-claim or counterclaim in a lawsuit) alleging that the Work"/>
+							<Run Text="or a Contribution incorporated within the Work constitutes direct"/>
+							<Run Text="or contributory patent infringement, then any patent licenses"/>
+							<Run Text="granted to You under this License for that Work shall terminate"/>
+							<Run Text="as of the date such litigation is filed."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="4. Redistribution." FontWeight="Bold"/>
+							<Run Text="You may reproduce and distribute copies of the"/>
+							<Run Text="Work or Derivative Works thereof in any medium, with or without"/>
+							<Run Text="modifications, and in Source or Object form, provided that You"/>
+							<Run Text="meet the following conditions:"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(a) You must give any other recipients of the Work or"/>
+							<Run Text="Derivative Works a copy of this License; and"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(b) You must cause any modified files to carry prominent notices"/>
+							<Run Text="stating that You changed the files; and"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(c) You must retain, in the Source form of any Derivative Works"/>
+							<Run Text="that You distribute, all copyright, patent, trademark, and"/>
+							<Run Text="attribution notices from the Source form of the Work,"/>
+							<Run Text="excluding those notices that do not pertain to any part of"/>
+							<Run Text="the Derivative Works; and"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="(d) If the Work includes a &quot;NOTICE&quot; text file as part of its"/>
+							<Run Text="distribution, then any Derivative Works that You distribute must"/>
+							<Run Text="include a readable copy of the attribution notices contained"/>
+							<Run Text="within such NOTICE file, excluding those notices that do not"/>
+							<Run Text="pertain to any part of the Derivative Works, in at least one"/>
+							<Run Text="of the following places: within a NOTICE text file distributed"/>
+							<Run Text="as part of the Derivative Works; within the Source form or"/>
+							<Run Text="documentation, if provided along with the Derivative Works; or,"/>
+							<Run Text="within a display generated by the Derivative Works, if and"/>
+							<Run Text="wherever such third-party notices normally appear. The contents"/>
+							<Run Text="of the NOTICE file are for informational purposes only and"/>
+							<Run Text="do not modify the License. You may add Your own attribution"/>
+							<Run Text="notices within Derivative Works that You distribute, alongside"/>
+							<Run Text="or as an addendum to the NOTICE text from the Work, provided"/>
+							<Run Text="that such additional attribution notices cannot be construed"/>
+							<Run Text="as modifying the License."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="You may add Your own copyright statement to Your modifications and"/>
+							<Run Text="may provide additional or different license terms and conditions"/>
+							<Run Text="for use, reproduction, or distribution of Your modifications, or"/>
+							<Run Text="for any such Derivative Works as a whole, provided Your use,"/>
+							<Run Text="reproduction, and distribution of the Work otherwise complies with"/>
+							<Run Text="the conditions stated in this License."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="5. Submission of Contributions." FontWeight="Bold"/>
+							<Run Text="Unless You explicitly state otherwise,"/>
+							<Run Text="any Contribution intentionally submitted for inclusion in the Work"/>
+							<Run Text="by You to the Licensor shall be under the terms and conditions of"/>
+							<Run Text="this License, without any additional terms or conditions."/>
+							<Run Text="Notwithstanding the above, nothing herein shall supersede or modify"/>
+							<Run Text="the terms of any separate license agreement you may have executed"/>
+							<Run Text="with Licensor regarding such Contributions."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="6. Trademarks." FontWeight="Bold"/>
+							<Run Text="This License does not grant permission to use the trade"/>
+							<Run Text="names, trademarks, service marks, or product names of the Licensor,"/>
+							<Run Text="except as required for reasonable and customary use in describing the"/>
+							<Run Text="origin of the Work and reproducing the content of the NOTICE file."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="7. Disclaimer of Warranty." FontWeight="Bold"/>
+							<Run Text="Unless required by applicable law or"/>
+							<Run Text="agreed to in writing, Licensor provides the Work (and each"/>
+							<Run Text="Contributor provides its Contributions) on an &quot;AS IS&quot; BASIS,"/>
+							<Run Text="WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or"/>
+							<Run Text="implied, including, without limitation, any warranties or conditions"/>
+							<Run Text="of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A"/>
+							<Run Text="PARTICULAR PURPOSE. You are solely responsible for determining the"/>
+							<Run Text="appropriateness of using or redistributing the Work and assume any"/>
+							<Run Text="risks associated with Your exercise of permissions under this License."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="8. Limitation of Liability." FontWeight="Bold"/>
+							<Run Text="In no event and under no legal theory,"/>
+							<Run Text="whether in tort (including negligence), contract, or otherwise,"/>
+							<Run Text="unless required by applicable law (such as deliberate and grossly"/>
+							<Run Text="negligent acts) or agreed to in writing, shall any Contributor be"/>
+							<Run Text="liable to You for damages, including any direct, indirect, special,"/>
+							<Run Text="incidental, or consequential damages of any character arising as a"/>
+							<Run Text="result of this License or out of the use or inability to use the"/>
+							<Run Text="Work (including but not limited to damages for loss of goodwill,"/>
+							<Run Text="work stoppage, computer failure or malfunction, or any and all"/>
+							<Run Text="other commercial damages or losses), even if such Contributor"/>
+							<Run Text="has been advised of the possibility of such damages."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="9. Accepting Warranty or Additional Liability." FontWeight="Bold"/>
+							<Run Text="While redistributing"/>
+							<Run Text="the Work or Derivative Works thereof, You may choose to offer,"/>
+							<Run Text="and charge a fee for, acceptance of support, warranty, indemnity,"/>
+							<Run Text="or other liability obligations and/or rights consistent with this"/>
+							<Run Text="License. However, in accepting such obligations, You may act only"/>
+							<Run Text="on Your own behalf and on Your sole responsibility, not on behalf"/>
+							<Run Text="of any other Contributor, and only if You agree to indemnify,"/>
+							<Run Text="defend, and hold each Contributor harmless for any liability"/>
+							<Run Text="incurred by, or claims asserted against, such Contributor by reason"/>
+							<Run Text="of your accepting any such warranty or additional liability."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="END OF TERMS AND CONDITIONS"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+						</Paragraph>
+						<Paragraph TextAlignment="Center">
+							<Run Text="APPENDIX: How to apply the Apache License to your work." FontWeight="Bold"/>
+							<LineBreak/>
+						</Paragraph>
+						<Paragraph>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="To apply the Apache License to your work, attach the following"/>
+							<Run Text="boilerplate notice, with the fields enclosed by brackets &quot;[]&quot;"/>
+							<Run Text="replaced with your own identifying information. (Don't include"/>
+							<Run Text="the brackets!)  The text should be enclosed in the appropriate"/>
+							<Run Text="comment syntax for the file format. We also recommend that a"/>
+							<Run Text="file or class name and description of purpose be included on the"/>
+							<Run Text="same &quot;printed page&quot; as the copyright notice for easier"/>
+							<Run Text="identification within third-party archives."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Copyright [yyyy] [name of copyright owner]"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);"/>
+							<Run Text="you may not use this file except in compliance with the License."/>
+							<LineBreak/>
+							<Run Text="You may obtain a copy of the License at"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Hyperlink NavigateUri="http://www.apache.org/licenses/LICENSE-2.0">
+								<Run Text="http://www.apache.org/licenses/LICENSE-2.0"/>
+							</Hyperlink>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Unless required by applicable law or agreed to in writing, software"/>
+							<Run Text="distributed under the License is distributed on an &quot;AS IS&quot; BASIS,"/>
+							<Run Text="WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied."/>
+							<LineBreak/>
+							<Run Text="See the License for the specific language governing permissions and"/>
+							<Run Text="limitations under the License."/>
+							<LineBreak/>
+						</Paragraph>
+					</FlowDocument>
+				</RichTextBox>
+			</TabItem>
+			<TabItem Header="ePlanif">
+				<RichTextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible">
+					<FlowDocument>
+						<Paragraph >
+							<Run Text="MIT License" FontWeight="Bold"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Copyright (c) 2017 Marc GUICHARD" FontWeight="Bold"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="Permission is hereby granted, free of charge, to any person obtaining a copy"/>
+							<Run Text="of this software and associated documentation files (the &quot;Software&quot;), to deal"/>
+							<Run Text="in the Software without restriction, including without limitation the rights"/>
+							<Run Text="to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"/>
+							<Run Text="copies of the Software, and to permit persons to whom the Software is"/>
+							<Run Text="furnished to do so, subject to the following conditions:"/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="The above copyright notice and this permission notice shall be included in all"/>
+							<Run Text="copies or substantial portions of the Software."/>
+							<LineBreak/>
+							<Run Text=""/>
+							<LineBreak/>
+							<Run Text="THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR"/>
+							<Run Text="IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,"/>
+							<Run Text="FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE"/>
+							<Run Text="AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"/>
+							<Run Text="LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,"/>
+							<Run Text="OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE"/>
+							<Run Text="SOFTWARE."/>
+
+						</Paragraph>
+					</FlowDocument>
+				</RichTextBox>
+			</TabItem>
+
 		</TabControl>
     </DockPanel>
 </Window>
