@@ -178,6 +178,18 @@ namespace ePlanifv2
 			else LogVisibility = Visibility.Collapsed;
 		}
 
+		private void AboutCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true; e.Handled = true;
+		}
+
+		private void AboutCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			AboutWindow window = new AboutWindow() {Owner=this };
+			
+			window.ShowDialog();
+		}
+
 		private void SearchCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = GetSelectedView()!=null; e.Handled = true;

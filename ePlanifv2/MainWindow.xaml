@@ -9,9 +9,9 @@
         xmlns:ViewModels="clr-namespace:ePlanifViewModelsLib;assembly=ePlanifViewModelsLib"
 		xmlns:ViewLib="clr-namespace:ViewLib;assembly=ViewLib"
 		xmlns:tlk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        mc:Ignorable="d"  x:Name="root"
+        mc:Ignorable="d"  x:Name="root" 
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        Title="ePlanif" Height="480" Width="800" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="Images/calendar.png">
+        Title="ePlanif" Height="480" Width="1024" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="Images/calendar.png">
 
     <Window.Resources>
 		<ResourceDictionary>
@@ -57,13 +57,15 @@
 			<RoutedUICommand x:Key="connectCommand"/>
 			<RoutedUICommand x:Key="disconnectCommand"/>
 			<RoutedUICommand x:Key="showLogCommand"/>
+			<RoutedUICommand x:Key="aboutCommand"/>
 		</ResourceDictionary>
 
 	</Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="Left" Command="{Binding PreviousWeekCommand}"/>
-        <KeyBinding Key="Right" Command="{Binding NextWeekCommand}"/>
+		<KeyBinding Key="F1" Command="{StaticResource aboutCommand}"/>
+		<KeyBinding Key="Left" Command="{Binding PreviousWeekCommand}"/>
+		<KeyBinding Key="Right" Command="{Binding NextWeekCommand}"/>
 		<KeyBinding Key="Home" Command="{Binding CurrentWeekCommand}"/>
 		<KeyBinding Key="F5" Command="{Binding RefreshCommand}"/>
 		<KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.CopyCommand}" />
@@ -84,6 +86,7 @@
 		<CommandBinding Command="Search" CanExecute="SearchCommandBinding_CanExecute" Executed="SearchCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource showLogCommand}" CanExecute="ShowLogCommandBinding_CanExecute" Executed="ShowLogCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource bulkDeleteCommand}" CanExecute="BulkDeleteCommandBinding_CanExecute" Executed="BulkDeleteCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource aboutCommand}" CanExecute="AboutCommandBinding_CanExecute" Executed="AboutCommandBinding_Executed"/>
 	</Window.CommandBindings>
 	<Grid>
 		<DockPanel>
@@ -168,16 +171,19 @@
 				<Button Command="{StaticResource openReportCommand}" ToolTip="Reports">
 					<Image Source="Images/chart_bar.png" Stretch="None"/>
 				</Button>
-			
 
-				
 
-	
-				<Button DockPanel.Dock="Right" Command="ApplicationCommands.Properties" ToolTip="Administration">
-					<Image Source="Images/cog.png" Stretch="None"/>
+
+
+
+				<Button DockPanel.Dock="Right" Command="{StaticResource aboutCommand}" ToolTip="About">
+					<Image Source="Images/help.png" Stretch="None"/>
 				</Button>
 				<Button DockPanel.Dock="Right" Command="{StaticResource showLogCommand}" ToolTip="Show/Hide logs">
 					<Image Source="Images/application-task.png" Stretch="None"/>
+				</Button>
+				<Button DockPanel.Dock="Right" Command="ApplicationCommands.Properties" ToolTip="Administration">
+					<Image Source="Images/cog.png" Stretch="None"/>
 				</Button>
 				<Border DockPanel.Dock="Right" Style="{StaticResource separatorStyle}"/>
 
