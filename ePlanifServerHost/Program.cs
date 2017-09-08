@@ -32,7 +32,7 @@ namespace ePlanifServerHost
 				Logger.StartLogToFile(path);
 
 				//dataProvider = new SqlDataProvider();
-				dataProvider = new TestDataProvider("admin");
+				dataProvider = new TestDataProvider("liza");
 				serviceHost = new ePlanifServiceHost(dataProvider);
 				serviceHost.Open();
 				Logger.WriteLog(LogLevels.Debug,"main",0,"ePlanif server started successfully");
