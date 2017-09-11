@@ -138,6 +138,12 @@ namespace ePlanifModelsLib
 			);
 			await ExecuteAsync(command);
 
+			command = new SqlCommand("CREATE ROLE db_procexecutor;");
+			await ExecuteAsync(command);
+
+			command = new SqlCommand("GRANT EXECUTE TO db_procexecutor;");
+			await ExecuteAsync(command);
+
 			profile = new Profile() { Name = "Administrator", AdministrateAccounts = true, AdministrateActivityTypes = true,AdministrateEmployees=true,CanRunReports=true };
 			await InsertAsync(profile);
 

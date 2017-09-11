@@ -1,6 +1,9 @@
 ﻿using ePlanifModelsLib;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -39,7 +42,12 @@ namespace ConfigurationTool
 			set { SetValue(CreateAccountCommandProperty, value); }
 		}
 
-		
+		public static readonly DependencyProperty CreateSQLLoginCommandProperty = DependencyProperty.Register("CreateSQLLoginCommand", typeof(ViewModelCommand), typeof(Context));
+		public ViewModelCommand CreateSQLLoginCommand
+		{
+			get { return (ViewModelCommand)GetValue(CreateSQLLoginCommandProperty); }
+			set { SetValue(CreateSQLLoginCommandProperty, value); }
+		}
 
 		public static readonly DependencyProperty StatusProperty = DependencyProperty.Register("Status", typeof(string), typeof(Context),new PropertyMetadata("Idle"));
 		public string Status
@@ -74,7 +82,12 @@ namespace ConfigurationTool
 
 
 
-	
+		public static readonly DependencyProperty SQLLoginProperty = DependencyProperty.Register("SQLLogin", typeof(string), typeof(Context));
+		public string SQLLogin
+		{
+			get { return (string)GetValue(SQLLoginProperty); }
+			set { SetValue(SQLLoginProperty, value); }
+		}
 
 
 		public static readonly DependencyProperty LoginProperty = DependencyProperty.Register("Login", typeof(string), typeof(Context));
@@ -89,8 +102,9 @@ namespace ConfigurationTool
 		{
 			CreateDatabaseCommand = new ViewModelCommand(OnCreateDatabaseCommandCanExecute, OnCreateDatabaseCommandExecute);
 			UpgradeDatabaseCommand = new ViewModelCommand(OnUpgradeDatabaseCommandCanExecute, OnUpgradeDatabaseCommandExecute);
+			CreateSQLLoginCommand = new ViewModelCommand(OnCreateSQLLoginCommandCanExecute, OnCreateSQLLoginCommandExecute);
 			CreateAccountCommand = new ViewModelCommand(OnCreateAccountCommandCanExecute, OnCreateAccountCommandExecute);
-			
+
 			database = new ePlanifDatabase("localhost");
 			upgrader = new ePlanifUpgrader(database);
 
@@ -117,6 +131,18 @@ namespace ConfigurationTool
 
 			DatabaseRevision = await upgrader.GetDatabaseRevisionAsync();
 			IsDatabaseUpToDate = DatabaseRevision == upgrader.GetTargetRevision();
+
+			try
+			{ 
+				RegistryKey localMachineKey = Registry.LocalMachine; //sets the regKey for Local Machine node in regedit.
+				RegistryKey fileServiceKey = localMachineKey.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\ePlanif server");
+				SQLLogin = (String)fileServiceKey.GetValue("ObjectName");
+			}
+			catch
+			{
+				SQLLogin = null;
+			}
+
 			CommandManager.InvalidateRequerySuggested();
 		}
 
@@ -172,6 +198,54 @@ namespace ConfigurationTool
 				await database.InsertAsync(account);
 				Status = "Idle";
 				MessageBox.Show(Application.Current.MainWindow, $"Account {account.Login} created succesfully");
+			}
+			catch (Exception ex)
+			{
+				Status = ex.Message;
+			}
+			await LoadAsync();
+		}
+
+		private bool OnCreateSQLLoginCommandCanExecute(object arg)
+		{
+			return (IsDatabaseUpToDate) && (!string.IsNullOrEmpty(SQLLogin));
+		}
+
+		private async void OnCreateSQLLoginCommandExecute(object obj)
+		{
+			SqlCommand command;
+
+
+			try
+			{
+				Status = "Running";
+				command = new SqlCommand(
+					$"if not exists (select loginname from master.dbo.syslogins  where name = '{SQLLogin}' ) " +
+					"begin " +
+						$"CREATE LOGIN [{SQLLogin}] FROM WINDOWS WITH DEFAULT_DATABASE = ePlanifDatabase; " +
+					"end"
+					);
+				await database.ExecuteAsync(command);
+
+				command = new SqlCommand(
+					"if not exists (select * from sys.database_principals where name = 'ePlanifService' ) " +
+					"begin " +
+						$"CREATE USER ePlanifService FOR LOGIN[{SQLLogin}]; " +
+					"end"
+					);
+				await database.ExecuteAsync(command);
+
+				command = new SqlCommand("ALTER ROLE db_datareader ADD MEMBER ePlanifService;");
+				await database.ExecuteAsync(command);
+
+				command = new SqlCommand("ALTER ROLE db_datawriter ADD MEMBER ePlanifService;");
+				await database.ExecuteAsync(command);
+
+				command = new SqlCommand("ALTER ROLE db_procexecutor ADD MEMBER ePlanifService;");
+				await database.ExecuteAsync(command);
+
+				Status = "Idle";
+				MessageBox.Show(Application.Current.MainWindow, $"SQL login {SQLLogin} created succesfully");
 			}
 			catch (Exception ex)
 			{
