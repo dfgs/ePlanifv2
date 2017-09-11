@@ -19,7 +19,7 @@ namespace ePlanifServerLibTest
 	{
 		protected override int ServicePort
 		{
-			get { return 8523; }
+			get { return 8525; }
 		}
 
 		protected static TestDataProvider dataProvider;
@@ -35,7 +35,7 @@ namespace ePlanifServerLibTest
 		public static void Initialize(TestContext Context)
 		{
 			dataProvider = new TestDataProvider(login);
-			serviceHost = new ePlanifServiceHost(dataProvider,8523);
+			serviceHost = new ePlanifServiceHost(dataProvider,8525);
 			serviceHost.Open();
 		}
 		[ClassCleanup]

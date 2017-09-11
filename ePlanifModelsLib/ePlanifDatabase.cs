@@ -16,7 +16,7 @@ namespace ePlanifModelsLib
 		public static Table<Account> Accounts = new Table<Account>();
 		public static Table<Profile> Profiles = new Table<Profile>();
 		public static Table<Group> Groups = new Table<Group>();
-		public static Table<GroupMember> Members = new Table<GroupMember>();
+		public static Table<GroupMember> GroupMembers = new Table<GroupMember>();
 		public static Table<Grant> Grants = new Table<Grant>();
 		public static Table<Layer> Layers = new Table<Layer>();
 		public static Table<EmployeeView> EmployeeViews = new Table<EmployeeView>();
@@ -29,8 +29,8 @@ namespace ePlanifModelsLib
 		public static Relation<Employee, Account, int> AccountToEmployee = new Relation<Employee, Account, int>(Employee.EmployeeIDColumn, Account.EmployeeIDColumn, DeleteReferentialAction.None);
 		public static Relation<Profile, Account, int> AccountToProfile = new Relation<Profile, Account, int>(Profile.ProfileIDColumn, Account.ProfileIDColumn, DeleteReferentialAction.None);
 		public static Relation<Group, Group, int> GroupToGroup = new Relation<Group, Group, int>(Group.GroupIDColumn, Group.ParentGroupIDColumn, DeleteReferentialAction.None);
-		public static Relation<Employee, GroupMember, int> MemberToEmployee = new Relation<Employee, GroupMember, int>(Employee.EmployeeIDColumn, GroupMember.EmployeeIDColumn, DeleteReferentialAction.None);
-		public static Relation<Group, GroupMember, int> MemberToGroup = new Relation<Group, GroupMember, int>(Group.GroupIDColumn, GroupMember.GroupIDColumn, DeleteReferentialAction.None);
+		public static Relation<Employee, GroupMember, int> GroupMemberToEmployee = new Relation<Employee, GroupMember, int>(Employee.EmployeeIDColumn, GroupMember.EmployeeIDColumn, DeleteReferentialAction.None);
+		public static Relation<Group, GroupMember, int> GroupMemberToGroup = new Relation<Group, GroupMember, int>(Group.GroupIDColumn, GroupMember.GroupIDColumn, DeleteReferentialAction.None);
 		public static Relation<Group, Grant, int> GrantToGroup = new Relation<Group, Grant, int>(Group.GroupIDColumn, Grant.GroupIDColumn, DeleteReferentialAction.None);
 		public static Relation<Profile, Grant, int> GrantToProfile = new Relation<Profile, Grant, int>(Profile.ProfileIDColumn, Grant.ProfileIDColumn, DeleteReferentialAction.None);
 		public static Relation<Layer, ActivityType, int> ActivityTypeToLayer = new Relation<Layer, ActivityType, int>(Layer.LayerIDColumn,ActivityType.LayerIDColumn , DeleteReferentialAction.None);
