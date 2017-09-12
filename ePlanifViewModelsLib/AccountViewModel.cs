@@ -31,12 +31,7 @@ namespace ePlanifViewModelsLib
 		}
 
 
-		[BoolProperty(Header = "Self write access", IsMandatory = true, IsReadOnly = false)]
-		public bool? SelfWriteAccess
-		{
-			get { return Model.SelfWriteAccess; }
-			set { Model.SelfWriteAccess = value; OnPropertyChanged(); }
-		}
+		
 
 		[IntListProperty(Header = "Profile", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "ProfileID", SourcePath = "Service.Profiles")]
 		public int? ProfileID

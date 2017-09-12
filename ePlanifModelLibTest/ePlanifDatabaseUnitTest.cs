@@ -23,13 +23,13 @@ namespace ePlanifModelLibTest
 		 [ClassInitialize]
 		public static async Task Initialize(TestContext Context)
 		{
-			profile1 = new Profile() { Name = "test", AdministrateAccounts = true, AdministrateActivityTypes = true, AdministrateEmployees = true, CanRunReports = true, IsDisabled = false };
-			profile2 = new Profile() { Name = "test", AdministrateAccounts = true, AdministrateActivityTypes = true, AdministrateEmployees = true, CanRunReports = true, IsDisabled = false };
+			profile1 = new Profile() { Name = "test", AdministrateAccounts = true, AdministrateActivityTypes = true, AdministrateEmployees = true, CanRunReports = true, IsDisabled = false,SelfWriteAccess=true };
+			profile2 = new Profile() { Name = "test", AdministrateAccounts = true, AdministrateActivityTypes = true, AdministrateEmployees = true, CanRunReports = true, IsDisabled = false, SelfWriteAccess = true };
 			await Database.InsertAsync(profile1);
 			await Database.InsertAsync(profile2);
 
-			account1 = new Account() { EmployeeID = null, IsDisabled = false, Login = "test", ProfileID = profile1.ProfileID.Value, SelfWriteAccess = true };
-			account2 = new Account() { EmployeeID = null, IsDisabled = false, Login = "test", ProfileID = profile1.ProfileID.Value, SelfWriteAccess = true };
+			account1 = new Account() { EmployeeID = null, IsDisabled = false, Login = "test", ProfileID = profile1.ProfileID.Value  };
+			account2 = new Account() { EmployeeID = null, IsDisabled = false, Login = "test", ProfileID = profile1.ProfileID.Value };
 			await Database.InsertAsync(account1);
 			await Database.InsertAsync(account2);
 
@@ -152,7 +152,7 @@ namespace ePlanifModelLibTest
 		[TestMethod, TestCategory("CRUD")]
 		public async Task Should_Success_When_CRUD_Account()
 		{
-			var row = new Account() { EmployeeID = employee1.EmployeeID.Value, IsDisabled = false, Login = "test", ProfileID=profile1.ProfileID.Value, SelfWriteAccess=false   };
+			var row = new Account() { EmployeeID = employee1.EmployeeID.Value, IsDisabled = false, Login = "test", ProfileID=profile1.ProfileID.Value };
 			await AssertInsertAsync(true, row);
 			await AssertUpdateAsync(true, row, (item) => item.EmployeeID = null);
 			await AssertUpdateAsync(true, row, (item) => item.EmployeeID = employee2.EmployeeID.Value);
@@ -162,15 +162,13 @@ namespace ePlanifModelLibTest
 			await AssertUpdateAsync(true, row, (item) => item.Login = "test2");
 			await AssertUpdateAsync(false, row, (item) => item.ProfileID= null);
 			await AssertUpdateAsync(true, row, (item) => item.ProfileID = profile2.ProfileID.Value);
-			await AssertUpdateAsync(false, row, (item) => item.SelfWriteAccess = null);
-			await AssertUpdateAsync(true, row, (item) => item.SelfWriteAccess = true);
 			await AssertDeleteAsync(true, row);
 		}
 
 		[TestMethod, TestCategory("CRUD")]
 		public async Task Should_Success_When_CRUD_Profile()
 		{
-			var row = new Profile() { Name = "test", AdministrateAccounts = true, AdministrateActivityTypes = true, AdministrateEmployees = true, CanRunReports = true, IsDisabled = false };
+			var row = new Profile() { Name = "test", AdministrateAccounts = true, AdministrateActivityTypes = true, AdministrateEmployees = true, CanRunReports = true, IsDisabled = false,SelfWriteAccess=false };
 			await AssertInsertAsync(true, row);
 			await AssertUpdateAsync(false, row, (item) => item.Name = null);
 			await AssertUpdateAsync(true, row, (item) => item.Name = "test2");
@@ -184,6 +182,8 @@ namespace ePlanifModelLibTest
 			await AssertUpdateAsync(true, row, (item) => item.AdministrateEmployees = false);
 			await AssertUpdateAsync(false, row, (item) => item.CanRunReports = null);
 			await AssertUpdateAsync(true, row, (item) => item.CanRunReports = false);
+			await AssertUpdateAsync(false, row, (item) => item.SelfWriteAccess = null);
+			await AssertUpdateAsync(true, row, (item) => item.SelfWriteAccess = true);
 			await AssertDeleteAsync(true, row);
 		}
 

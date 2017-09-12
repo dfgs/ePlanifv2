@@ -110,10 +110,10 @@ namespace ePlanifModelsLib
 				"						 dbo.Account ON dbo.GrantedGroupsPerAccount.AccountID = dbo.Account.AccountID INNER JOIN " +
 				"						 dbo.GroupMembers ON dbo.GrantedGroupsPerAccount.GroupID = dbo.GroupMembers.GroupID " +
 				"UNION " +
-				"SELECT        AccountID, EmployeeID, CAST(SelfWriteAccess as int) " +
-				"FROM            Account " +
-				"WHERE        EmployeeID IS NOT NULL) as tmp " +
-				"group by AccountID, EmployeeID ");
+				"SELECT  AccountID, EmployeeID, CAST(SelfWriteAccess as int) " +
+				"FROM    Account inner join [Profile] on Account.ProfileID=[Profile].ProfileID " +
+				"WHERE   EmployeeID IS NOT NULL) as tmp " +
+				"group by AccountID, EmployeeID");
 			await ExecuteAsync(command);
 
 			command = new SqlCommand(

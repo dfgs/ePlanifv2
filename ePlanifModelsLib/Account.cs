@@ -45,16 +45,6 @@ namespace ePlanifModelsLib
 			set { EmployeeIDColumn.SetValue(this, value); }
 		}
 
-		//[Revision(2)]
-		public static readonly Column<Account, bool> SelfWriteAccessColumn = new Column<Account, bool>() { DefaultValue = true };
-		[DataMember]
-		public bool? SelfWriteAccess
-		{
-			get { return SelfWriteAccessColumn.GetValue(this); }
-			set { SelfWriteAccessColumn.SetValue(this, value); }
-		}
-
-
 
 		public static readonly Column<Account, bool> IsDisabledColumn = new Column<Account, bool>() { DefaultValue = false };
 		[DataMember]

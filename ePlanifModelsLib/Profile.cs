@@ -63,7 +63,13 @@ namespace ePlanifModelsLib
 			set { AdministrateAccountsColumn.SetValue(this, value); }
 		}
 
-		
+		public static readonly Column<Profile, bool> SelfWriteAccessColumn = new Column<Profile, bool>() { DefaultValue = true };
+		[DataMember]
+		public bool? SelfWriteAccess
+		{
+			get { return SelfWriteAccessColumn.GetValue(this); }
+			set { SelfWriteAccessColumn.SetValue(this, value); }
+		}
 
 
 		public static readonly Column<Profile, bool> IsDisabledColumn = new Column<Profile, bool>() { DefaultValue = false };

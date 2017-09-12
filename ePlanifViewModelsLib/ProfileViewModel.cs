@@ -55,6 +55,13 @@ namespace ePlanifViewModelsLib
 			set { Model.CanRunReports = value; OnPropertyChanged(); }
 		}//*/
 
+		[BoolProperty(Header = "Self write access", IsMandatory = true, IsReadOnly = false)]
+		public bool? SelfWriteAccess
+		{
+			get { return Model.SelfWriteAccess; }
+			set { Model.SelfWriteAccess = value; OnPropertyChanged(); }
+		}
+
 		private GrantViewModelCollection members;
 		public GrantViewModelCollection Members
 		{

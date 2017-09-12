@@ -63,21 +63,27 @@ namespace ePlanifViewModelsLib
 			get { return server; }
 		}
 
-		
 
 
-		
 
-		private Account userAccount;
+
+
+
+		public static readonly DependencyProperty UserAccountProperty = DependencyProperty.Register("UserAccount", typeof(Account), typeof(ePlanifServiceViewModel));
 		public Account UserAccount
 		{
-			get { return userAccount; }
+			get { return (Account)GetValue(UserAccountProperty); }
+			private set { SetValue(UserAccountProperty, value); }
 		}
-		private Profile userProfile;
+
+
+		public static readonly DependencyProperty UserProfileProperty = DependencyProperty.Register("UserProfile", typeof(Profile), typeof(ePlanifServiceViewModel));
 		public Profile UserProfile
 		{
-			get { return userProfile; }
+			get { return (Profile)GetValue(UserProfileProperty); }
+			private set { SetValue(UserProfileProperty, value); }
 		}
+		
 
 		public static readonly DependencyProperty WeekNameProperty = DependencyProperty.Register("WeekName", typeof(string), typeof(ePlanifServiceViewModel));
 		public string WeekName
@@ -277,8 +283,8 @@ namespace ePlanifViewModelsLib
 			if (client == null) return false;
 			try
 			{
-				userAccount = await client.GetCurrentAccountAsync();
-				userProfile = await client.GetCurrentProfileAsync();
+				UserAccount = await client.GetCurrentAccountAsync();
+				UserProfile = await client.GetCurrentProfileAsync();
 				client.Close();
 			}
 			catch(Exception ex)
@@ -287,7 +293,7 @@ namespace ePlanifViewModelsLib
 				client.Abort();
 				return false;
 			}
-			if ((userAccount == null) || (userProfile == null)) return false;
+			if ((UserAccount == null) || (UserProfile == null)) return false;
 			return await LoadAsync();
 			
 		}

@@ -288,7 +288,7 @@ namespace ePlanifServerLibTest
 		[TestMethod, TestCategory("Account")]
 		public void Should_Fail_When_CreateAccount()
 		{
-			AssertCreateItem(false, (client) => client.CreateAccount, new Account() {  EmployeeID=1, IsDisabled=false, Login="test", ProfileID=1, SelfWriteAccess=true });
+			AssertCreateItem(false, (client) => client.CreateAccount, new Account() {  EmployeeID=1, IsDisabled=false, Login="test", ProfileID=1 });
 		}
 		[TestMethod, TestCategory("Account")]
 		public void Should_Fail_When_UpdateAccount()

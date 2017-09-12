@@ -118,7 +118,7 @@ namespace ePlanifServerLibTest
 		[TestMethod, TestCategory("Profile")]
 		public void Should_Success_When_CreateProfile()
 		{
-			AssertCreateItem(true, (client) => client.CreateProfile, new Profile() { AdministrateAccounts=true, AdministrateActivityTypes=true, AdministrateEmployees=true, CanRunReports=true, IsDisabled=false, Name="test" } );
+			AssertCreateItem(true, (client) => client.CreateProfile, new Profile() { AdministrateAccounts=true, AdministrateActivityTypes=true, AdministrateEmployees=true, CanRunReports=true, IsDisabled=false, Name="test", SelfWriteAccess = true } );
 		}
 		[TestMethod, TestCategory("Profile")]
 		public void Should_Success_When_UpdateProfile()
@@ -288,7 +288,7 @@ namespace ePlanifServerLibTest
 		[TestMethod, TestCategory("Account")]
 		public void Should_Success_When_CreateAccount()
 		{
-			AssertCreateItem(true, (client) => client.CreateAccount, new Account() {  EmployeeID=1, IsDisabled=false, Login="test", ProfileID=1, SelfWriteAccess=true });
+			AssertCreateItem(true, (client) => client.CreateAccount, new Account() {  EmployeeID=1, IsDisabled=false, Login="test", ProfileID=1 });
 		}
 		[TestMethod, TestCategory("Account")]
 		public void Should_Success_When_UpdateAccount()
