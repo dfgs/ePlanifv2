@@ -36,6 +36,7 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<Image Grid.Column="0" Grid.Row="0" Style="{StaticResource tickImageStyle}" DataContext="{Binding IsDatabaseFound}"/>
 			<TextBlock Grid.Column="1" Grid.Row="0" Margin="4,0,0,0"  VerticalAlignment="Center" Text="Is database found on server"/>
@@ -46,20 +47,30 @@
 				</StackPanel>
 			</Button>
 
-			<Image Grid.Column="0" Grid.Row="1" Style="{StaticResource tickImageStyle}" DataContext="{Binding IsDatabaseUpToDate}"/>
-			<TextBlock Grid.Column="1" Grid.Row="1" Margin="4,0,0,0"  VerticalAlignment="Center" Text="{Binding DatabaseRevision,FallbackValue=0,StringFormat='Database revision {0}'}"/>
+			<Image Grid.Column="0" Grid.Row="1" Style="{StaticResource tickImageStyle}" DataContext="{Binding IsSchemaFound}"/>
+			<TextBlock Grid.Column="1" Grid.Row="1" Margin="4,0,0,0"  VerticalAlignment="Center" Text="Is schema found in database"/>
+			<Button Grid.Column="2" Grid.Row="1" Margin="2" HorizontalContentAlignment="Left" Command="{Binding CreateSchemaCommand}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="Images/cog.png" Stretch="None"/>
+					<TextBlock Margin="4,0,0,0" Text="Create schema"/>
+				</StackPanel>
+			</Button>
 
+			
 			<Image Grid.Column="0" Grid.Row="2" Style="{StaticResource tickImageStyle}" DataContext="{Binding IsDatabaseUpToDate}"/>
-			<TextBlock Grid.Column="1" Grid.Row="2" Margin="4,0,0,0" VerticalAlignment="Center" Text="Is database up to date"/>
-			<Button Grid.Column="2" Grid.Row="2" Margin="2" HorizontalContentAlignment="Left" Command="{Binding UpgradeDatabaseCommand}">
+			<TextBlock Grid.Column="1" Grid.Row="2" Margin="4,0,0,0"  VerticalAlignment="Center" Text="{Binding DatabaseRevision,FallbackValue=0,StringFormat='Database revision {0}'}"/>
+
+			<Image Grid.Column="0" Grid.Row="3" Style="{StaticResource tickImageStyle}" DataContext="{Binding IsDatabaseUpToDate}"/>
+			<TextBlock Grid.Column="1" Grid.Row="3" Margin="4,0,0,0" VerticalAlignment="Center" Text="Is database up to date"/>
+			<Button Grid.Column="2" Grid.Row="3" Margin="2" HorizontalContentAlignment="Left" Command="{Binding UpgradeDatabaseCommand}">
 				<StackPanel Orientation="Horizontal">
 					<Image Source="Images/cog.png" Stretch="None"/>
 					<TextBlock Margin="4,0,0,0" Text="Upgrade database"/>
 				</StackPanel>
 			</Button>
 
-			<TextBox Grid.Column="1" Grid.Row="3" Margin="4,0,4,0" VerticalAlignment="Center" Text="{Binding SQLLogin}"  IsEnabled="{Binding IsDatabaseUpToDate}"/>
-			<Button Grid.Column="2" Grid.Row="3" Margin="2" HorizontalContentAlignment="Left" Command="{Binding CreateSQLLoginCommand}" >
+			<TextBox Grid.Column="1" Grid.Row="4" Margin="4,0,4,0" VerticalAlignment="Center" Text="{Binding SQLLogin}"  IsEnabled="{Binding IsDatabaseUpToDate}"/>
+			<Button Grid.Column="2" Grid.Row="4" Margin="2" HorizontalContentAlignment="Left" Command="{Binding CreateSQLLoginCommand}" >
 				<StackPanel Orientation="Horizontal" >
 					<Image Source="Images/cog.png" Stretch="None"/>
 					<TextBlock Margin="4,0,0,0" Text="Create SQL login"/>
@@ -67,8 +78,8 @@
 			</Button>
 
 
-			<TextBox Grid.Column="1" Grid.Row="4" Margin="4,0,4,0" VerticalAlignment="Center" Text="{Binding Login}"  IsEnabled="{Binding IsDatabaseUpToDate}"/>
-			<Button Grid.Column="2" Grid.Row="4" Margin="2" HorizontalContentAlignment="Left" Command="{Binding CreateAccountCommand}" >
+			<TextBox Grid.Column="1" Grid.Row="5" Margin="4,0,4,0" VerticalAlignment="Center" Text="{Binding Login}"  IsEnabled="{Binding IsDatabaseUpToDate}"/>
+			<Button Grid.Column="2" Grid.Row="5" Margin="2" HorizontalContentAlignment="Left" Command="{Binding CreateAccountCommand}" >
 				<StackPanel Orientation="Horizontal" >
 					<Image Source="Images/cog.png" Stretch="None"/>
 					<TextBlock Margin="4,0,0,0" Text="Create account"/>

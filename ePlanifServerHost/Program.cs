@@ -31,8 +31,9 @@ namespace ePlanifServerHost
 				string path = System.IO.Path.Combine(@"C:\ProgramData", "ePlanifServer");
 				Logger.StartLogToFile(path);
 
-				//dataProvider = new SqlDataProvider();
-				dataProvider = new TestDataProvider("admin");
+				if (global::ePlanifServerHost.Properties.Settings.Default.DemoMode) dataProvider = new TestDataProvider("admin");
+				else dataProvider = new SqlDataProvider();
+
 				serviceHost = new ePlanifServiceHost(dataProvider);
 				serviceHost.Open();
 				Logger.WriteLog(LogLevels.Debug,"main",0,"ePlanif server started successfully");

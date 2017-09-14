@@ -27,6 +27,13 @@ namespace ConfigurationTool
 			private set { SetValue(CreateDatabaseCommandProperty, value); }
 		}
 
+		public static readonly DependencyProperty CreateSchemaCommandProperty = DependencyProperty.Register("CreateSchemaCommand", typeof(ViewModelCommand), typeof(Context));
+		public ViewModelCommand CreateSchemaCommand
+		{
+			get { return (ViewModelCommand)GetValue(CreateSchemaCommandProperty); }
+			private set { SetValue(CreateSchemaCommandProperty, value); }
+		}
+
 
 		public static readonly DependencyProperty UpgradeDatabaseCommandProperty = DependencyProperty.Register("UpgradeDatabaseCommand", typeof(ViewModelCommand), typeof(Context));
 		public ViewModelCommand UpgradeDatabaseCommand
@@ -64,6 +71,12 @@ namespace ConfigurationTool
 			private set { SetValue(IsDatabaseFoundProperty, value); }
 		}
 
+		public static readonly DependencyProperty IsSchemaFoundProperty = DependencyProperty.Register("IsSchemaFound", typeof(bool), typeof(Context));
+		public bool IsSchemaFound
+		{
+			get { return (bool)GetValue(IsSchemaFoundProperty); }
+			private set { SetValue(IsSchemaFoundProperty, value); }
+		}
 
 		public static readonly DependencyProperty IsDatabaseUpToDateProperty = DependencyProperty.Register("IsDatabaseUpToDate", typeof(bool), typeof(Context));
 		public bool IsDatabaseUpToDate
@@ -101,6 +114,7 @@ namespace ConfigurationTool
 		public Context()
 		{
 			CreateDatabaseCommand = new ViewModelCommand(OnCreateDatabaseCommandCanExecute, OnCreateDatabaseCommandExecute);
+			CreateSchemaCommand = new ViewModelCommand(OnCreateSchemaCommandCanExecute, OnCreateSchemaCommandExecute);
 			UpgradeDatabaseCommand = new ViewModelCommand(OnUpgradeDatabaseCommandCanExecute, OnUpgradeDatabaseCommandExecute);
 			CreateSQLLoginCommand = new ViewModelCommand(OnCreateSQLLoginCommandCanExecute, OnCreateSQLLoginCommandExecute);
 			CreateAccountCommand = new ViewModelCommand(OnCreateAccountCommandCanExecute, OnCreateAccountCommandExecute);
@@ -111,7 +125,10 @@ namespace ConfigurationTool
 			Login = (Environment.UserDomainName + "\\" + Environment.UserName).ToLower();
 		}
 
-
+		public void ShowError(Exception ex)
+		{
+			MessageBox.Show(Application.Current.MainWindow, ex.Message, "Error");
+		}
 		protected virtual void OnPropertyChanged([CallerMemberName]string PropertyName=null)
 		{
 			if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
@@ -122,15 +139,52 @@ namespace ConfigurationTool
 			IsDatabaseUpToDate = false;
 			DatabaseRevision = 0;
 
-			IsDatabaseFound = await database.ExistsAsync();
+			try
+			{
+				IsDatabaseFound = await upgrader.DatabaseExistsAsync();
+			}
+			catch(Exception ex)
+			{
+				IsDatabaseFound = false;
+				ShowError(ex);
+				return;
+			}
+
 			if (!IsDatabaseFound)
 			{
 				CommandManager.InvalidateRequerySuggested();
 				return;
 			}
 
-			DatabaseRevision = await upgrader.GetDatabaseRevisionAsync();
-			IsDatabaseUpToDate = DatabaseRevision == upgrader.GetTargetRevision();
+			try
+			{
+				IsSchemaFound = await upgrader.SchemaExistsAsync();
+			}
+			catch (Exception ex)
+			{
+				IsSchemaFound = false;
+				ShowError(ex);
+				return;
+			}
+
+			if (!IsSchemaFound)
+			{
+				CommandManager.InvalidateRequerySuggested();
+				return;
+			}
+
+
+			try
+			{
+				DatabaseRevision = await upgrader.GetDatabaseRevisionAsync();
+				IsDatabaseUpToDate = DatabaseRevision == upgrader.GetTargetRevision();
+			}
+			catch(Exception ex)
+			{
+				IsDatabaseUpToDate = false;
+				ShowError(ex);
+				return;
+			}
 
 			try
 			{ 
@@ -158,27 +212,63 @@ namespace ConfigurationTool
 			try
 			{
 				Status = "Running";
-				database.SetMaxRevision(0);
-				await database.CreateAsync();
-				Status = "Idle";
+				await upgrader.CreateDatabaseAsync();
 			}
 			catch (Exception ex)
 			{
-				Status = ex.Message;
+				ShowError(ex);
+			}
+			finally
+			{
+				Status = "Idle";
 			}
 			await LoadAsync();
 		}
 
+		private bool OnCreateSchemaCommandCanExecute(object arg)
+		{
+			return (IsDatabaseFound) && (!IsSchemaFound);
+		}
+
+		private async void OnCreateSchemaCommandExecute(object obj)
+		{
+			try
+			{
+				Status = "Running";
+				await upgrader.CreateSchemaAsync();
+			}
+			catch (Exception ex)
+			{
+				ShowError(ex);
+			}
+			finally
+			{
+				Status = "Idle";
+			}
+			await LoadAsync();
+		}
+
+
 		private bool OnUpgradeDatabaseCommandCanExecute(object arg)
 		{
-			return (IsDatabaseFound) && (!IsDatabaseUpToDate);
+			return (IsDatabaseFound) && (IsSchemaFound) && (!IsDatabaseUpToDate);
 		}
 
 		private async void OnUpgradeDatabaseCommandExecute(object obj)
 		{
 			Status = "Running";
-			if (!await upgrader.UpgradeAsync()) Status = upgrader.ErrorMessage;
-			else Status = "Idle";
+			try
+			{
+				await upgrader.UpgradeAsync();
+			}
+			catch (Exception ex)
+			{
+				ShowError(ex);
+			}
+			finally
+			{
+				Status = "Idle";
+			}
 			await LoadAsync();
 		}
 
@@ -196,12 +286,15 @@ namespace ConfigurationTool
 			{
 				Status = "Running";
 				await database.InsertAsync(account);
-				Status = "Idle";
 				MessageBox.Show(Application.Current.MainWindow, $"Account {account.Login} created succesfully");
 			}
 			catch (Exception ex)
 			{
-				Status = ex.Message;
+				ShowError(ex);
+			}
+			finally
+			{
+				Status = "Idle";
 			}
 			await LoadAsync();
 		}
@@ -249,7 +342,11 @@ namespace ConfigurationTool
 			}
 			catch (Exception ex)
 			{
-				Status = ex.Message;
+				ShowError(ex);
+			}
+			finally
+			{
+				Status = "Idle";
 			}
 			await LoadAsync();
 		}

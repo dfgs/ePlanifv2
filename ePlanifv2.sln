@@ -62,6 +62,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ePlanifModelLibTest", "ePla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseModelListTest", "..\MVVMLib\DatabaseModelListTest\DatabaseModelListTest.csproj", "{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlDatabaseUpgraderLib", "..\MVVMLib\SqlDatabaseUpgraderLib\SqlDatabaseUpgraderLib.csproj", "{A164740F-0AF7-4B05-912A-8A356B1FF21E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,6 +146,10 @@ Global
 		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A164740F-0AF7-4B05-912A-8A356B1FF21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A164740F-0AF7-4B05-912A-8A356B1FF21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A164740F-0AF7-4B05-912A-8A356B1FF21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A164740F-0AF7-4B05-912A-8A356B1FF21E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +175,7 @@ Global
 		{4C103059-20A1-49C1-9950-010CEBD8AD80} = {4E5D550A-024E-4CFD-8E23-D61D9EF273AD}
 		{44CC175D-F027-4DA7-B3CE-D938A966AA13} = {909AB1C7-B584-4D0D-A8C3-AA36B7E7CC99}
 		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E} = {909AB1C7-B584-4D0D-A8C3-AA36B7E7CC99}
+		{A164740F-0AF7-4B05-912A-8A356B1FF21E} = {00BF55E3-3718-4D80-9F89-3C6680F54A10}
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true
