@@ -7,26 +7,26 @@ using System.Runtime.Serialization;
 namespace ePlanifModelsLib
 {
 	[DataContract]
-    public class Activity
-    {
+	public class Activity
+	{
 
-        public static readonly Column<Activity, int> ActivityIDColumn = new Column<Activity, int>() {IsPrimaryKey=true,IsIdentity=true };
+		public static readonly Column<Activity, int> ActivityIDColumn = new Column<Activity, int>() { IsPrimaryKey = true, IsIdentity = true };
 		[DataMember]
 		public int? ActivityID
-        {
-            get { return ActivityIDColumn.GetValue(this); }
-            set { ActivityIDColumn.SetValue(this, value); }
-        }
+		{
+			get { return ActivityIDColumn.GetValue(this); }
+			set { ActivityIDColumn.SetValue(this, value); }
+		}
 
 
 
-        public static readonly Column<Activity, DateTime> StartDateColumn = new Column<Activity, DateTime>();
+		public static readonly Column<Activity, DateTime> StartDateColumn = new Column<Activity, DateTime>();
 		[DataMember]
 		public DateTime? StartDate
-        {
-            get { return StartDateColumn.GetValue(this); }
-            set { StartDateColumn.SetValue(this, value); }
-        }
+		{
+			get { return StartDateColumn.GetValue(this); }
+			set { StartDateColumn.SetValue(this, value); }
+		}
 
 
 		public static readonly Column<Activity, TimeSpan> DurationColumn = new Column<Activity, TimeSpan>();
@@ -37,7 +37,16 @@ namespace ePlanifModelsLib
 			set { DurationColumn.SetValue(this, value); }
 		}
 
-		
+		/*[Revision(2)]
+		public static readonly Column<Activity, TimeSpan> TravelDurationColumn = new Column<Activity, TimeSpan>() {IsNullable=true };
+		[DataMember]
+		public TimeSpan? TravelDuration
+		{
+			get { return TravelDurationColumn.GetValue(this); }
+			set { TravelDurationColumn.SetValue(this, value); }
+		}*/
+
+
 		public static readonly Column<Activity, TimeSpan> TrackedDurationColumn = new Column<Activity, TimeSpan>() {IsNullable=true };
 		[DataMember]
 		public TimeSpan? TrackedDuration

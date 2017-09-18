@@ -58,6 +58,10 @@
 			<RoutedUICommand x:Key="disconnectCommand"/>
 			<RoutedUICommand x:Key="showLogCommand"/>
 			<RoutedUICommand x:Key="aboutCommand"/>
+			<RoutedUICommand x:Key="fitColumnsCommand"/>
+			<RoutedUICommand x:Key="restoreColumnsCommand"/>
+			<RoutedUICommand x:Key="incColumnsCommand"/>
+			<RoutedUICommand x:Key="decColumnsCommand"/>
 		</ResourceDictionary>
 
 	</Window.Resources>
@@ -87,6 +91,10 @@
 		<CommandBinding Command="{StaticResource showLogCommand}" CanExecute="ShowLogCommandBinding_CanExecute" Executed="ShowLogCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource bulkDeleteCommand}" CanExecute="BulkDeleteCommandBinding_CanExecute" Executed="BulkDeleteCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource aboutCommand}" CanExecute="AboutCommandBinding_CanExecute" Executed="AboutCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource fitColumnsCommand}" CanExecute="FitColumnsCommandBinding_CanExecute" Executed="FitColumnsCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource restoreColumnsCommand}" CanExecute="RestoreColumnsCommandBinding_CanExecute" Executed="RestoreColumnsCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource incColumnsCommand}" CanExecute="IncColumnsCommandBinding_CanExecute" Executed="IncColumnsCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource decColumnsCommand}" CanExecute="DecColumnsCommandBinding_CanExecute" Executed="DecColumnsCommandBinding_Executed"/>
 	</Window.CommandBindings>
 	<Grid>
 		<DockPanel>
@@ -119,6 +127,19 @@
 				<TextBlock Text="{Binding DaysCount,FallbackValue=0}" VerticalAlignment="Center" Margin="4,0,4,0" />
 				<Button Command="{Binding AddDaysCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Display more weeks">
 					<Image Source="Images/date_add.png" Stretch="None"/>
+				</Button>
+				<Border Style="{StaticResource separatorStyle}"/>
+				<Button Command="{StaticResource restoreColumnsCommand}" ToolTip="Restore columns's width">
+					<Image Source="Images/magnifier-zoom-actual.png" Stretch="None"/>
+				</Button>
+				<Button Command="{StaticResource fitColumnsCommand}" ToolTip="Fit one week to screen">
+					<Image Source="Images/magnifier-zoom-fit.png" Stretch="None"/>
+				</Button>
+				<Button Command="{StaticResource incColumnsCommand}" ToolTip="Increase columns's width">
+					<Image Source="Images/magnifier-zoom-in.png" Stretch="None"/>
+				</Button>
+				<Button Command="{StaticResource decColumnsCommand}" ToolTip="Decrease columns's width">
+					<Image Source="Images/magnifier-zoom-out.png" Stretch="None"/>
 				</Button>
 				<Border Style="{StaticResource separatorStyle}"/>
 
@@ -195,7 +216,10 @@
 				<TextBlock Text=""/>
 			</StatusBar>
 			<ListBox Height="150" DockPanel.Dock="Bottom" Visibility="{Binding ElementName=root,Path=LogVisibility}" ItemsSource="{x:Static ViewModelLib:ViewModel.Errors}"/>
-			<TabControl x:Name="tabControl" IsEnabled="{Binding IsLoaded,FallbackValue=false}" ItemsSource="{Binding Tabs}" SelectedItem="{Binding Tabs.SelectedItem}">
+			
+			<TabControl x:Name="tabControl" IsEnabled="{Binding IsLoaded,FallbackValue=false}"
+						ItemsSource="{Binding Tabs}" SelectedItem="{Binding Tabs.SelectedItem}"
+						Views:TabContent.IsCached="True">
 				<TabControl.Resources>
 					<DataTemplate DataType="{x:Type ViewModels:TabByEmployeeViewModel}">
 						<Views:EmployeeViewsView DataContext="{Binding Model}"/>

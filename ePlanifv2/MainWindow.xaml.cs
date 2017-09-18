@@ -1,4 +1,5 @@
-﻿using ePlanifViewModelsLib;
+﻿using ePlanifv2.Views;
+using ePlanifViewModelsLib;
 using ModelLib;
 using System;
 using System.Linq;
@@ -188,6 +189,46 @@ namespace ePlanifv2
 			AboutWindow window = new AboutWindow() {Owner=this };
 			
 			window.ShowDialog();
+		}
+
+		private void FitColumnsCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (vm!=null)&& (vm.IsLoaded); e.Handled = true;
+		}
+
+		private void FitColumnsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			DisplayOptions.Instance.ColumnWidth = (System.Windows.SystemParameters.PrimaryScreenWidth - 250) / 7;
+		}
+
+		private void RestoreColumnsCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (vm != null) && (vm.IsLoaded); e.Handled = true;
+		}
+
+		private void RestoreColumnsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			DisplayOptions.Instance.ColumnWidth = 200;
+		}
+
+		private void IncColumnsCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (vm != null) && (vm.IsLoaded) && (DisplayOptions.Instance.ColumnWidth < 400); e.Handled = true;
+		}
+
+		private void IncColumnsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			DisplayOptions.Instance.ColumnWidth +=10;
+		}
+
+		private void DecColumnsCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (vm != null) && (vm.IsLoaded) && (DisplayOptions.Instance.ColumnWidth > 100); e.Handled = true;
+		}
+
+		private void DecColumnsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			DisplayOptions.Instance.ColumnWidth -= 10;
 		}
 
 		private void SearchCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)

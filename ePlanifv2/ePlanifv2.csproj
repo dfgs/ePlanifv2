@@ -160,6 +160,7 @@
     <Compile Include="Views\LoadView.xaml.cs">
       <DependentUpon>LoadView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TabContent.cs" />
     <Compile Include="Views\ViewByActivityTypeView.xaml.cs">
       <DependentUpon>ViewByActivityTypeView.xaml</DependentUpon>
     </Compile>
@@ -669,6 +670,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\edit-column.png" />
+    <Resource Include="Images\magnifier-zoom-actual.png" />
+    <Resource Include="Images\magnifier-zoom-fit.png" />
+    <Resource Include="Images\magnifier-zoom-in.png" />
+    <Resource Include="Images\magnifier-zoom-out.png" />
     <Content Include="Nager.Date LICENCE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

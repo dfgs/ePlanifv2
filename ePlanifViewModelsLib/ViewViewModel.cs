@@ -111,6 +111,8 @@ namespace ePlanifViewModelsLib
 			Service.Activities.ActivityEdited += Activities_ActivityEdited;
 			//Service.Activities.ActivityFocused += Activities_ActivityFocused;
 
+			ActivitySelectionManager.ActivitySelected += ViewViewModel_ActivitySelected;
+
 		}
 
 		protected abstract bool IsActivityBindedTo (ActivityViewModel Activity, MemberViewModelType Row);
@@ -206,6 +208,14 @@ namespace ePlanifViewModelsLib
 			return Service.WeekName;
 		}*/
 
+		private void ViewViewModel_ActivitySelected(DependencyObject sender, ActivityViewModel Activity)
+		{
+			if (sender == this) return;
+			Tuple<CellViewModel, int> pair = FindCellForActivity(Activity);
+			if ((pair == null) || (pair.Item2 != this.LayerID)) return;
+			OnCellFocused(pair.Item1.Column, pair.Item1.Row);
+		}
+
 		public void Select(CellViewModel Cell)
 		{
 			Cell.IsSelected = !Cell.IsSelected;
@@ -222,6 +232,7 @@ namespace ePlanifViewModelsLib
 			cell = Cell as CellViewModel;
 			activity = cell.GetActivity(LayerID,ActivityIndex);
 			activity.IsSelected = !activity.IsSelected;
+			if (activity.IsSelected) ActivitySelectionManager.OnActivitySelected(this, activity);
 		}
 		public void UnSelectActivities()
 		{

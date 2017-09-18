@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModelLib;
+using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
@@ -6,11 +8,25 @@ using System.Windows.Media.Imaging;
 
 namespace ePlanifv2.Views
 {
-	public static class DisplayOptions
+	public sealed class DisplayOptions:DependencyObject
 	{
+		private static DisplayOptions instance = new DisplayOptions();
+		public static DisplayOptions Instance
+		{
+			get { return instance; }
+		}
+
 		private static BrushConverter brushConverter = new BrushConverter();
-		
-		public static double ColumnWidth = 200;
+
+
+		public static readonly DependencyProperty ColumnWidthProperty = DependencyProperty.Register("ColumnWidth", typeof(double), typeof(DisplayOptions),new PropertyMetadata(200d));
+		public double ColumnWidth
+		{
+			get { return (double)GetValue(ColumnWidthProperty); }
+			set { SetValue(ColumnWidthProperty, value); }
+		}
+
+
 		public static SolidColorBrush TextBrush = new SolidColorBrush(Color.FromArgb(255, 92, 92, 92));
 		public static SolidColorBrush TextDarkBrush = new SolidColorBrush(Color.FromArgb(255, 48, 48, 48));
 		public static SolidColorBrush DarkBrush = new SolidColorBrush(Color.FromArgb(255, 64, 64, 64));
@@ -39,6 +55,11 @@ namespace ePlanifv2.Views
 		public static BitmapImage LargeCalendarImage = new BitmapImage(new Uri("pack://application:,,,/Images/calendar-month-transparent.png"));
 		public static BitmapImage DoorImage = new BitmapImage(new Uri("pack://application:,,,/Images/door--exclamation.png"));
 		public static BitmapImage LockImage = new BitmapImage(new Uri("pack://application:,,,/Images/lock-warning.png"));
+
+		private DisplayOptions()
+		{
+
+		}
 
 		public static FormattedText FormatText(string Text, Brush Foreground ,double Size=16,double? MaxWidth=null)
 		{

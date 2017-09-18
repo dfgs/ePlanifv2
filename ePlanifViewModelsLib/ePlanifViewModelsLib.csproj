@@ -51,6 +51,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivitySelectionManager.cs" />
     <Compile Include="ActivityTypeViewViewModel.cs" />
     <Compile Include="ActivityTypeViewMemberViewModel.cs" />
     <Compile Include="ActivityTypeViewMemberViewModelCollection.cs" />
