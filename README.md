@@ -26,7 +26,7 @@ ePlanif is an open source tool for employees task planification. It can be used 
 |             Reporting              |
 | :--------------------------------------: |
 |  ![Reporting](Images/readme5.png)  |
-| ePlanif integrates seamlessly with Microsoft Reporting Service in order to provide you beautifull reports |
+| ePlanif integrates seamlessly with Microsoft Reporting Service in order to provide you beautiful reports |
 
 
 

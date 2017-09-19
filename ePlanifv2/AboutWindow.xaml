@@ -9,9 +9,9 @@
     <DockPanel>
 		<StackPanel DockPanel.Dock="Top"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
 			<Image Source="Images/calendar-month.png" Stretch="None" />
-			<TextBlock Text="ePlanif v2" VerticalAlignment="Center" FontSize="24" Margin="8,0,0,0" Foreground="SteelBlue"/>
+			<TextBlock Text="ePlanif v2" VerticalAlignment="Center" FontSize="28" Margin="8,0,0,0" Foreground="SteelBlue"/>
 		</StackPanel>
-		<TextBlock DockPanel.Dock="Top" Text="Credits:" HorizontalAlignment="Center" FontSize="24" Margin="0,16,0,0"/>
+		<TextBlock DockPanel.Dock="Top" Text="Credits:" HorizontalAlignment="Center" FontSize="26" Margin="0,16,0,0" TextDecorations="Underline"/>
 		<TabControl Margin="0,16,0,0">
 			<TabItem Header="Silk icon set 1.3">
 				<RichTextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible">
