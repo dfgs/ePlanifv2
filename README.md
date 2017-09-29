@@ -1,5 +1,5 @@
 # About ePlanif
-ePlanif is an open source tool for employees task planification. It can be used in small medium companies and large/world-wide companies.
+ePlanif is an open source tool for employees task scheduling. It can be used in small medium companies and large/world-wide companies.
 
 # Features
 
