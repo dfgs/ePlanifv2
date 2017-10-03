@@ -256,7 +256,7 @@ namespace ePlanifViewModelsLib
 				vm = await Service.Activities.CreateActivityAsync(Cell.Date, Cell.RowID);
 				vm.Date = Cell.Date;
 				SetRowID(vm, Cell.RowID);
-				await Service.Activities.AddAsync(vm, true, true);
+				await Service.Activities.AddAsync(vm, true);
 			}
 		}
 
@@ -368,7 +368,7 @@ namespace ePlanifViewModelsLib
 					newActivity = await activity.CloneAsync();
 					newActivity.Date = newDate;
 
-					result=await Service.Activities.AddAsync(newActivity,false,true);
+					result=await Service.Activities.AddAsync(newActivity,false);
 				}
 
 				counter += 7;
@@ -467,7 +467,7 @@ namespace ePlanifViewModelsLib
 					newActivity.Date = activity.Date+=delta;
 					SetRowID(newActivity, cell.RowID);
 
-					await Service.Activities.AddAsync(newActivity,false,true);
+					await Service.Activities.AddAsync(newActivity,false);
 				}
 			}
 			OnUpdated();
@@ -481,7 +481,7 @@ namespace ePlanifViewModelsLib
 		{
 			foreach (ActivityViewModel activity in Service.Activities.SelectedItems.ToArray())
 			{
-				await Service.Activities.RemoveAsync(activity,true);
+				await Service.Activities.RemoveAsync(activity);
 			}
 			OnUpdated();
 		}

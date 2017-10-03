@@ -116,7 +116,7 @@ namespace ePlanifv2.Views
 			set { SetValue(CellHeaderMarginProperty, value); }
 		}
 
-		public static readonly DependencyProperty MinRowHeightProperty = DependencyProperty.Register("MinRowHeight", typeof(double), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(64d, FrameworkPropertyMetadataOptions.AffectsRender, IScrollPropertyChangedCallBack));
+		public static readonly DependencyProperty MinRowHeightProperty = DependencyProperty.Register("MinRowHeight", typeof(double), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(80d, FrameworkPropertyMetadataOptions.AffectsRender, IScrollPropertyChangedCallBack));
 		public double MinRowHeight
 		{
 			get { return (double)GetValue(MinRowHeightProperty); }

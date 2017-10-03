@@ -154,6 +154,9 @@ namespace ePlanifViewModelsLib
 		{
 			get { return employees; }
 		}
+
+		
+
 		private FilteredViewModelCollection<EmployeeViewModel, Employee> visibleEmployees;
 		public FilteredViewModelCollection<EmployeeViewModel,Employee> VisibleEmployees
 		{

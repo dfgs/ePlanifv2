@@ -93,7 +93,7 @@ namespace ePlanifViewModelsLib
 			set { Model.EmployeeID = value; OnPropertyChanged(); OnPropertyChanged("Employee"); }
 		}
 
-		[IntProperty(Header = "Project number", IsMandatory = false, IsReadOnly = false)]
+		[TextProperty(Header = "Project number", IsMandatory = false, IsReadOnly = false)]	// text property because it is more a ref than a number
 		public int? ProjectNumber
 		{
 			get { return Model.ProjectNumber; }

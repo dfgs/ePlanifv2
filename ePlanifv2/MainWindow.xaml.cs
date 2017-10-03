@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using System.ComponentModel;
 
 namespace ePlanifv2
 {
@@ -16,7 +16,7 @@ namespace ePlanifv2
 	public partial class MainWindow : Window
     {
         private ePlanifServiceViewModel vm;
-
+		//private LyncWorker lyncWorker;
 
 		public static readonly DependencyProperty LogVisibilityProperty = DependencyProperty.Register("LogVisibility", typeof(Visibility), typeof(MainWindow),new PropertyMetadata(Visibility.Collapsed));
 		public Visibility LogVisibility
@@ -27,10 +27,16 @@ namespace ePlanifv2
 
 		public MainWindow()
         {
-	
-
+			//lyncWorker = new LyncWorker();
+			//lyncWorker.Start();
 			InitializeComponent();
 		}
+
+		/*protected override void OnClosing(CancelEventArgs e)
+		{
+			base.OnClosing(e);
+			lyncWorker.Stop();
+		}*/
 
 		private async void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -73,6 +79,7 @@ namespace ePlanifv2
 					vm = null;
 					ShowError(new Exception("Cannot connect to server"));
 				}
+				//else lyncWorker.Refresh(vm);
 
 
 			}
@@ -87,6 +94,7 @@ namespace ePlanifv2
 		{
 			vm = null;
 			DataContext = null;
+			//lyncWorker.Refresh(vm);
 		}
 
 		private void AdministrationCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)

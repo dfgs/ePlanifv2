@@ -33,6 +33,12 @@ namespace ePlanifViewModelsLib
 			set { Model.LastName = value; OnPropertyChanged(); OnPropertyChanged("FullName"); }
 		}
 
+		[TextProperty(Header = "eMail", IsMandatory = false, IsReadOnly = false)]
+		public Text? eMail
+		{
+			get { return Model.eMail; }
+			set { Model.eMail = value; OnPropertyChanged();  }
+		}
 
 		[TextListProperty(Header = "Country", IsMandatory = true, IsReadOnly = false,  SelectedValuePath = "Model", DisplayMemberPath = null, SourcePath = "Service.CountryCodes")]
 		public Text? CountryCode

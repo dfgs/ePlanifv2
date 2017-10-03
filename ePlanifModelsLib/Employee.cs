@@ -34,6 +34,15 @@ namespace ePlanifModelsLib
 			set { LastNameColumn.SetValue(this, value); }
 		}
 
+		[Revision(2)]
+		public static readonly Column<Employee, Text> eMailColumn = new Column<Employee, Text>() { IsNullable = true };
+		[DataMember]
+		public Text? eMail
+		{
+			get { return eMailColumn.GetValue(this); }
+			set { eMailColumn.SetValue(this, value); }
+		}
+
 		public static readonly Column<Employee, bool> IsDisabledColumn = new Column<Employee, bool>() { DefaultValue = false };
 		[DataMember]
 		public override bool? IsDisabled
@@ -69,6 +78,8 @@ namespace ePlanifModelsLib
 			get { return CountryCodeColumn.GetValue(this); }
 			set { CountryCodeColumn.SetValue(this, value); }
 		}
+
+		
 
 		public Employee()
 		{
