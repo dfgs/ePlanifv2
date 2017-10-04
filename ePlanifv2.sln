@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ePlanifv2", "ePlanifv2\ePlanifv2.csproj", "{BE606AC9-0545-4531-BEDF-4A2EE1E29A6B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -176,6 +176,9 @@ Global
 		{44CC175D-F027-4DA7-B3CE-D938A966AA13} = {909AB1C7-B584-4D0D-A8C3-AA36B7E7CC99}
 		{A142CB2E-A52C-4D7A-BC24-93F4E4C7C58E} = {909AB1C7-B584-4D0D-A8C3-AA36B7E7CC99}
 		{A164740F-0AF7-4B05-912A-8A356B1FF21E} = {00BF55E3-3718-4D80-9F89-3C6680F54A10}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {446761C1-904C-4E36-99B6-0424A76F9EE4}
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

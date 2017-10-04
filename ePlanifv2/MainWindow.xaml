@@ -72,6 +72,8 @@
 		<KeyBinding Key="Right" Command="{Binding NextWeekCommand}"/>
 		<KeyBinding Key="Home" Command="{Binding CurrentWeekCommand}"/>
 		<KeyBinding Key="F5" Command="{Binding RefreshCommand}"/>
+		<KeyBinding Modifiers="Ctrl" Key="Z" Command="{Binding UndoCommand}"/>
+		<KeyBinding Modifiers="Ctrl" Key="Y" Command="{Binding RedoCommand}"/>
 		<KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.CopyCommand}" />
 		<KeyBinding Modifiers="Ctrl" Key="X" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.CutCommand}" />
 		<KeyBinding Modifiers="Ctrl" Key="V" Command="{Binding Tabs.SelectedItem.Model.SelectedItem.PasteCommand}" />
@@ -158,6 +160,13 @@
 
 
 
+				<Border Style="{StaticResource separatorStyle}"/>
+				<Button Command="{Binding UndoCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Undo">
+					<Image Source="Images/arrow_undo.png" Stretch="None"/>
+				</Button>
+				<Button Command="{Binding RedoCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Redo">
+					<Image Source="Images/arrow_redo.png" Stretch="None"/>
+				</Button>
 				<Border Style="{StaticResource separatorStyle}"/>
 				<Button Command="{Binding Tabs.SelectedItem.Model.SelectedItem.CopyCommand,FallbackValue={x:Static ViewLib:RoutedCommands.Empty}}" ToolTip="Copy">
 					<Image Source="Images/page_copy.png" Stretch="None"/>

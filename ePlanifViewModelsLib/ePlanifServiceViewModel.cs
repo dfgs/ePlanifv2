@@ -21,6 +21,18 @@ namespace ePlanifViewModelsLib
 			get { return (ViewModelCommand)GetValue(RefreshCommandProperty); }
 			private set { SetValue(RefreshCommandProperty, value); }
 		}
+		public static readonly DependencyProperty UndoCommandProperty = DependencyProperty.Register("UndoCommand", typeof(ViewModelCommand), typeof(ePlanifServiceViewModel));
+		public ViewModelCommand UndoCommand
+		{
+			get { return (ViewModelCommand)GetValue(UndoCommandProperty); }
+			private set { SetValue(UndoCommandProperty, value); }
+		}
+		public static readonly DependencyProperty RedoCommandProperty = DependencyProperty.Register("RedoCommand", typeof(ViewModelCommand), typeof(ePlanifServiceViewModel));
+		public ViewModelCommand RedoCommand
+		{
+			get { return (ViewModelCommand)GetValue(RedoCommandProperty); }
+			private set { SetValue(RedoCommandProperty, value); }
+		}
 		public static readonly DependencyProperty CurrentWeekCommandProperty = DependencyProperty.Register("CurrentWeekCommand", typeof(ViewModelCommand), typeof(ePlanifServiceViewModel));
 		public ViewModelCommand CurrentWeekCommand
 		{
@@ -63,7 +75,11 @@ namespace ePlanifViewModelsLib
 			get { return server; }
 		}
 
-
+		private CommandManager commandManager;
+		public CommandManager CommandManager
+		{
+			get { return commandManager; }
+		}
 
 
 
@@ -225,11 +241,14 @@ namespace ePlanifViewModelsLib
 
 		public ePlanifServiceViewModel()
         {
+			commandManager = new CommandManager(10);
 
 			StartDate = FirstDayOfWeek(DateTime.Now);
 
-			
+
 			RefreshCommand = new ViewModelCommand(OnRefreshCommandCanExecute, OnRefreshCommandExecute);
+			UndoCommand = new ViewModelCommand(OnUndoCommandCanExecute, OnUndoCommandExecute);
+			RedoCommand = new ViewModelCommand(OnRedoCommandCanExecute, OnRedoCommandExecute);
 			CurrentWeekCommand = new ViewModelCommand(OnCurrentWeekCommandCanExecute, OnCurrentWeekCommandExecute);
 			PreviousWeekCommand = new ViewModelCommand(OnPreviousWeekCommandCanExecute, OnPreviousWeekCommandExecute);
 			NextWeekCommand = new ViewModelCommand(OnNextWeekCommandCanExecute, OnNextWeekCommandExecute);
@@ -321,36 +340,19 @@ namespace ePlanifViewModelsLib
 			WeekName = "W"+cal.GetWeekOfYear(StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString("D2");
 		}
 
-		/*protected override async Task<bool> OnLoadingAsync()
-		{
-			client = CreateClient();
-			if (client == null) return await Task.FromResult(false);
-			return await Task.FromResult( true);
-		}*/
+		
 
 		protected override async Task<string> OnLoadModelAsync()
 		{
 			return await System.Threading.Tasks.Task.FromResult("ePlanifService");
 		}
 
-		/*protected override async Task OnLoadedAsync()
-		{
-			if (client!=null)
-			{
-				try
-				{
-					client.Close();
-					client = null;
-				}
-				catch(Exception ex)
-				{
-					ViewModel.Log(ex);
-				}
-			}
-		
-			await base.OnLoadedAsync();
-		}*/
 
+		protected override async Task<bool> OnLoadingAsync()
+		{
+			commandManager.Clear();
+			return await base.OnLoadingAsync();
+		}
 
 		private bool OnRefreshCommandCanExecute(object Parameter)
 		{
@@ -360,6 +362,29 @@ namespace ePlanifViewModelsLib
 		{
 			await LoadAsync();
 		}
+
+
+		private bool OnUndoCommandCanExecute(object Parameter)
+		{
+			return commandManager.CanUndo;
+		}
+		private async void OnUndoCommandExecute(object Parameter)
+		{
+			await commandManager.UndoAsync();
+		}
+
+		private bool OnRedoCommandCanExecute(object Parameter)
+		{
+			return commandManager.CanRedo;
+		}
+		private async void OnRedoCommandExecute(object Parameter)
+		{
+			await commandManager.RedoAsync();
+		}
+
+
+
+
 		private bool OnCurrentWeekCommandCanExecute(object Parameter)
 		{
 			return IsLoaded;

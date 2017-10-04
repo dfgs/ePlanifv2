@@ -7,6 +7,107 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="#88000000">
-		<TextBlock Text="Loading..." FontSize="32" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Canvas Width="64" Height="64" Margin="16">
+
+				<Path  Stroke="LightSteelBlue" Fill="Transparent" StrokeThickness="6" >
+					<Path.Triggers>
+						<EventTrigger RoutedEvent="UserControl.Loaded">
+							<BeginStoryboard>
+								<Storyboard RepeatBehavior="Forever">
+									<DoubleAnimation Storyboard.TargetName="transform1" 
+				                       Storyboard.TargetProperty="Angle" From="0" To="360"  Duration="0:0:2" BeginTime="0:0:0"/>
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</Path.Triggers>
+
+					<Path.RenderTransform >
+						<RotateTransform x:Name="transform1" Angle="0" CenterX="32" CenterY="32" />
+					</Path.RenderTransform>
+
+					<Path.Data>
+						<PathGeometry>
+							<PathGeometry.Figures>
+								<PathFigureCollection>
+									<PathFigure StartPoint="32,0" >
+										<PathFigure.Segments>
+											<PathSegmentCollection>
+												<ArcSegment Point="32,64" Size="32,32" RotationAngle="0" IsLargeArc="false" SweepDirection="Clockwise"/>
+											</PathSegmentCollection>
+										</PathFigure.Segments>
+									</PathFigure>
+								</PathFigureCollection>
+							</PathGeometry.Figures>
+						</PathGeometry>
+					</Path.Data>
+				</Path>
+				<Path  Stroke="LightSteelBlue" Fill="Transparent" StrokeThickness="6" >
+					<Path.Triggers>
+						<EventTrigger RoutedEvent="UserControl.Loaded">
+							<BeginStoryboard>
+								<Storyboard RepeatBehavior="Forever">
+									<DoubleAnimation Storyboard.TargetName="transform2" 
+				                       Storyboard.TargetProperty="Angle" From="120" To="-240"  Duration="0:0:2" BeginTime="0:0:0"/>
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</Path.Triggers>
+
+					<Path.RenderTransform >
+						<RotateTransform x:Name="transform2" Angle="120" CenterX="32" CenterY="32" />
+					</Path.RenderTransform>
+
+					<Path.Data>
+						<PathGeometry>
+							<PathGeometry.Figures>
+								<PathFigureCollection>
+									<PathFigure StartPoint="32,12" >
+										<PathFigure.Segments>
+											<PathSegmentCollection>
+												<ArcSegment Point="32,52" Size="20,20" RotationAngle="0" IsLargeArc="false" SweepDirection="clockwise"/>
+											</PathSegmentCollection>
+										</PathFigure.Segments>
+									</PathFigure>
+								</PathFigureCollection>
+							</PathGeometry.Figures>
+						</PathGeometry>
+					</Path.Data>
+				</Path>
+				<Path  Stroke="LightSteelBlue" Fill="Transparent" StrokeThickness="6" >
+					<Path.Triggers>
+						<EventTrigger RoutedEvent="UserControl.Loaded">
+							<BeginStoryboard>
+								<Storyboard RepeatBehavior="Forever">
+									<DoubleAnimation Storyboard.TargetName="transform3" 
+				                       Storyboard.TargetProperty="Angle" From="240" To="600"  Duration="0:0:2" BeginTime="0:0:0"/>
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</Path.Triggers>
+
+					<Path.RenderTransform >
+						<RotateTransform x:Name="transform3" Angle="240" CenterX="32" CenterY="32" />
+					</Path.RenderTransform>
+
+					<Path.Data>
+						<PathGeometry>
+							<PathGeometry.Figures>
+								<PathFigureCollection>
+									<PathFigure StartPoint="32,24" >
+										<PathFigure.Segments>
+											<PathSegmentCollection>
+												<ArcSegment Point="32,40" Size="8,8" RotationAngle="0" IsLargeArc="false" SweepDirection="clockwise"/>
+											</PathSegmentCollection>
+										</PathFigure.Segments>
+									</PathFigure>
+								</PathFigureCollection>
+							</PathGeometry.Figures>
+						</PathGeometry>
+					</Path.Data>
+				</Path>
+			</Canvas>
+			<TextBlock  Text="Loading..." FontSize="32" Foreground="White"  VerticalAlignment="Center"/>
+		</StackPanel>
 	</Grid>
 </UserControl>

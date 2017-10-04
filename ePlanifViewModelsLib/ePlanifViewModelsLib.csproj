@@ -59,6 +59,14 @@
     <Compile Include="ActivityTypeViewViewModel.cs" />
     <Compile Include="ActivityTypeViewMemberViewModel.cs" />
     <Compile Include="ActivityTypeViewMemberViewModelCollection.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="CommandManager.cs" />
+    <Compile Include="CommandStack.cs" />
+    <Compile Include="Commands\EditCommand.cs" />
+    <Compile Include="Commands\AddCommand.cs" />
+    <Compile Include="Commands\CutPasteCommand.cs" />
+    <Compile Include="Commands\CopyPasteCommand.cs" />
+    <Compile Include="Commands\RemoveCommand.cs" />
     <Compile Include="Connected Services\ePlanifService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -310,5 +318,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

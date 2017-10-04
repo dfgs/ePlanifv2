@@ -127,7 +127,6 @@
     <Compile Include="ConnectWindow.xaml.cs">
       <DependentUpon>ConnectWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LyncContact.cs" />
     <Compile Include="MembersWindow.xaml.cs">
       <DependentUpon>MembersWindow.xaml</DependentUpon>
     </Compile>
@@ -162,6 +161,9 @@
       <DependentUpon>LoadView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabContent.cs" />
+    <Compile Include="Views\Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewByActivityTypeView.xaml.cs">
       <DependentUpon>ViewByActivityTypeView.xaml</DependentUpon>
     </Compile>
@@ -243,6 +245,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoadView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -680,6 +686,8 @@
     <Resource Include="Images\magnifier-zoom-fit.png" />
     <Resource Include="Images\magnifier-zoom-in.png" />
     <Resource Include="Images\magnifier-zoom-out.png" />
+    <Resource Include="Images\arrow_redo.png" />
+    <Resource Include="Images\arrow_undo.png" />
     <Content Include="Nager.Date LICENCE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -9,6 +9,7 @@ using System.Windows;
 using ViewModelLib;
 using System.Collections;
 using Nager.Date;
+using ePlanifViewModelsLib.Commands;
 
 namespace ePlanifViewModelsLib
 {
@@ -49,22 +50,15 @@ namespace ePlanifViewModelsLib
 
 		private CellViewModel[,] cells;
 
-		//private IViewModelCollection<MemberViewModelType> visibleMembers;
 		public abstract IViewModelCollection<MemberViewModelType> VisibleMembers
 		{
 			get;
 		}
 
 		private int columnCount;
-		/*public int ColumnCount
-		{
-			get { return columnCount; }
-		}*/
+		
 		private int rowCount;
-		/*public  int RowCount
-		{
-			get { return rowCount; }
-		}*/
+	
 
 
 		public CellViewModel SelectedCell
@@ -161,7 +155,7 @@ namespace ePlanifViewModelsLib
 				ValidateCell(cell);
 			}
 
-			OnUpdated();
+			//Update();
 		}
 
 		public IEnumerator<CellViewModel> GetEnumerator()
@@ -244,8 +238,9 @@ namespace ePlanifViewModelsLib
 			{
 				if (activity.Employee.WriteAccess != true) return;
 			}
-
-			await Service.Activities.EditAsync(null);	
+			
+			await Service.CommandManager.ExecuteAsync(new EditCommand<ActivityViewModel, Activity>(Service.Activities, Service.Activities.SelectedItems.ToArray()));
+			//await Service.Activities.EditAsync();	
 		}
 		public async Task Add(CellViewModel Cell)
 		{
@@ -256,7 +251,9 @@ namespace ePlanifViewModelsLib
 				vm = await Service.Activities.CreateActivityAsync(Cell.Date, Cell.RowID);
 				vm.Date = Cell.Date;
 				SetRowID(vm, Cell.RowID);
-				await Service.Activities.AddAsync(vm, true);
+
+				await Service.CommandManager.ExecuteAsync(new AddCommand<ActivityViewModel, Activity>(Service.Activities, vm));
+				//await Service.Activities.AddAsync(vm, true);
 			}
 		}
 
@@ -374,7 +371,7 @@ namespace ePlanifViewModelsLib
 				counter += 7;
 				currentDate = currentDate.AddDays(7);
 			}
-			OnUpdated();
+			//Update();
 			return true;
 		}
 
@@ -384,24 +381,21 @@ namespace ePlanifViewModelsLib
 		private void Activities_ActivityAdded(object sender, ActivityViewModel Activity)
 		{
 			AddActivity(Activity);
+			OnUpdated();
 		}
 		private void Activities_ActivityRemoved(object sender, ActivityViewModel Activity)
 		{
 			RemoveActivity(Activity);
+			OnUpdated();
 		}
 		private void Activities_ActivityEdited(object sender, ActivityViewModel Activity)
 		{
 			MoveActivity(Activity);
+			OnUpdated();
 		}
-		/*private void Activities_ActivityFocused(object sender, ActivityViewModel Activity)
-		{
-			int row, column;
 
-			Service.Activities.SelectedItem = Activity;
-			column=GetColumnIndex(Activity);
-			row = GetRowIndex(Activity);
-			if ((column>=0) && (row>=0)) OnCellFocused(column,row);
-		}*/
+
+
 		protected virtual void OnUpdated()
 		{
 			if (Updated != null) Updated(this, EventArgs.Empty);
@@ -422,7 +416,7 @@ namespace ePlanifViewModelsLib
 		}
 		private bool OnCutCommandCanExecute(object Parameter)
 		{
-			return (Service.Activities.SelectedItem != null) && (Service.Activities.Select(item=>item.Employee).All(item=>item.WriteAccess==true));
+			return (Service.Activities.SelectedItem != null) && (Service.Activities.Select(item=>item.Employee).All(item=>item?.WriteAccess==true));
 		}
 		private void OnCutCommandExecute(object Parameter)
 		{
@@ -448,10 +442,14 @@ namespace ePlanifViewModelsLib
 			{
 				foreach (ActivityViewModel activity in Clipboard.Items)
 				{
-					activity.Date +=delta;
-					SetRowID(activity, cell.RowID);
-					activity.IsSelected = true;
-					await Service.Activities.UpdateAsync(activity);
+					activity.IsSelected = false;
+
+					newActivity = await activity.CloneAsync();
+					newActivity.IsSelected = true;
+					newActivity.Date = activity.Date + delta;
+					SetRowID(newActivity, cell.RowID);
+
+					await Service.CommandManager.ExecuteAsync(new CutPasteCommand<ActivityViewModel, Activity>(Service.Activities,activity,newActivity));
 				}
 				Clipboard.Clear();
 			}
@@ -462,15 +460,15 @@ namespace ePlanifViewModelsLib
 					activity.IsSelected = false;
 
 					newActivity = await activity.CloneAsync();
-					
 					newActivity.IsSelected = true;
-					newActivity.Date = activity.Date+=delta;
+					newActivity.Date = activity.Date+delta;
 					SetRowID(newActivity, cell.RowID);
 
-					await Service.Activities.AddAsync(newActivity,false);
+					await Service.CommandManager.ExecuteAsync(new CopyPasteCommand<ActivityViewModel,Activity>(Service.Activities, newActivity));
+					//await Service.Activities.AddAsync(newActivity,false);
 				}
 			}
-			OnUpdated();
+			//OnUpdated();
 
 		}
 		private bool OnDeleteCommandCanExecute(object Parameter)
@@ -481,9 +479,9 @@ namespace ePlanifViewModelsLib
 		{
 			foreach (ActivityViewModel activity in Service.Activities.SelectedItems.ToArray())
 			{
-				await Service.Activities.RemoveAsync(activity);
+				//await Service.Activities.RemoveAsync(activity);
+				await Service.CommandManager.ExecuteAsync(new RemoveCommand<ActivityViewModel, Activity>(Service.Activities, activity));
 			}
-			OnUpdated();
 		}
 
 		public ActivityViewModel SearchProject(string Reference, ActivityViewModel CurrentActivity)

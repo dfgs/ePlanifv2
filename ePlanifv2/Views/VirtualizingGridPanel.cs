@@ -69,15 +69,6 @@ namespace ePlanifv2.Views
 		
 
 
-		/*public int ColumnCount
-		{
-			get { return TableViewModel?.ColumnCount ?? 0; }
-		}
-		public int RowCount
-		{
-			get { return TableViewModel?.RowCount ?? 0; }
-		}*/
-
 		public static readonly DependencyProperty ColumnWidthProperty = DependencyProperty.Register("ColumnWidth", typeof(double), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(100d, FrameworkPropertyMetadataOptions.AffectsRender, IScrollPropertyChangedCallBack));
 		public double ColumnWidth
 		{

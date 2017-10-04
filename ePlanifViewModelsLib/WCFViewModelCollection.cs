@@ -54,6 +54,7 @@ namespace ePlanifViewModelsLib
 				return await OnRemoveFromModelAsync(client, ViewModel);
 			}
 		}
+
 		protected sealed override async Task<IEnumerable<ModelType>> OnLoadModelAsync()
 		{
 			IePlanifServiceClient client = Service.CreateClient();

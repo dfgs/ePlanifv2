@@ -1,0 +1,7 @@
+v1.0 first release
+v1.1
+	* Undo/redo
+	* Column sizing
+	* eMail information for employees
+	* Transactional database upgrade
+	
