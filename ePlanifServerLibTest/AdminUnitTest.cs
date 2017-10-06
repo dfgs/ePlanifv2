@@ -585,6 +585,37 @@ namespace ePlanifServerLibTest
 			AssertDeleteItem(false, (client) => client.DeleteActivityTypeViewMember, hack);
 		}
 		#endregion
+		
+		#region Option
+		[TestMethod, TestCategory("Option")]
+		public void Should_Fail_When_UpdateOptionForAnotherAccount()
+		{
+			Option other;
+			other = dataProvider.Options.First(item => (item.AccountID == otherAccountID) );
+			AssertUpdateItem(false, (client) => client.UpdateOption, other);
+		}
 
+		[TestMethod, TestCategory("Option")]
+		public void Should_Fail_When_UpdateHackedOption()
+		{
+			Option other, hack;
+			other = dataProvider.Options.First(item => (item.AccountID == otherAccountID) );
+			hack = new Option(); Schema<Option>.Clone(other, hack);
+			hack.OptionID = other.OptionID; hack.AccountID = accountID;// try to hack data
+			AssertUpdateItem(false, (client) => client.UpdateOption, hack); // cannot hack data
+		}
+		[TestMethod, TestCategory("Option")]
+		public void Should_Success_When_UpdateOption()
+		{
+			AssertUpdateItem(true, (client) => client.UpdateOption, dataProvider.Options.First(item => (item.AccountID == accountID) ));
+		}
+		#endregion
+		
+
+
+
+
+
+		//*/
 	}
 }

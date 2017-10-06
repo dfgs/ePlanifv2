@@ -12,6 +12,10 @@ namespace ePlanifServerLib
 		Account GetAccount(string Login);
 		Profile GetProfile(int ProfileID);
 
+		Task<Option> GetOptionAsync(int AccountID);
+		Task<bool> CreateOptionAsync(Option Option);
+		Task<bool> UpdateOptionAsync(Option Option);
+
 		Task<IEnumerable<Employee>> GetEmployeesAsync(int AccountID);
 		Task<int> CreateEmployeeAsync(Employee Item);
 		Task<bool> UpdateEmployeeAsync(Employee Item);

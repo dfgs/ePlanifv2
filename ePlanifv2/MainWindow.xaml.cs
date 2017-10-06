@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.ComponentModel;
+using ViewModelLib;
+using ViewLib;
 
 namespace ePlanifv2
 {
@@ -252,7 +254,21 @@ namespace ePlanifv2
 			window.ShowDialog();//*/
 		}
 
-		
+		private void EditOptionsCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (vm != null) && (vm.IsLoaded) && (vm.Option!=null); e.Handled = true;
+		}
+
+		private async void EditOptionsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			if (await vm.Options.EditAsync(vm.Option))
+			{
+				vm.StartDate = vm.FirstDayOfWeek(DateTime.Now);
+				await vm.LoadAsync();
+			}
+		}
+
+
 
 
 

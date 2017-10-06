@@ -534,5 +534,26 @@ namespace ePlanifServerLib
 			return result == true;
 		}
 
+		public async Task<Option> GetOptionAsync(int AccountID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return (await SelectAsync<Option>(new EqualFilter<Option>(Option.AccountIDColumn,AccountID))).FirstOrDefault() ;
+		}
+
+		public async Task<bool> CreateOptionAsync(Option Option)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await InsertAsync(Option);
+		}
+
+		public async Task<bool> UpdateOptionAsync(Option Option)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await UpdateAsync(Option);
+		}
+
+
+
+
 	}
 }

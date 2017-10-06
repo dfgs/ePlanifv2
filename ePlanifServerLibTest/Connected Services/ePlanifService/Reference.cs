@@ -195,6 +195,18 @@ namespace ePlanifServerLibTest.ePlanifService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetCurrentProfile", ReplyAction="http://tempuri.org/IePlanifService/GetCurrentProfileResponse")]
         System.Threading.Tasks.Task<ePlanifModelsLib.Profile> GetCurrentProfileAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetOption", ReplyAction="http://tempuri.org/IePlanifService/GetOptionResponse")]
+        ePlanifModelsLib.Option GetOption();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetOption", ReplyAction="http://tempuri.org/IePlanifService/GetOptionResponse")]
+        System.Threading.Tasks.Task<ePlanifModelsLib.Option> GetOptionAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateOption", ReplyAction="http://tempuri.org/IePlanifService/UpdateOptionResponse")]
+        bool UpdateOption(ePlanifModelsLib.Option Option);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateOption", ReplyAction="http://tempuri.org/IePlanifService/UpdateOptionResponse")]
+        System.Threading.Tasks.Task<bool> UpdateOptionAsync(ePlanifModelsLib.Option Option);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetLayers", ReplyAction="http://tempuri.org/IePlanifService/GetLayersResponse")]
         ePlanifModelsLib.Layer[] GetLayers();
         
@@ -575,6 +587,22 @@ namespace ePlanifServerLibTest.ePlanifService {
         
         public System.Threading.Tasks.Task<ePlanifModelsLib.Profile> GetCurrentProfileAsync() {
             return base.Channel.GetCurrentProfileAsync();
+        }
+        
+        public ePlanifModelsLib.Option GetOption() {
+            return base.Channel.GetOption();
+        }
+        
+        public System.Threading.Tasks.Task<ePlanifModelsLib.Option> GetOptionAsync() {
+            return base.Channel.GetOptionAsync();
+        }
+        
+        public bool UpdateOption(ePlanifModelsLib.Option Option) {
+            return base.Channel.UpdateOption(Option);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateOptionAsync(ePlanifModelsLib.Option Option) {
+            return base.Channel.UpdateOptionAsync(Option);
         }
         
         public ePlanifModelsLib.Layer[] GetLayers() {

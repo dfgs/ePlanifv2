@@ -28,7 +28,7 @@ namespace ePlanifServerLibTest
 		protected IePlanifServiceClient CreateClient()
 		{
 			IePlanifServiceClient client;
-
+														    
 			client = new IePlanifServiceClient("ePlanif", $"net.tcp://localhost:{ServicePort}/ePlanif");
 			client.Open();
 

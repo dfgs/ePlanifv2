@@ -99,7 +99,10 @@ namespace ePlanifViewModelsLib
 			get { return (Profile)GetValue(UserProfileProperty); }
 			private set { SetValue(UserProfileProperty, value); }
 		}
+
+
 		
+
 
 		public static readonly DependencyProperty WeekNameProperty = DependencyProperty.Register("WeekName", typeof(string), typeof(ePlanifServiceViewModel));
 		public string WeekName
@@ -129,6 +132,16 @@ namespace ePlanifViewModelsLib
 		public ReportViewModelCollection Reports
 		{
 			get { return reports; }
+		}
+
+		private OptionViewModelCollection options;
+		public OptionViewModelCollection Options
+		{
+			get { return options; }
+		}
+		public OptionViewModel Option
+		{
+			get { return options?.FirstOrDefault(); }
 		}
 
 		private CountryCodeViewModelCollection countryCodes;
@@ -236,16 +249,24 @@ namespace ePlanifViewModelsLib
 			get { return tabs; }
 		}
 
+		private DayOfWeekViewModelCollection daysOfWeek;
+		public DayOfWeekViewModelCollection DaysOfWeek
+		{
+			get { return daysOfWeek; }
+		}
 
-
+		private CalendarWeekRuleViewModelCollection calendarWeekRules;
+		public CalendarWeekRuleViewModelCollection CalendarWeekRules
+		{
+			get { return calendarWeekRules; }
+		}
 
 		public ePlanifServiceViewModel()
         {
 			commandManager = new CommandManager(10);
 
-			StartDate = FirstDayOfWeek(DateTime.Now);
 
-
+	
 			RefreshCommand = new ViewModelCommand(OnRefreshCommandCanExecute, OnRefreshCommandExecute);
 			UndoCommand = new ViewModelCommand(OnUndoCommandCanExecute, OnUndoCommandExecute);
 			RedoCommand = new ViewModelCommand(OnRedoCommandCanExecute, OnRedoCommandExecute);
@@ -256,9 +277,15 @@ namespace ePlanifViewModelsLib
 			RemoveDaysCommand = new ViewModelCommand(OnRemoveDaysCommandCanExecute, OnRemoveDaysCommandExecute);
 			AddDaysCommand = new ViewModelCommand(OnAddDaysCommandCanExecute, OnAddDaysCommandExecute);
 
-			reports = new ReportViewModelCollection(this);Children.Add(reports);
+			StartDate = DateTime.MinValue;
 
-			countryCodes = new CountryCodeViewModelCollection(this);Children.Add(countryCodes);
+			reports = new ReportViewModelCollection(this);Children.Add(reports);
+			options = new OptionViewModelCollection(this); // do not add options into children. Option are loaded at connection. Children.Add(options);
+
+
+			countryCodes = new CountryCodeViewModelCollection(this); Children.Add(countryCodes);
+			daysOfWeek = new DayOfWeekViewModelCollection(this); Children.Add(daysOfWeek);
+			calendarWeekRules = new CalendarWeekRuleViewModelCollection(this);Children.Add(calendarWeekRules);
 			days = new DayViewModelCollection(this);Children.Add(days);
 			layers = new LayerViewModelCollection(this); Children.Add(layers);
 			visibleLayers = new FilteredViewModelCollection<LayerViewModel, Layer>(layers, (item) => { return item.IsDisabled!=true; }); Children.Add(visibleLayers);
@@ -308,8 +335,10 @@ namespace ePlanifViewModelsLib
 				UserAccount = await client.GetCurrentAccountAsync();
 				UserProfile = await client.GetCurrentProfileAsync();
 				client.Close();
+				await Options.LoadAsync();
+				StartDate = FirstDayOfWeek(DateTime.Now);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Log(ex);
 				client.Abort();
@@ -325,19 +354,41 @@ namespace ePlanifViewModelsLib
 
 
 
-		public static DateTime FirstDayOfWeek(DateTime Date)
+		public DateTime FirstDayOfWeek(DateTime Date)
 		{
-			int diff = Date.DayOfWeek - CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+			DayOfWeek firstDayOfWeek;
+
+			if (Option == null) firstDayOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+			else firstDayOfWeek = Option.FirstDayOfWeek.Value;
+
+			int diff = Date.DayOfWeek - firstDayOfWeek;
 			if (diff < 0) diff += 7;
 			return Date.AddDays(-1 * diff).Date;
 		}
 
 		private void UpdateWeekNumber()
 		{
+			//DayOfWeek d;
+			CalendarWeekRule rule;
+			DayOfWeek firstDayOfWeek;
 
-			DateTimeFormatInfo dfi = CultureInfo.CurrentCulture.DateTimeFormat;
-			Calendar cal = dfi.Calendar;
-			WeekName = "W"+cal.GetWeekOfYear(StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString("D2");
+			if (Option == null)
+			{
+				rule = CultureInfo.CurrentCulture.DateTimeFormat.CalendarWeekRule;
+				firstDayOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+			}
+			else
+			{
+				rule = Option.CalendarWeekRule.Value;
+				firstDayOfWeek = Option.FirstDayOfWeek.Value;
+			}
+
+			//DateTimeFormatInfo dfi = CultureInfo.CurrentCulture.DateTimeFormat;
+			//Calendar cal = dfi.Calendar;
+			//int t=(int)DayOfWeek.Friday;
+			//d = (DayOfWeek)t;
+						
+			WeekName = "W"+ CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(StartDate, rule, firstDayOfWeek).ToString("D2");
 		}
 
 		

@@ -52,13 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LizaUnitTest.cs" />
-    <Compile Include="AdminUnitTest.cs" />
     <Compile Include="Connected Services\ePlanifService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="LizaUnitTest.cs" />
+    <Compile Include="AdminUnitTest.cs" />
     <Compile Include="BaseUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +77,12 @@
     <None Include="Connected Services\ePlanifService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ePlanifService\System.Globalization.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ePlanifService\System.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Account.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Activity.datasource" />
@@ -90,6 +96,7 @@
     <None Include="Properties\DataSources\ePlanifModelsLib.Group.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.GroupMember.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Layer.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Option.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Profile.datasource" />
   </ItemGroup>
   <ItemGroup>

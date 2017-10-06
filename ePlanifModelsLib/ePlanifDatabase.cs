@@ -23,6 +23,10 @@ namespace ePlanifModelsLib
 		public static Table<ActivityTypeView> ActivityTypeViews = new Table<ActivityTypeView>();
 		public static Table<EmployeeViewMember> EmployeeViewMembers = new Table<EmployeeViewMember>();
 		public static Table<ActivityTypeViewMember> ActivityTypeViewMembers = new Table<ActivityTypeViewMember>();
+		[Revision(3)]
+		public static Table<Option> Options = new Table<Option>();
+		[Revision(4)]
+		public static Table<Photo> Photos = new Table<Photo>();
 
 		public static Relation<ActivityType, Activity, int> ActivityTypeToActivity = new Relation<ActivityType, Activity, int>(ActivityType.ActivityTypeIDColumn, Activity.ActivityTypeIDColumn, DeleteReferentialAction.None);
 		public static Relation<Employee, Activity, int> ActivityTypeToEmployee = new Relation<Employee, Activity, int>(Employee.EmployeeIDColumn, Activity.EmployeeIDColumn, DeleteReferentialAction.None);
@@ -40,6 +44,10 @@ namespace ePlanifModelsLib
 		public static Relation<Employee, EmployeeViewMember, int> EmployeeToEmployeeViewMember = new Relation<Employee, EmployeeViewMember, int>(Employee.EmployeeIDColumn, EmployeeViewMember.EmployeeIDColumn, DeleteReferentialAction.None);
 		public static Relation<ActivityTypeView, ActivityTypeViewMember, int> ActivityTypeViewToActivityTypeViewMember = new Relation<ActivityTypeView, ActivityTypeViewMember, int>(ActivityTypeView.ActivityTypeViewIDColumn, ActivityTypeViewMember.ActivityTypeViewIDColumn, DeleteReferentialAction.None);
 		public static Relation<ActivityType, ActivityTypeViewMember, int> ActivityTypeToActivityTypeViewMember = new Relation<ActivityType, ActivityTypeViewMember, int>(ActivityType.ActivityTypeIDColumn, ActivityTypeViewMember.ActivityTypeIDColumn, DeleteReferentialAction.None);
+		[Revision(3)]
+		public static Relation<Account, Option, int> OptionToAccount = new Relation<Account, Option, int>(Account.AccountIDColumn, Option.AccountIDColumn, DeleteReferentialAction.None);
+		[Revision(4)]
+		public static Relation<Employee, Photo, int> PhotoToEmployee = new Relation<Employee, Photo, int>(Employee.EmployeeIDColumn, Photo.EmployeeIDColumn, DeleteReferentialAction.None);
 
 		public ePlanifDatabase() : this("127.0.0.1")
 		{

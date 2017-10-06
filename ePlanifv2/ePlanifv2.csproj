@@ -688,6 +688,7 @@
     <Resource Include="Images\magnifier-zoom-out.png" />
     <Resource Include="Images\arrow_redo.png" />
     <Resource Include="Images\arrow_undo.png" />
+    <Resource Include="Images\equalizer.png" />
     <Content Include="Nager.Date LICENCE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

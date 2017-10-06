@@ -122,7 +122,7 @@ namespace ePlanifViewModelsLib
 			{
 				foreach (ActivityViewModel activity in Service.Activities.SelectedItems)
 				{
-					if (!((await client.HasWriteAccessAsync(activity.ActivityID.Value)))) return false;
+					if (!((await client.HasWriteAccessToActivityAsync(activity.ActivityID.Value)))) return false;
 				}
 			}
 			return true;

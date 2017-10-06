@@ -27,6 +27,8 @@
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="8e14a98a-b3ea-4e7a-99e0-b021f58be09a" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
     <MetadataFile FileName="ePlanifModelsLib.xsd" MetadataType="Schema" ID="666e9643-7970-44df-a925-8e0f4d2df7eb" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
     <MetadataFile FileName="ModelLib.xsd" MetadataType="Schema" ID="2e131ec3-9f12-406c-9127-f84849cc0210" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="System.Globalization.xsd" MetadataType="Schema" ID="fad079de-942b-4c42-af7b-98166f5851f5" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="273e1c4b-c7ab-496e-b3fe-18abfb04351a" SourceId="1" SourceUrl="net.tcp://localhost:8523/ePlanif/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

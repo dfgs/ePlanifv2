@@ -28,6 +28,7 @@ namespace ePlanifServerLib
 		public List<ActivityTypeView> ActivityTypeViews = new List<ActivityTypeView>();
 		public List<EmployeeViewMember> EmployeeViewMembers = new List<EmployeeViewMember>();
 		public List<ActivityTypeViewMember> ActivityTypeViewMembers = new List<ActivityTypeViewMember>();
+		public List<Option> Options = new List<Option>();
 
 		private string fakeLogin;
 
@@ -303,6 +304,11 @@ namespace ePlanifServerLib
 						break;
 				}
 			}
+
+
+			Options.Add(new Option() { OptionID = 1, AccountID = 1, FirstDayOfWeek= DayOfWeek.Monday,CalendarWeekRule= CalendarWeekRule.FirstDay });
+			Options.Add(new Option() { OptionID = 2, AccountID = 2, FirstDayOfWeek = DayOfWeek.Monday, CalendarWeekRule = CalendarWeekRule.FirstDay });
+			Options.Add(new Option() { OptionID = 3, AccountID = 3, FirstDayOfWeek = DayOfWeek.Monday, CalendarWeekRule = CalendarWeekRule.FirstDay });
 		}
 
 		public static DateTime FirstDayOfWeek(DateTime Date)
@@ -787,6 +793,26 @@ namespace ePlanifServerLib
 			Activity activity = Activities.First(item => item.ActivityID == ActivityID);
 			return await Task.FromResult(GetGrantedEmployees(GetProfileID(AccountID)).FirstOrDefault(item => (item.EmployeeID == activity.EmployeeID) && (item.WriteAccess==true) ) != null);
 		}
+
+		public async Task<Option> GetOptionAsync(int AccountID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult( Options.FirstOrDefault(item => item.AccountID == AccountID));
+		}
+
+		public async Task<bool> CreateOptionAsync(Option Option)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Insert(Options,Option)>0);
+		}
+
+		public async Task<bool> UpdateOptionAsync(Option Option)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Update(Options, Option));
+		}
+
+
 
 
 	}

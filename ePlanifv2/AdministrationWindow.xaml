@@ -21,7 +21,7 @@
         <Button DockPanel.Dock="Bottom" HorizontalAlignment="Center" Margin="4" Content="OK" Width="100" Click="Button_Click"/>
         
         <TabControl TabStripPlacement="Left">
-            <TabItem Header="Employees" Visibility="{Binding UserProfile.AdministrateEmployees,Converter={StaticResource boolToVisibilityConverter}}">
+			<TabItem Header="Employees" Visibility="{Binding UserProfile.AdministrateEmployees,Converter={StaticResource boolToVisibilityConverter}}">
                 <Views:GenericCollectionView DataContext="{Binding Employees}"/>
             </TabItem>
 			<TabItem Header="Layers" Visibility="{Binding UserProfile.AdministrateActivityTypes,Converter={StaticResource boolToVisibilityConverter}}">

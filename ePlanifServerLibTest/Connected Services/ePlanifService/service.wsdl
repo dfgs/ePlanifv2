@@ -39,6 +39,8 @@
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/ModelLib" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Globalization" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IePlanifService_GetEmployees_InputMessage">
@@ -220,6 +222,18 @@
   </wsdl:message>
   <wsdl:message name="IePlanifService_GetCurrentProfile_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCurrentProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetOption_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOption" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetOption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateOption_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateOption" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdateOption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateOptionResponse" />
   </wsdl:message>
   <wsdl:message name="IePlanifService_GetLayers_InputMessage">
     <wsdl:part name="parameters" element="tns:GetLayers" />
@@ -455,6 +469,14 @@
     <wsdl:operation name="GetCurrentProfile">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetCurrentProfile" message="tns:IePlanifService_GetCurrentProfile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetCurrentProfileResponse" message="tns:IePlanifService_GetCurrentProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetOption" message="tns:IePlanifService_GetOption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetOptionResponse" message="tns:IePlanifService_GetOption_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateOption" message="tns:IePlanifService_UpdateOption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateOptionResponse" message="tns:IePlanifService_UpdateOption_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetLayers">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetLayers" message="tns:IePlanifService_GetLayers_InputMessage" />
@@ -807,6 +829,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetOption">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetOption" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOption">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateOption" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetLayers">
       <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetLayers" style="document" />
       <wsdl:input>
@@ -985,7 +1025,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8523/ePlanif</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>guicharm@corp.root.ipc.com</Upn>
+          <Upn>IPC_NAMERICA\guicharm</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

@@ -15,7 +15,7 @@ using WorkerLib;
 namespace ePlanifServerLib
 {
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)] // necessary for self host
-	public class ePlanifService :Worker, IePlanifService
+	public class ePlanifService : Worker, IePlanifService
 	{
 		private IDataProvider dataProvider;
 
@@ -29,9 +29,9 @@ namespace ePlanifServerLib
 		}
 
 
-		private bool AssertPermission(string Role,[CallerMemberName]string CallerName=null)
+		private bool AssertPermission(string Role, [CallerMemberName]string CallerName = null)
 		{
-			if (Principal==null)
+			if (Principal == null)
 			{
 				WriteLog(LogLevels.Error, $"User is not authenticated", CallerName);
 				return false;
@@ -47,7 +47,7 @@ namespace ePlanifServerLib
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return null;
 			return await Task.FromResult(Principal.Account);
-			
+
 		}
 
 		public async Task<Profile> GetCurrentProfileAsync()
@@ -55,6 +55,30 @@ namespace ePlanifServerLib
 			WriteLog(LogLevels.Debug, LogActions.Enter);
 			if (!AssertPermission(Roles.ePlanifUser)) return null;
 			return await Task.FromResult(Principal.Profile);
+		}
+
+
+		public async Task<Option> GetOptionAsync()
+		{
+			Option option;
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.ePlanifUser)) return null;
+			option = await dataProvider.GetOptionAsync(Principal.Account.AccountID.Value);
+			if (option==null)
+			{
+				WriteLog(LogLevels.Information, $"User {Principal.Account.Login} has no option yet, creating new one");
+				option = new Option() { AccountID=Principal.Account.AccountID, CalendarWeekRule=System.Globalization.CalendarWeekRule.FirstFourDayWeek, FirstDayOfWeek=DayOfWeek.Monday };
+				if (!await dataProvider.CreateOptionAsync(option)) return null;
+			}
+			return option;
+		}
+		public async Task<bool> UpdateOptionAsync(Option Option)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.ePlanifUser)) return false ;
+			Option existing = (await dataProvider.GetOptionAsync(Principal.Account.AccountID.Value));
+			if ((existing.AccountID != Option.AccountID) || (existing.OptionID!=Option.OptionID)) return false; // trying to hack an existing view
+			return await dataProvider.UpdateOptionAsync(Option);
 		}
 
 

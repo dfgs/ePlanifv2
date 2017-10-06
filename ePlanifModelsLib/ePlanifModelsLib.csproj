@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Photo.cs" />
+    <Compile Include="Option.cs" />
     <Compile Include="ActivityTypeView.cs" />
     <Compile Include="ActivityTypeViewMember.cs" />
     <Compile Include="EmployeeViewMember.cs" />

@@ -11,7 +11,7 @@
 		xmlns:tlk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"  x:Name="root" 
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        Title="ePlanif" Height="480" Width="1024" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="Images/calendar.png">
+        Title="ePlanif" Height="480" Width="1100" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="Images/calendar.png">
 
     <Window.Resources>
 		<ResourceDictionary>
@@ -62,6 +62,7 @@
 			<RoutedUICommand x:Key="restoreColumnsCommand"/>
 			<RoutedUICommand x:Key="incColumnsCommand"/>
 			<RoutedUICommand x:Key="decColumnsCommand"/>
+			<RoutedUICommand x:Key="editOptionsCommand"/>
 		</ResourceDictionary>
 
 	</Window.Resources>
@@ -97,6 +98,7 @@
 		<CommandBinding Command="{StaticResource restoreColumnsCommand}" CanExecute="RestoreColumnsCommandBinding_CanExecute" Executed="RestoreColumnsCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource incColumnsCommand}" CanExecute="IncColumnsCommandBinding_CanExecute" Executed="IncColumnsCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource decColumnsCommand}" CanExecute="DecColumnsCommandBinding_CanExecute" Executed="DecColumnsCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource editOptionsCommand}" CanExecute="EditOptionsCommandBinding_CanExecute" Executed="EditOptionsCommandBinding_Executed"/>
 	</Window.CommandBindings>
 	<Grid>
 		<DockPanel>
@@ -214,6 +216,9 @@
 				</Button>
 				<Button DockPanel.Dock="Right" Command="ApplicationCommands.Properties" ToolTip="Administration">
 					<Image Source="Images/cog.png" Stretch="None"/>
+				</Button>
+				<Button DockPanel.Dock="Right" Command="{StaticResource editOptionsCommand}" ToolTip="Options">
+					<Image Source="Images/equalizer.png" Stretch="None"/>
 				</Button>
 				<Border DockPanel.Dock="Right" Style="{StaticResource separatorStyle}"/>
 

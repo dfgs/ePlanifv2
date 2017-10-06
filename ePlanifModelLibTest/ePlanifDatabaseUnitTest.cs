@@ -20,7 +20,7 @@ namespace ePlanifModelLibTest
 		private static EmployeeView employeeView1, employeeView2;
 		private static ActivityTypeView activityTypeView1, activityTypeView2;
 
-		 [ClassInitialize]
+		[ClassInitialize]
 		public static async Task Initialize(TestContext Context)
 		{
 			profile1 = new Profile() { Name = "test", AdministrateAccounts = true, AdministrateActivityTypes = true, AdministrateEmployees = true, CanRunReports = true, IsDisabled = false,SelfWriteAccess=true };
@@ -286,6 +286,18 @@ namespace ePlanifModelLibTest
 			await AssertUpdateAsync(true, row, (item) => item.ActivityTypeID = activityType2.ActivityTypeID.Value);
 			await AssertDeleteAsync(true, row);
 		}
+
+		[TestMethod, TestCategory("CRUD")]
+		public async Task Should_Success_When_CRUD_Option()
+		{
+			var row = new Option() { AccountID = account1.AccountID.Value, FirstDayOfWeek=DayOfWeek.Friday,CalendarWeekRule=System.Globalization.CalendarWeekRule.FirstFourDayWeek  };
+			await AssertInsertAsync(true, row);
+			await AssertUpdateAsync(false, row, (item) => item.FirstDayOfWeek = DayOfWeek.Monday);
+			await AssertUpdateAsync(true, row, (item) => item.CalendarWeekRule= System.Globalization.CalendarWeekRule.FirstFullWeek);
+			await AssertDeleteAsync(true, row);
+		}
+
+
 
 	}
 }

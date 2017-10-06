@@ -99,12 +99,6 @@ namespace ePlanifViewModelsLib.ePlanifService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateActivity", ReplyAction="http://tempuri.org/IePlanifService/UpdateActivityResponse")]
         System.Threading.Tasks.Task<bool> UpdateActivityAsync(ePlanifModelsLib.Activity Item);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccess", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessResponse")]
-        bool HasWriteAccess(int ItemID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccess", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessResponse")]
-        System.Threading.Tasks.Task<bool> HasWriteAccessAsync(int ItemID);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetGroupMembers", ReplyAction="http://tempuri.org/IePlanifService/GetGroupMembersResponse")]
         ePlanifModelsLib.GroupMember[] GetGroupMembers(int GroupID);
         
@@ -200,6 +194,18 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetCurrentProfile", ReplyAction="http://tempuri.org/IePlanifService/GetCurrentProfileResponse")]
         System.Threading.Tasks.Task<ePlanifModelsLib.Profile> GetCurrentProfileAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetOption", ReplyAction="http://tempuri.org/IePlanifService/GetOptionResponse")]
+        ePlanifModelsLib.Option GetOption();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetOption", ReplyAction="http://tempuri.org/IePlanifService/GetOptionResponse")]
+        System.Threading.Tasks.Task<ePlanifModelsLib.Option> GetOptionAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateOption", ReplyAction="http://tempuri.org/IePlanifService/UpdateOptionResponse")]
+        bool UpdateOption(ePlanifModelsLib.Option Option);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateOption", ReplyAction="http://tempuri.org/IePlanifService/UpdateOptionResponse")]
+        System.Threading.Tasks.Task<bool> UpdateOptionAsync(ePlanifModelsLib.Option Option);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetLayers", ReplyAction="http://tempuri.org/IePlanifService/GetLayersResponse")]
         ePlanifModelsLib.Layer[] GetLayers();
@@ -302,6 +308,18 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember", ReplyAction="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMemberResponse")]
         System.Threading.Tasks.Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployee", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToEmployeeResponse")]
+        bool HasWriteAccessToEmployee(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployee", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToEmployeeResponse")]
+        System.Threading.Tasks.Task<bool> HasWriteAccessToEmployeeAsync(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToActivity", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToActivityResponse")]
+        bool HasWriteAccessToActivity(int ActivityID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToActivity", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToActivityResponse")]
+        System.Threading.Tasks.Task<bool> HasWriteAccessToActivityAsync(int ActivityID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -443,14 +461,6 @@ namespace ePlanifViewModelsLib.ePlanifService {
             return base.Channel.UpdateActivityAsync(Item);
         }
         
-        public bool HasWriteAccess(int ItemID) {
-            return base.Channel.HasWriteAccess(ItemID);
-        }
-        
-        public System.Threading.Tasks.Task<bool> HasWriteAccessAsync(int ItemID) {
-            return base.Channel.HasWriteAccessAsync(ItemID);
-        }
-        
         public ePlanifModelsLib.GroupMember[] GetGroupMembers(int GroupID) {
             return base.Channel.GetGroupMembers(GroupID);
         }
@@ -577,6 +587,22 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         public System.Threading.Tasks.Task<ePlanifModelsLib.Profile> GetCurrentProfileAsync() {
             return base.Channel.GetCurrentProfileAsync();
+        }
+        
+        public ePlanifModelsLib.Option GetOption() {
+            return base.Channel.GetOption();
+        }
+        
+        public System.Threading.Tasks.Task<ePlanifModelsLib.Option> GetOptionAsync() {
+            return base.Channel.GetOptionAsync();
+        }
+        
+        public bool UpdateOption(ePlanifModelsLib.Option Option) {
+            return base.Channel.UpdateOption(Option);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateOptionAsync(ePlanifModelsLib.Option Option) {
+            return base.Channel.UpdateOptionAsync(Option);
         }
         
         public ePlanifModelsLib.Layer[] GetLayers() {
@@ -713,6 +739,22 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         public System.Threading.Tasks.Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID) {
             return base.Channel.DeleteActivityTypeViewMemberAsync(ItemID);
+        }
+        
+        public bool HasWriteAccessToEmployee(int EmployeeID) {
+            return base.Channel.HasWriteAccessToEmployee(EmployeeID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> HasWriteAccessToEmployeeAsync(int EmployeeID) {
+            return base.Channel.HasWriteAccessToEmployeeAsync(EmployeeID);
+        }
+        
+        public bool HasWriteAccessToActivity(int ActivityID) {
+            return base.Channel.HasWriteAccessToActivity(ActivityID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> HasWriteAccessToActivityAsync(int ActivityID) {
+            return base.Channel.HasWriteAccessToActivityAsync(ActivityID);
         }
     }
 }

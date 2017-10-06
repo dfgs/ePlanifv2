@@ -84,6 +84,12 @@ namespace ePlanifServerLib
 		[OperationContract]
 		Task<Profile> GetCurrentProfileAsync();
 
+		[OperationContract]
+		Task<Option> GetOptionAsync();
+		[OperationContract]
+		Task<bool> UpdateOptionAsync(Option Option);
+
+
 
 		[OperationContract]
 		Task<IEnumerable<Layer>> GetLayersAsync();
