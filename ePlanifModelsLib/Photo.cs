@@ -27,6 +27,7 @@ namespace ePlanifModelsLib
 
 
 		public static readonly BlobColumn<Photo> DataColumn = new BlobColumn<Photo>();
+		[DataMember]
 		public byte[] Data
 		{
 			get { return DataColumn.GetValue(this); }

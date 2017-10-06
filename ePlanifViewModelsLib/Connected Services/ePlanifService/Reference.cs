@@ -309,6 +309,12 @@ namespace ePlanifViewModelsLib.ePlanifService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember", ReplyAction="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMemberResponse")]
         System.Threading.Tasks.Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetPhoto", ReplyAction="http://tempuri.org/IePlanifService/GetPhotoResponse")]
+        ePlanifModelsLib.Photo GetPhoto(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetPhoto", ReplyAction="http://tempuri.org/IePlanifService/GetPhotoResponse")]
+        System.Threading.Tasks.Task<ePlanifModelsLib.Photo> GetPhotoAsync(int EmployeeID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployee", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToEmployeeResponse")]
         bool HasWriteAccessToEmployee(int EmployeeID);
         
@@ -739,6 +745,14 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         public System.Threading.Tasks.Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID) {
             return base.Channel.DeleteActivityTypeViewMemberAsync(ItemID);
+        }
+        
+        public ePlanifModelsLib.Photo GetPhoto(int EmployeeID) {
+            return base.Channel.GetPhoto(EmployeeID);
+        }
+        
+        public System.Threading.Tasks.Task<ePlanifModelsLib.Photo> GetPhotoAsync(int EmployeeID) {
+            return base.Channel.GetPhotoAsync(EmployeeID);
         }
         
         public bool HasWriteAccessToEmployee(int EmployeeID) {

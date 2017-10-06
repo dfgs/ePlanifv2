@@ -103,6 +103,13 @@
       <Name>ePlanifModelsLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\bart.png" />
+    <EmbeddedResource Include="Images\homer.png" />
+    <EmbeddedResource Include="Images\lisa.png" />
+    <EmbeddedResource Include="Images\maggie.png" />
+    <EmbeddedResource Include="Images\marje.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -54,6 +54,7 @@ namespace ePlanifViewModelsLib
 			set { Model.MaxWorkingHoursPerWeek = value; OnPropertyChanged(); }
 		}
 
+
 		public bool? WriteAccess
 		{
 			get { return Model.WriteAccess; }
@@ -65,6 +66,11 @@ namespace ePlanifViewModelsLib
 			get { return LastName + " " + FirstName; }
 		}
 
+		//private PhotoViewModel photo;
+		public PhotoViewModel Photo
+		{
+			get { return Service.Photos.FirstOrDefault(item=>item.EmployeeID==EmployeeID); }
+		}
 
 
 
@@ -90,6 +96,7 @@ namespace ePlanifViewModelsLib
 			return code;
 		}
 
+		
 
 	}
 }

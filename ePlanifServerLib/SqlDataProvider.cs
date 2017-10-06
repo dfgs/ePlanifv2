@@ -503,6 +503,13 @@ namespace ePlanifServerLib
 			return await DeleteAsync<ActivityTypeViewMember>(ItemID);
 		}
 
+		public async Task<Photo> GetPhotoAsync(int EmployeeID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return (await SelectAsync<Photo>(new EqualFilter<Photo>(Photo.EmployeeIDColumn,EmployeeID))).FirstOrDefault();
+		}
+
+
 
 		public async Task<bool> HasWriteAccessToEmployeeAsync(int AccountID,int EmployeeID)
 		{

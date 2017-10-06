@@ -39,7 +39,13 @@ namespace ePlanifv2.Views
 			Context.DrawText(text, pos);
 			layout.DockRight(8);
 
-			
+			if (employee.Photo!=null)
+			{
+				rect = Layout.Center(layout.DockLeft(64), 64, 64);
+				Context.DrawImage(employee.Photo.Image, rect);
+				layout.DockLeft(8);
+			}
+
 			rect = layout.SplitTop();
 			text = DisplayOptions.FormatText(employee.LastName.ToString(), DisplayOptions.TextDarkBrush, 16);
 			pos = DisplayOptions.GetTextPosition(rect, text, HorizontalAlignment.Left, VerticalAlignment.Bottom);

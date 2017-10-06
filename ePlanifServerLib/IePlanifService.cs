@@ -123,14 +123,15 @@ namespace ePlanifServerLib
 		[OperationContract]
 		Task<bool> DeleteEmployeeViewMemberAsync(int ItemID);
 
-
-
 		[OperationContract]
 		Task<IEnumerable<ActivityTypeViewMember>> GetActivityTypeViewMembersAsync(int ViewID);
 		[OperationContract]
 		Task<int> CreateActivityTypeViewMemberAsync(ActivityTypeViewMember Item);
 		[OperationContract]
 		Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
+
+		[OperationContract]
+		Task<Photo> GetPhotoAsync(int EmployeeID);
 
 		[OperationContract]
 		Task<bool> HasWriteAccessToEmployeeAsync(int EmployeeID);

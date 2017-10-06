@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WorkerLib;
@@ -29,6 +31,7 @@ namespace ePlanifServerLib
 		public List<EmployeeViewMember> EmployeeViewMembers = new List<EmployeeViewMember>();
 		public List<ActivityTypeViewMember> ActivityTypeViewMembers = new List<ActivityTypeViewMember>();
 		public List<Option> Options = new List<Option>();
+		public List<Photo> Photos = new List<Photo>();
 
 		private string fakeLogin;
 
@@ -52,8 +55,14 @@ namespace ePlanifServerLib
 			Employees.Add(new Employee() { EmployeeID = 1, FirstName = "Homer", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = 10 });
 			Employees.Add(new Employee() { EmployeeID = 2, FirstName = "Marje", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = 50 });
 			Employees.Add(new Employee() { EmployeeID = 3, FirstName = "Bart", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = null });
-			Employees.Add(new Employee() { EmployeeID = 4, FirstName = "Liza", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = null });
-			Employees.Add(new Employee() { EmployeeID = 5, FirstName = "Maggy", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = null });
+			Employees.Add(new Employee() { EmployeeID = 4, FirstName = "Lisa", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = null });
+			Employees.Add(new Employee() { EmployeeID = 5, FirstName = "Maggie", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = null });
+
+			Photos.Add(new Photo() { PhotoID = 1, EmployeeID = 1, Data = GetPhoto("ePlanifServerLib.Images.homer.png") });
+			Photos.Add(new Photo() { PhotoID = 2, EmployeeID = 2, Data = GetPhoto("ePlanifServerLib.Images.marje.png") });
+			Photos.Add(new Photo() { PhotoID = 3, EmployeeID = 3, Data = GetPhoto("ePlanifServerLib.Images.bart.png") });
+			Photos.Add(new Photo() { PhotoID = 4, EmployeeID = 4, Data = GetPhoto("ePlanifServerLib.Images.lisa.png") });
+			Photos.Add(new Photo() { PhotoID = 5, EmployeeID = 5, Data = GetPhoto("ePlanifServerLib.Images.maggie.png") });
 
 			Groups.Add(new Group() { GroupID = 1, Name = "Springfield" });
 			Groups.Add(new Group() { GroupID = 2, Name = "Simpsons", ParentGroupID = 1 });
@@ -309,8 +318,20 @@ namespace ePlanifServerLib
 			Options.Add(new Option() { OptionID = 1, AccountID = 1, FirstDayOfWeek= DayOfWeek.Monday,CalendarWeekRule= CalendarWeekRule.FirstDay });
 			Options.Add(new Option() { OptionID = 2, AccountID = 2, FirstDayOfWeek = DayOfWeek.Monday, CalendarWeekRule = CalendarWeekRule.FirstDay });
 			Options.Add(new Option() { OptionID = 3, AccountID = 3, FirstDayOfWeek = DayOfWeek.Monday, CalendarWeekRule = CalendarWeekRule.FirstDay });
+
 		}
 
+		public byte[] GetPhoto(string Name)
+		{
+			byte[] buffer;
+			Stream stream;
+
+			stream=Assembly.GetCallingAssembly().GetManifestResourceStream(Name);
+			buffer = new byte[stream.Length];
+			stream.Read(buffer, 0, (int)stream.Length);
+
+			return buffer;
+		}
 		public static DateTime FirstDayOfWeek(DateTime Date)
 		{
 			int diff = Date.DayOfWeek - CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
@@ -780,6 +801,32 @@ namespace ePlanifServerLib
 			return await Task.FromResult(Delete(ActivityTypeViewMembers, ItemID));
 		}
 
+		public async Task<Option> GetOptionAsync(int AccountID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Options.FirstOrDefault(item => item.AccountID == AccountID));
+		}
+
+		public async Task<bool> CreateOptionAsync(Option Option)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Insert(Options, Option) > 0);
+		}
+
+		public async Task<bool> UpdateOptionAsync(Option Option)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Update(Options, Option));
+		}
+
+		public async Task<Photo> GetPhotoAsync(int EmployeeID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Photos.FirstOrDefault(item => item.EmployeeID == EmployeeID));
+		}
+
+
+
 
 		public async Task<bool> HasWriteAccessToEmployeeAsync(int AccountID,int EmployeeID)
 		{
@@ -794,25 +841,7 @@ namespace ePlanifServerLib
 			return await Task.FromResult(GetGrantedEmployees(GetProfileID(AccountID)).FirstOrDefault(item => (item.EmployeeID == activity.EmployeeID) && (item.WriteAccess==true) ) != null);
 		}
 
-		public async Task<Option> GetOptionAsync(int AccountID)
-		{
-			WriteLog(LogLevels.Debug, LogActions.Enter);
-			return await Task.FromResult( Options.FirstOrDefault(item => item.AccountID == AccountID));
-		}
-
-		public async Task<bool> CreateOptionAsync(Option Option)
-		{
-			WriteLog(LogLevels.Debug, LogActions.Enter);
-			return await Task.FromResult(Insert(Options,Option)>0);
-		}
-
-		public async Task<bool> UpdateOptionAsync(Option Option)
-		{
-			WriteLog(LogLevels.Debug, LogActions.Enter);
-			return await Task.FromResult(Update(Options, Option));
-		}
-
-
+		
 
 
 	}

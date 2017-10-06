@@ -456,6 +456,12 @@ namespace ePlanifServerLib
 			return await dataProvider.DeleteActivityTypeViewMemberAsync(ItemID);
 		}
 
+		public async Task<Photo> GetPhotoAsync(int EmployeeID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.ePlanifUser)) return null;
+			return await dataProvider.GetPhotoAsync(EmployeeID);
+		}
 
 		public async Task<bool> HasWriteAccessToEmployeeAsync(int EmployeeID)
 		{

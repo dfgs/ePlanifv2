@@ -337,6 +337,12 @@
   <wsdl:message name="IePlanifService_DeleteActivityTypeViewMember_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteActivityTypeViewMemberResponse" />
   </wsdl:message>
+  <wsdl:message name="IePlanifService_GetPhoto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhoto" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetPhoto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotoResponse" />
+  </wsdl:message>
   <wsdl:message name="IePlanifService_HasWriteAccessToEmployee_InputMessage">
     <wsdl:part name="parameters" element="tns:HasWriteAccessToEmployee" />
   </wsdl:message>
@@ -545,6 +551,10 @@
     <wsdl:operation name="DeleteActivityTypeViewMember">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember" message="tns:IePlanifService_DeleteActivityTypeViewMember_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMemberResponse" message="tns:IePlanifService_DeleteActivityTypeViewMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetPhoto" message="tns:IePlanifService_GetPhoto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetPhotoResponse" message="tns:IePlanifService_GetPhoto_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="HasWriteAccessToEmployee">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployee" message="tns:IePlanifService_HasWriteAccessToEmployee_InputMessage" />
@@ -993,6 +1003,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteActivityTypeViewMember">
       <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoto">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetPhoto" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

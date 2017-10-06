@@ -88,7 +88,8 @@ namespace ePlanifServerLib
 		Task<int> CreateActivityTypeViewMemberAsync(ActivityTypeViewMember Item);
 		Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
 
-		
+		Task<Photo> GetPhotoAsync(int EmployeeID);
+
 		Task<bool> HasWriteAccessToEmployeeAsync(int AccountID,int EmployeeID);
 		Task<bool> HasWriteAccessToActivityAsync(int AccountID, int ActivityID);
 

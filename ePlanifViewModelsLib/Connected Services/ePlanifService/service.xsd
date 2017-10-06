@@ -667,6 +667,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetPhoto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EmployeeID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhotoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetPhotoResult" nillable="true" type="q41:Photo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="HasWriteAccessToEmployee">
     <xs:complexType>
       <xs:sequence>

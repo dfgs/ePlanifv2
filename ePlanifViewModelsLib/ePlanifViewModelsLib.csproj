@@ -55,6 +55,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PhotoViewModel.cs" />
+    <Compile Include="PhotoViewModelCollection.cs" />
     <Compile Include="CalendarWeekRuleViewModel.cs" />
     <Compile Include="CalendarWeekRuleViewModelCollection.cs" />
     <Compile Include="OptionViewModelCollection.cs" />
@@ -209,6 +211,7 @@
     <None Include="Properties\DataSources\ePlanifModelsLib.OnCall.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.OnCallType.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Option.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Photo.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Profile.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -241,6 +241,11 @@ namespace ePlanifViewModelsLib
 			get { return activityTypeViews; }
 		}
 
+		private PhotoViewModelCollection photos;
+		public PhotoViewModelCollection Photos
+		{
+			get { return photos; }
+		}
 
 
 		private TabViewModelCollection tabs;
@@ -302,6 +307,8 @@ namespace ePlanifViewModelsLib
 			activities = new ActivityViewModelCollection(this); Children.Add(activities);
 			employeeViews = new EmployeeViewViewModelCollection(this);Children.Add(employeeViews);
 			activityTypeViews = new ActivityTypeViewViewModelCollection(this);Children.Add(activityTypeViews);
+
+			photos = new PhotoViewModelCollection(this);Children.Add(photos);
 
 			tabs = new TabViewModelCollection(this);Children.Add(tabs);
 			
