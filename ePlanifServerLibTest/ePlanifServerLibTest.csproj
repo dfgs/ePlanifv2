@@ -97,6 +97,7 @@
     <None Include="Properties\DataSources\ePlanifModelsLib.GroupMember.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Layer.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Option.datasource" />
+    <None Include="Properties\DataSources\ePlanifModelsLib.Photo.datasource" />
     <None Include="Properties\DataSources\ePlanifModelsLib.Profile.datasource" />
   </ItemGroup>
   <ItemGroup>

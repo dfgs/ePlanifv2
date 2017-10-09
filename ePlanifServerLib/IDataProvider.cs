@@ -20,7 +20,11 @@ namespace ePlanifServerLib
 		Task<int> CreateEmployeeAsync(Employee Item);
 		Task<bool> UpdateEmployeeAsync(Employee Item);
 
-		
+		Task<IEnumerable<Photo>> GetPhotosAsync(int EmployeeID);
+		Task<int> CreatePhotoAsync(Photo Item);
+		Task<bool> DeletePhotoAsync(int ItemID);
+		Task<bool> UpdatePhotoAsync(Photo Item);
+
 		Task<IEnumerable<ActivityType>> GetActivityTypesAsync();
 		Task<int> CreateActivityTypeAsync(ActivityType Item);
 		Task<bool> UpdateActivityTypeAsync(ActivityType Item);
@@ -88,7 +92,6 @@ namespace ePlanifServerLib
 		Task<int> CreateActivityTypeViewMemberAsync(ActivityTypeViewMember Item);
 		Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
 
-		Task<Photo> GetPhotoAsync(int EmployeeID);
 
 		Task<bool> HasWriteAccessToEmployeeAsync(int AccountID,int EmployeeID);
 		Task<bool> HasWriteAccessToActivityAsync(int AccountID, int ActivityID);

@@ -43,9 +43,8 @@ namespace ePlanifViewModelsLib
             return Task.FromResult(Model);
         }
 
-		protected override async Task OnLoadedAsync()
+		public void RefreshImage()
 		{
-			await base.OnLoadedAsync();
 			try
 			{
 				image = new BitmapImage();
@@ -53,11 +52,16 @@ namespace ePlanifViewModelsLib
 				image.StreamSource = new MemoryStream(Model.Data);
 				image.EndInit();
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				ViewModel.Log(ex);
 				image = null;
 			}
+		}
+		protected override async Task OnLoadedAsync()
+		{
+			await base.OnLoadedAsync();
+			if ((image==null) && (Model.Data!=null)) RefreshImage();
 		}
 
 

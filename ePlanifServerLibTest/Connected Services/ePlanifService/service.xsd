@@ -27,6 +27,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeletePhoto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ItemID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePhotoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeletePhotoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="UpdateEmployee">
     <xs:complexType>
       <xs:sequence>
@@ -41,6 +55,48 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetPhotos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EmployeeID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhotosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetPhotosResult" nillable="true" type="q4:ArrayOfPhoto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePhoto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q5:Photo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePhotoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreatePhotoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePhoto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q6:Photo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePhotoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdatePhotoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetActivityTypes">
     <xs:complexType>
       <xs:sequence />
@@ -49,14 +105,14 @@
   <xs:element name="GetActivityTypesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetActivityTypesResult" nillable="true" type="q4:ArrayOfActivityType" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetActivityTypesResult" nillable="true" type="q7:ArrayOfActivityType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateActivityType">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q5:ActivityType" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q8:ActivityType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -70,7 +126,7 @@
   <xs:element name="UpdateActivityType">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q6:ActivityType" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q9:ActivityType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -89,14 +145,14 @@
   <xs:element name="GetProfilesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetProfilesResult" nillable="true" type="q7:ArrayOfProfile" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetProfilesResult" nillable="true" type="q10:ArrayOfProfile" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateProfile">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q8:Profile" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q11:Profile" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -110,7 +166,7 @@
   <xs:element name="UpdateProfile">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q9:Profile" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q12:Profile" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -131,14 +187,14 @@
   <xs:element name="GetActivitiesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetActivitiesResult" nillable="true" type="q10:ArrayOfActivity" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetActivitiesResult" nillable="true" type="q13:ArrayOfActivity" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateActivity">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q11:Activity" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q14:Activity" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -182,7 +238,7 @@
   <xs:element name="UpdateActivity">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q12:Activity" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q15:Activity" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -203,14 +259,14 @@
   <xs:element name="GetGroupMembersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetGroupMembersResult" nillable="true" type="q13:ArrayOfGroupMember" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetGroupMembersResult" nillable="true" type="q16:ArrayOfGroupMember" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateGroupMember">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q14:GroupMember" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q17:GroupMember" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -245,14 +301,14 @@
   <xs:element name="GetGrantsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetGrantsResult" nillable="true" type="q15:ArrayOfGrant" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetGrantsResult" nillable="true" type="q18:ArrayOfGrant" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateGrant">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q16:Grant" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q19:Grant" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -280,7 +336,7 @@
   <xs:element name="UpdateGrant">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q17:Grant" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q20:Grant" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -299,14 +355,14 @@
   <xs:element name="GetGroupsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetGroupsResult" nillable="true" type="q18:ArrayOfGroup" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetGroupsResult" nillable="true" type="q21:ArrayOfGroup" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateGroup">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q19:Group" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q22:Group" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -334,7 +390,7 @@
   <xs:element name="UpdateGroup">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q20:Group" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q23:Group" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -353,14 +409,14 @@
   <xs:element name="GetAccountsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetAccountsResult" nillable="true" type="q21:ArrayOfAccount" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetAccountsResult" nillable="true" type="q24:ArrayOfAccount" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateAccount">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q22:Account" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q25:Account" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -374,7 +430,7 @@
   <xs:element name="UpdateAccount">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q23:Account" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q26:Account" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -393,7 +449,7 @@
   <xs:element name="GetCurrentAccountResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetCurrentAccountResult" nillable="true" type="q24:Account" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetCurrentAccountResult" nillable="true" type="q27:Account" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -405,7 +461,7 @@
   <xs:element name="GetCurrentProfileResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetCurrentProfileResult" nillable="true" type="q25:Profile" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetCurrentProfileResult" nillable="true" type="q28:Profile" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -417,14 +473,14 @@
   <xs:element name="GetOptionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetOptionResult" nillable="true" type="q26:Option" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetOptionResult" nillable="true" type="q29:Option" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateOption">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Option" nillable="true" type="q27:Option" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Option" nillable="true" type="q30:Option" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -443,14 +499,14 @@
   <xs:element name="GetLayersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetLayersResult" nillable="true" type="q28:ArrayOfLayer" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetLayersResult" nillable="true" type="q31:ArrayOfLayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateLayer">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q29:Layer" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q32:Layer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -464,7 +520,7 @@
   <xs:element name="UpdateLayer">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q30:Layer" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q33:Layer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -483,14 +539,14 @@
   <xs:element name="GetEmployeeViewsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetEmployeeViewsResult" nillable="true" type="q31:ArrayOfEmployeeView" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetEmployeeViewsResult" nillable="true" type="q34:ArrayOfEmployeeView" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateEmployeeView">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q32:EmployeeView" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q35:EmployeeView" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -518,7 +574,7 @@
   <xs:element name="UpdateEmployeeView">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q33:EmployeeView" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q36:EmployeeView" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -537,14 +593,14 @@
   <xs:element name="GetActivityTypeViewsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetActivityTypeViewsResult" nillable="true" type="q34:ArrayOfActivityTypeView" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetActivityTypeViewsResult" nillable="true" type="q37:ArrayOfActivityTypeView" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateActivityTypeView">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q35:ActivityTypeView" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q38:ActivityTypeView" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -572,7 +628,7 @@
   <xs:element name="UpdateActivityTypeView">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q36:ActivityTypeView" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q39:ActivityTypeView" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -593,14 +649,14 @@
   <xs:element name="GetEmployeeViewMembersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetEmployeeViewMembersResult" nillable="true" type="q37:ArrayOfEmployeeViewMember" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetEmployeeViewMembersResult" nillable="true" type="q40:ArrayOfEmployeeViewMember" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateEmployeeViewMember">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q38:EmployeeViewMember" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q41:EmployeeViewMember" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -635,14 +691,14 @@
   <xs:element name="GetActivityTypeViewMembersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetActivityTypeViewMembersResult" nillable="true" type="q39:ArrayOfActivityTypeViewMember" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="GetActivityTypeViewMembersResult" nillable="true" type="q42:ArrayOfActivityTypeViewMember" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateActivityTypeViewMember">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q40:ActivityTypeViewMember" />
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/ePlanifModelsLib" minOccurs="0" name="Item" nillable="true" type="q43:ActivityTypeViewMember" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

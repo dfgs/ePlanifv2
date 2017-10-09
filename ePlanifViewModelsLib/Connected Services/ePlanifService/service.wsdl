@@ -55,11 +55,35 @@
   <wsdl:message name="IePlanifService_CreateEmployee_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateEmployeeResponse" />
   </wsdl:message>
+  <wsdl:message name="IePlanifService_DeletePhoto_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePhoto" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_DeletePhoto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePhotoResponse" />
+  </wsdl:message>
   <wsdl:message name="IePlanifService_UpdateEmployee_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateEmployee" />
   </wsdl:message>
   <wsdl:message name="IePlanifService_UpdateEmployee_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetPhotos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotos" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_GetPhotos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreatePhoto_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePhoto" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_CreatePhoto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePhotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdatePhoto_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePhoto" />
+  </wsdl:message>
+  <wsdl:message name="IePlanifService_UpdatePhoto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePhotoResponse" />
   </wsdl:message>
   <wsdl:message name="IePlanifService_GetActivityTypes_InputMessage">
     <wsdl:part name="parameters" element="tns:GetActivityTypes" />
@@ -337,12 +361,6 @@
   <wsdl:message name="IePlanifService_DeleteActivityTypeViewMember_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteActivityTypeViewMemberResponse" />
   </wsdl:message>
-  <wsdl:message name="IePlanifService_GetPhoto_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPhoto" />
-  </wsdl:message>
-  <wsdl:message name="IePlanifService_GetPhoto_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPhotoResponse" />
-  </wsdl:message>
   <wsdl:message name="IePlanifService_HasWriteAccessToEmployee_InputMessage">
     <wsdl:part name="parameters" element="tns:HasWriteAccessToEmployee" />
   </wsdl:message>
@@ -364,9 +382,25 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreateEmployee" message="tns:IePlanifService_CreateEmployee_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreateEmployeeResponse" message="tns:IePlanifService_CreateEmployee_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="DeletePhoto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeletePhoto" message="tns:IePlanifService_DeletePhoto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeletePhotoResponse" message="tns:IePlanifService_DeletePhoto_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateEmployee">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdateEmployee" message="tns:IePlanifService_UpdateEmployee_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdateEmployeeResponse" message="tns:IePlanifService_UpdateEmployee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhotos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetPhotos" message="tns:IePlanifService_GetPhotos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetPhotosResponse" message="tns:IePlanifService_GetPhotos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePhoto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/CreatePhoto" message="tns:IePlanifService_CreatePhoto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/CreatePhotoResponse" message="tns:IePlanifService_CreatePhoto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePhoto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/UpdatePhoto" message="tns:IePlanifService_UpdatePhoto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/UpdatePhotoResponse" message="tns:IePlanifService_UpdatePhoto_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetActivityTypes">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetActivityTypes" message="tns:IePlanifService_GetActivityTypes_InputMessage" />
@@ -552,10 +586,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember" message="tns:IePlanifService_DeleteActivityTypeViewMember_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMemberResponse" message="tns:IePlanifService_DeleteActivityTypeViewMember_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPhoto">
-      <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/GetPhoto" message="tns:IePlanifService_GetPhoto_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/GetPhotoResponse" message="tns:IePlanifService_GetPhoto_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="HasWriteAccessToEmployee">
       <wsdl:input wsaw:Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployee" message="tns:IePlanifService_HasWriteAccessToEmployee_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployeeResponse" message="tns:IePlanifService_HasWriteAccessToEmployee_OutputMessage" />
@@ -587,8 +617,44 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeletePhoto">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeletePhoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateEmployee">
       <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdateEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhotos">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetPhotos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePhoto">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/CreatePhoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePhoto">
+      <soap12:operation soapAction="http://tempuri.org/IePlanifService/UpdatePhoto" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1003,15 +1069,6 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteActivityTypeViewMember">
       <soap12:operation soapAction="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPhoto">
-      <soap12:operation soapAction="http://tempuri.org/IePlanifService/GetPhoto" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -103,6 +103,43 @@ namespace ePlanifServerLib
 			return await dataProvider.UpdateEmployeeAsync(Item);
 		}
 
+		public async Task<IEnumerable<Photo>> GetPhotosAsync(int EmployeeID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.ePlanifUser)) return null;
+			return await dataProvider.GetPhotosAsync(EmployeeID);
+		}
+		public async Task<int> CreatePhotoAsync(Photo Item)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.ePlanifUser)) return -1;
+
+			if (Item.EmployeeID != Principal.Account.EmployeeID)
+			{
+				if (!AssertPermission(Roles.AdministrateEmployees)) return -1;
+			}
+			return await dataProvider.CreatePhotoAsync(Item);
+		}
+		public async Task<bool> DeletePhotoAsync(int ItemID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.AdministrateEmployees)) return false;
+						
+			return await dataProvider.DeletePhotoAsync(ItemID);
+		}
+		public async Task<bool> UpdatePhotoAsync(Photo Item)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			if (!AssertPermission(Roles.ePlanifUser)) return false;
+
+			if (Item.EmployeeID != Principal.Account.EmployeeID)
+			{
+				if (!AssertPermission(Roles.AdministrateEmployees)) return false;
+			}
+			return await dataProvider.UpdatePhotoAsync(Item);
+		}
+
+
 		public async Task<IEnumerable<ActivityType>> GetActivityTypesAsync()
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
@@ -456,12 +493,7 @@ namespace ePlanifServerLib
 			return await dataProvider.DeleteActivityTypeViewMemberAsync(ItemID);
 		}
 
-		public async Task<Photo> GetPhotoAsync(int EmployeeID)
-		{
-			WriteLog(LogLevels.Debug, LogActions.Enter);
-			if (!AssertPermission(Roles.ePlanifUser)) return null;
-			return await dataProvider.GetPhotoAsync(EmployeeID);
-		}
+		
 
 		public async Task<bool> HasWriteAccessToEmployeeAsync(int EmployeeID)
 		{

@@ -17,7 +17,17 @@ namespace ePlanifServerLib
 		[OperationContract]
 		Task<int> CreateEmployeeAsync(Employee Item);
 		[OperationContract]
+		Task<bool> DeletePhotoAsync(int ItemID);
+		[OperationContract]
 		Task<bool> UpdateEmployeeAsync(Employee Item);
+
+		[OperationContract]
+		Task<IEnumerable<Photo>> GetPhotosAsync(int EmployeeID);
+		[OperationContract]
+		Task<int> CreatePhotoAsync(Photo Item);
+		[OperationContract]
+		Task<bool> UpdatePhotoAsync(Photo Item);
+
 
 
 		[OperationContract]
@@ -130,8 +140,6 @@ namespace ePlanifServerLib
 		[OperationContract]
 		Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
 
-		[OperationContract]
-		Task<Photo> GetPhotoAsync(int EmployeeID);
 
 		[OperationContract]
 		Task<bool> HasWriteAccessToEmployeeAsync(int EmployeeID);

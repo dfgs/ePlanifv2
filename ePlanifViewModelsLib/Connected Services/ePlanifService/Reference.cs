@@ -27,11 +27,35 @@ namespace ePlanifViewModelsLib.ePlanifService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/CreateEmployee", ReplyAction="http://tempuri.org/IePlanifService/CreateEmployeeResponse")]
         System.Threading.Tasks.Task<int> CreateEmployeeAsync(ePlanifModelsLib.Employee Item);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeletePhoto", ReplyAction="http://tempuri.org/IePlanifService/DeletePhotoResponse")]
+        bool DeletePhoto(int ItemID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeletePhoto", ReplyAction="http://tempuri.org/IePlanifService/DeletePhotoResponse")]
+        System.Threading.Tasks.Task<bool> DeletePhotoAsync(int ItemID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateEmployee", ReplyAction="http://tempuri.org/IePlanifService/UpdateEmployeeResponse")]
         bool UpdateEmployee(ePlanifModelsLib.Employee Item);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdateEmployee", ReplyAction="http://tempuri.org/IePlanifService/UpdateEmployeeResponse")]
         System.Threading.Tasks.Task<bool> UpdateEmployeeAsync(ePlanifModelsLib.Employee Item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetPhotos", ReplyAction="http://tempuri.org/IePlanifService/GetPhotosResponse")]
+        ePlanifModelsLib.Photo[] GetPhotos(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetPhotos", ReplyAction="http://tempuri.org/IePlanifService/GetPhotosResponse")]
+        System.Threading.Tasks.Task<ePlanifModelsLib.Photo[]> GetPhotosAsync(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/CreatePhoto", ReplyAction="http://tempuri.org/IePlanifService/CreatePhotoResponse")]
+        int CreatePhoto(ePlanifModelsLib.Photo Item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/CreatePhoto", ReplyAction="http://tempuri.org/IePlanifService/CreatePhotoResponse")]
+        System.Threading.Tasks.Task<int> CreatePhotoAsync(ePlanifModelsLib.Photo Item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdatePhoto", ReplyAction="http://tempuri.org/IePlanifService/UpdatePhotoResponse")]
+        bool UpdatePhoto(ePlanifModelsLib.Photo Item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/UpdatePhoto", ReplyAction="http://tempuri.org/IePlanifService/UpdatePhotoResponse")]
+        System.Threading.Tasks.Task<bool> UpdatePhotoAsync(ePlanifModelsLib.Photo Item);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetActivityTypes", ReplyAction="http://tempuri.org/IePlanifService/GetActivityTypesResponse")]
         ePlanifModelsLib.ActivityType[] GetActivityTypes();
@@ -309,12 +333,6 @@ namespace ePlanifViewModelsLib.ePlanifService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMember", ReplyAction="http://tempuri.org/IePlanifService/DeleteActivityTypeViewMemberResponse")]
         System.Threading.Tasks.Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetPhoto", ReplyAction="http://tempuri.org/IePlanifService/GetPhotoResponse")]
-        ePlanifModelsLib.Photo GetPhoto(int EmployeeID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/GetPhoto", ReplyAction="http://tempuri.org/IePlanifService/GetPhotoResponse")]
-        System.Threading.Tasks.Task<ePlanifModelsLib.Photo> GetPhotoAsync(int EmployeeID);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IePlanifService/HasWriteAccessToEmployee", ReplyAction="http://tempuri.org/IePlanifService/HasWriteAccessToEmployeeResponse")]
         bool HasWriteAccessToEmployee(int EmployeeID);
         
@@ -371,12 +389,44 @@ namespace ePlanifViewModelsLib.ePlanifService {
             return base.Channel.CreateEmployeeAsync(Item);
         }
         
+        public bool DeletePhoto(int ItemID) {
+            return base.Channel.DeletePhoto(ItemID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeletePhotoAsync(int ItemID) {
+            return base.Channel.DeletePhotoAsync(ItemID);
+        }
+        
         public bool UpdateEmployee(ePlanifModelsLib.Employee Item) {
             return base.Channel.UpdateEmployee(Item);
         }
         
         public System.Threading.Tasks.Task<bool> UpdateEmployeeAsync(ePlanifModelsLib.Employee Item) {
             return base.Channel.UpdateEmployeeAsync(Item);
+        }
+        
+        public ePlanifModelsLib.Photo[] GetPhotos(int EmployeeID) {
+            return base.Channel.GetPhotos(EmployeeID);
+        }
+        
+        public System.Threading.Tasks.Task<ePlanifModelsLib.Photo[]> GetPhotosAsync(int EmployeeID) {
+            return base.Channel.GetPhotosAsync(EmployeeID);
+        }
+        
+        public int CreatePhoto(ePlanifModelsLib.Photo Item) {
+            return base.Channel.CreatePhoto(Item);
+        }
+        
+        public System.Threading.Tasks.Task<int> CreatePhotoAsync(ePlanifModelsLib.Photo Item) {
+            return base.Channel.CreatePhotoAsync(Item);
+        }
+        
+        public bool UpdatePhoto(ePlanifModelsLib.Photo Item) {
+            return base.Channel.UpdatePhoto(Item);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdatePhotoAsync(ePlanifModelsLib.Photo Item) {
+            return base.Channel.UpdatePhotoAsync(Item);
         }
         
         public ePlanifModelsLib.ActivityType[] GetActivityTypes() {
@@ -745,14 +795,6 @@ namespace ePlanifViewModelsLib.ePlanifService {
         
         public System.Threading.Tasks.Task<bool> DeleteActivityTypeViewMemberAsync(int ItemID) {
             return base.Channel.DeleteActivityTypeViewMemberAsync(ItemID);
-        }
-        
-        public ePlanifModelsLib.Photo GetPhoto(int EmployeeID) {
-            return base.Channel.GetPhoto(EmployeeID);
-        }
-        
-        public System.Threading.Tasks.Task<ePlanifModelsLib.Photo> GetPhotoAsync(int EmployeeID) {
-            return base.Channel.GetPhotoAsync(EmployeeID);
         }
         
         public bool HasWriteAccessToEmployee(int EmployeeID) {

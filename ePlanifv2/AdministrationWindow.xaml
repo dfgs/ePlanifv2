@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:ePlanifv2"
         xmlns:ViewLib="clr-namespace:ViewLib;assembly=ViewLib"
 		xmlns:Views="clr-namespace:ePlanifv2.Views"
-        mc:Ignorable="d" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+        mc:Ignorable="d" x:Name="root"
+		WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
         Title="Administration" Height="480" Width="640" Icon="Images/calendar.png">
     <Window.Resources>
 		<ResourceDictionary>
@@ -22,8 +23,11 @@
         
         <TabControl TabStripPlacement="Left">
 			<TabItem Header="Employees" Visibility="{Binding UserProfile.AdministrateEmployees,Converter={StaticResource boolToVisibilityConverter}}">
-                <Views:GenericCollectionView DataContext="{Binding Employees}"/>
-            </TabItem>
+				<Views:GenericCollectionView DataContext="{Binding Employees}"/>
+			</TabItem>
+			<TabItem Header="Photos" Visibility="{Binding UserProfile.AdministrateEmployees,Converter={StaticResource boolToVisibilityConverter}}">
+				<Views:PhotosView OwnerWindow="{Binding ElementName=root}" />
+			</TabItem>
 			<TabItem Header="Layers" Visibility="{Binding UserProfile.AdministrateActivityTypes,Converter={StaticResource boolToVisibilityConverter}}">
 				<Views:GenericCollectionView DataContext="{Binding Layers}"/>
 			</TabItem>

@@ -27,31 +27,30 @@ namespace ePlanifViewModelsLib
 		protected override async Task<IEnumerable<Photo>> OnLoadModelAsync(IePlanifServiceClient Client)
 		{
 			List<Photo> results;
-			Photo photo;
 
 			if (IsLoaded) return await System.Threading.Tasks.Task.FromResult(Model); //.Select(item=>item.Model)
 
 			results = new List<Photo>();
 			foreach(EmployeeViewModel employee in Service.Employees)
 			{
-				photo = await Client.GetPhotoAsync(employee.EmployeeID.Value);
-				if (photo != null) results.Add(photo);
+				results.AddRange( await Client.GetPhotosAsync(employee.EmployeeID.Value));
 			}
 
 			return results;
 		}
 
-		protected override Task<bool> OnAddInModelAsync(IePlanifServiceClient Client,PhotoViewModel ViewModel)
+		protected override async Task<bool> OnAddInModelAsync(IePlanifServiceClient Client,PhotoViewModel ViewModel)
 		{
-			throw (new NotImplementedException());
+			ViewModel.PhotoID= await Client.CreatePhotoAsync(ViewModel.Model);
+			return ViewModel.PhotoID > 0;
 		}
-		protected override Task<bool> OnRemoveFromModelAsync(IePlanifServiceClient Client, PhotoViewModel ViewModel)
+		protected override async Task<bool> OnRemoveFromModelAsync(IePlanifServiceClient Client, PhotoViewModel ViewModel)
 		{
-			throw new NotImplementedException();
+			return await Client.DeletePhotoAsync(ViewModel.Model.PhotoID.Value);
 		}
-		protected override Task<bool> OnEditInModelAsync(IePlanifServiceClient Client,PhotoViewModel ViewModel)
+		protected override async Task<bool> OnEditInModelAsync(IePlanifServiceClient Client,PhotoViewModel ViewModel)
 		{
-			throw (new NotImplementedException());
+			return await Client.UpdatePhotoAsync(ViewModel.Model);
 		}
 
 

@@ -486,6 +486,29 @@ namespace ePlanifServerLib
 			return await Task.FromResult(Update(Employees, Item));
 		}
 
+
+		public async Task<IEnumerable<Photo>> GetPhotosAsync(int EmployeeID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Photos.Where(item => item.EmployeeID == EmployeeID));
+		}
+		public async Task<int> CreatePhotoAsync(Photo Item)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Insert<Photo>(Photos, Item));
+		}
+		public async Task<bool> DeletePhotoAsync(int ItemID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Delete<Photo>(Photos, ItemID));
+		}
+		public async Task<bool> UpdatePhotoAsync(Photo Item)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await Task.FromResult(Update<Photo>(Photos, Item));
+		}
+
+
 		public async Task<IEnumerable<ActivityType>> GetActivityTypesAsync()
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
@@ -819,13 +842,7 @@ namespace ePlanifServerLib
 			return await Task.FromResult(Update(Options, Option));
 		}
 
-		public async Task<Photo> GetPhotoAsync(int EmployeeID)
-		{
-			WriteLog(LogLevels.Debug, LogActions.Enter);
-			return await Task.FromResult(Photos.FirstOrDefault(item => item.EmployeeID == EmployeeID));
-		}
-
-
+	
 
 
 		public async Task<bool> HasWriteAccessToEmployeeAsync(int AccountID,int EmployeeID)

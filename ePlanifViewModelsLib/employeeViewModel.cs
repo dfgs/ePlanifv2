@@ -1,4 +1,5 @@
 ﻿using ePlanifModelsLib;
+using ePlanifViewModelsLib.ePlanifService;
 using ModelLib;
 using Nager.Date;
 using System;
@@ -82,6 +83,23 @@ namespace ePlanifViewModelsLib
 		public TimeSpan GetTotalHours()
 		{
 			return TimeSpan.FromTicks( Service.Activities.Where(item =>(item.ActivityType?.LayerID==Service.VisibleLayers.SelectedItem?.LayerID) &&  (item.EmployeeID == EmployeeID) && (item.Date<Service.StartDate.AddDays(7))  ).Sum(item=> item.TrackedDuration.HasValue?item.TrackedDuration.Value.Ticks:item.Duration.Value.Ticks) );
+		}
+
+		public async Task UploadPhotoAsync(byte[] PhotoData)
+		{
+			Photo model;
+
+			
+			if (Photo==null)
+			{
+				model = new ePlanifModelsLib.Photo() { EmployeeID=this.EmployeeID,Data=PhotoData };
+				if (await Service.Photos.AddAsync(model, false) != null) PhotoProperty.Invalidate(this); 
+			}
+			else
+			{
+				Photo.Model.Data = PhotoData;
+				if (await Service.Photos.EditAsync(Photo, false)) Photo.RefreshImage();
+			}
 		}
 
 		protected override Task<Employee> OnLoadModelAsync()

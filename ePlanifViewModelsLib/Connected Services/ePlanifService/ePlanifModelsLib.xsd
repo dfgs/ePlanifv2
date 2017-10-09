@@ -32,6 +32,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ePlanifModel" nillable="true" type="tns:ePlanifModel" />
+  <xs:complexType name="ArrayOfPhoto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Photo" nillable="true" type="tns:Photo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPhoto" nillable="true" type="tns:ArrayOfPhoto" />
+  <xs:complexType name="Photo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Data" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PhotoID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Photo" nillable="true" type="tns:Photo" />
   <xs:complexType name="ArrayOfActivityType">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ActivityType" nillable="true" type="tns:ActivityType" />
@@ -241,11 +255,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ActivityTypeViewMember" nillable="true" type="tns:ActivityTypeViewMember" />
-  <xs:complexType name="Photo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="PhotoID" nillable="true" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Photo" nillable="true" type="tns:Photo" />
 </xs:schema>

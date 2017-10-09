@@ -57,22 +57,16 @@ namespace ePlanifViewModelsLib
 		{
 			ViewModel.ActivityID= await Client.CreateActivityAsync(ViewModel.Model);
 			return ViewModel.ActivityID > 0;
-			
-
 		}
 
 		protected override async Task<bool> OnRemoveFromModelAsync(IePlanifServiceClient Client, ActivityViewModel ViewModel)
 		{
 			return await Client.DeleteActivityAsync(ViewModel.ActivityID.Value);
-			
-
 		}
 
 		protected override async Task<bool> OnEditInModelAsync(IePlanifServiceClient Client, ActivityViewModel ViewModel)
 		{
 			return await Client.UpdateActivityAsync(ViewModel.Model);
-			
-
 		}
 
 		public async Task<bool> BulkDeleteAsync(DateTime StartDate, DateTime EndDate, int EmployeeID)

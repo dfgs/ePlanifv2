@@ -164,6 +164,29 @@ namespace ePlanifServerLib
 			return await UpdateAsync(Item);
 		}
 
+
+		public async Task<IEnumerable<Photo>> GetPhotosAsync(int EmployeeID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await SelectAsync<Photo>(new EqualFilter<Photo>(Photo.EmployeeIDColumn, EmployeeID));
+		}
+		public async Task<int> CreatePhotoAsync(Photo Item)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await InsertAsync(Item) ? Item.EmployeeID.Value : -1;
+		}
+		public async Task<bool> DeletePhotoAsync(int ItemID)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return await DeleteAsync<Photo>(ItemID);
+		}
+		public async Task<bool> UpdatePhotoAsync(Photo Item)
+		{
+			WriteLog(LogLevels.Debug, LogActions.Enter);
+			return (await UpdateAsync<Photo>(Item));
+		}
+
+
 		public async Task<IEnumerable<ActivityType>> GetActivityTypesAsync()
 		{
 			WriteLog(LogLevels.Debug, LogActions.Enter);
@@ -503,12 +526,7 @@ namespace ePlanifServerLib
 			return await DeleteAsync<ActivityTypeViewMember>(ItemID);
 		}
 
-		public async Task<Photo> GetPhotoAsync(int EmployeeID)
-		{
-			WriteLog(LogLevels.Debug, LogActions.Enter);
-			return (await SelectAsync<Photo>(new EqualFilter<Photo>(Photo.EmployeeIDColumn,EmployeeID))).FirstOrDefault();
-		}
-
+		
 
 
 		public async Task<bool> HasWriteAccessToEmployeeAsync(int AccountID,int EmployeeID)
