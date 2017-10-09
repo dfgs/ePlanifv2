@@ -6,7 +6,5 @@
              xmlns:Views="clr-namespace:ePlanifv2.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-		<Views:LoadView/>
-	</Grid>
+    
 </UserControl>

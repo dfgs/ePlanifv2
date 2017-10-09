@@ -19,7 +19,7 @@ namespace ePlanifViewModelsLib
 		public int? GroupID
 		{
 			get { return Model.GroupID; }
-			set { Model.GroupID = value; OnPropertyChanged(); OnPropertyChanged("Group"); }
+			set { Model.GroupID = value; OnPropertyChanged(); GroupProperty.Invalidate(this); }
 		}
 
 		public int? ProfileID
@@ -36,9 +36,10 @@ namespace ePlanifViewModelsLib
 			set { Model.WriteAccess = value; OnPropertyChanged(); }
 		}
 
+		private static ForeignProperty<GrantViewModel, GroupViewModel> GroupProperty = new ForeignProperty<GrantViewModel, GroupViewModel>((component) => component.Service.Groups, (component, item) => component.GroupID == item.GroupID);
 		public GroupViewModel Group
 		{
-			get { return (Service).Groups.FirstOrDefault(item => item.GroupID == GroupID); }
+			get { return GroupProperty.GetValue(this) ; }
 		}
 
 		public GrantViewModel(ePlanifServiceViewModel Service):base(Service)

@@ -2,6 +2,7 @@
 using ModelLib;
 using System.Linq;
 using System.Threading.Tasks;
+using ViewModelLib;
 using ViewModelLib.Attributes;
 
 namespace ePlanifViewModelsLib
@@ -42,7 +43,7 @@ namespace ePlanifViewModelsLib
 		public int? LayerID
 		{
 			get { return Model.LayerID; }
-			set { Model.LayerID = value; OnPropertyChanged(); OnPropertyChanged("Layer"); }
+			set { Model.LayerID = value; OnPropertyChanged(); LayerProperty.Invalidate(this); }
 		}
 
 
@@ -53,9 +54,10 @@ namespace ePlanifViewModelsLib
 			set { Model.MinEmployees = value; OnPropertyChanged(); }
 		}
 
+		private static ForeignProperty<ActivityTypeViewModel, LayerViewModel> LayerProperty = new ForeignProperty<ActivityTypeViewModel, LayerViewModel>((component) => component.Service.Layers, (component, item) => component.LayerID == item.LayerID);
 		public LayerViewModel Layer
 		{
-			get { return Service.Layers.FirstOrDefault(item=>item.LayerID==LayerID); }
+			get { return LayerProperty.GetValue(this); }
 		}
 
 		public ActivityTypeViewModel(ePlanifServiceViewModel Service)

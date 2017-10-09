@@ -532,14 +532,9 @@ namespace ePlanifv2.Views
 			Context.DrawLine(textPen, rect.TopLeft, rect.BottomLeft);
 
 			// activity type
-			rect = layout.SplitTop();
-			OnRenderActivityContent(Context, rect, Activity);
+			OnRenderActivityContent(Context, layout.FreeRect, Activity);
 			
 
-			// comment
-			text = DisplayOptions.FormatText(Activity.Comment.ToString(), textBrush, 12, layout.FreeRect.Width); text.SetFontStyle(FontStyles.Italic); text.SetFontWeight(FontWeights.Bold);
-			pos = DisplayOptions.GetTextPosition(layout.FreeRect, text, HorizontalAlignment.Left, VerticalAlignment.Center);
-			Context.DrawText(text, pos);
 
 
 		}

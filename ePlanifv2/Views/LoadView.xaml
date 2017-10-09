@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ePlanifv2.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" IsVisibleChanged="UserControl_IsVisibleChanged">
     <Grid Background="#88000000">
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 			<Canvas Width="64" Height="64" Margin="16">
 
 				<Path  Stroke="LightSteelBlue" Fill="Transparent" StrokeThickness="6" >
-					<Path.Triggers>
+					<!--Path.Triggers>
 						<EventTrigger RoutedEvent="UserControl.Loaded">
 							<BeginStoryboard>
 								<Storyboard RepeatBehavior="Forever">
@@ -20,7 +20,7 @@
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
-					</Path.Triggers>
+					</-->
 
 					<Path.RenderTransform >
 						<RotateTransform x:Name="transform1" Angle="0" CenterX="32" CenterY="32" />
@@ -43,7 +43,7 @@
 					</Path.Data>
 				</Path>
 				<Path  Stroke="LightSteelBlue" Fill="Transparent" StrokeThickness="6" >
-					<Path.Triggers>
+					<!--Path.Triggers>
 						<EventTrigger RoutedEvent="UserControl.Loaded">
 							<BeginStoryboard>
 								<Storyboard RepeatBehavior="Forever">
@@ -52,7 +52,7 @@
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
-					</Path.Triggers>
+					</-->
 
 					<Path.RenderTransform >
 						<RotateTransform x:Name="transform2" Angle="120" CenterX="32" CenterY="32" />
@@ -75,7 +75,7 @@
 					</Path.Data>
 				</Path>
 				<Path  Stroke="LightSteelBlue" Fill="Transparent" StrokeThickness="6" >
-					<Path.Triggers>
+					<!--Path.Triggers>
 						<EventTrigger RoutedEvent="UserControl.Loaded">
 							<BeginStoryboard>
 								<Storyboard RepeatBehavior="Forever">
@@ -84,7 +84,7 @@
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
-					</Path.Triggers>
+					</-->
 
 					<Path.RenderTransform >
 						<RotateTransform x:Name="transform3" Angle="240" CenterX="32" CenterY="32" />

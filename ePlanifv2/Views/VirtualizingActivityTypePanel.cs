@@ -35,23 +35,39 @@ namespace ePlanifv2.Views
 			Brush textBrush;
 			Layout layout;
 			Rect rect;
+			Layout topLayout;
 
 			layout = new Layout(Rect);
 
-			if (Content.Employee.WriteAccess!=true)
+			
+			if (Content.Employee.Photo!=null)
 			{
 				rect = layout.DockRight(Rect.Height);
+				Context.DrawImage(Content.Employee.Photo.Image, rect);
+			}
+
+			rect = layout.SplitTop();
+			topLayout = new Layout(rect);
+			if (Content.Employee.WriteAccess != true)
+			{
+				rect = topLayout.DockRight(rect.Height);
 				Context.DrawImage(DisplayOptions.LockImage, rect);
 			}
 
 			textBrush = DisplayOptions.GetBrush(Content.TextColor.ToString());
-			text = DisplayOptions.FormatText(Content.Employee.FullName, textBrush, 12, layout.FreeRect.Width);
+			text = DisplayOptions.FormatText(Content.Employee.FullName, textBrush, 12, topLayout.FreeRect.Width);
 			if (Content.Employee.IsDisabled.Value) text.SetTextDecorations(TextDecorations.Strikethrough);
+			pos = DisplayOptions.GetTextPosition(topLayout.FreeRect, text, HorizontalAlignment.Left, VerticalAlignment.Center);
+			Context.DrawText(text, pos);
+
+			// comment
+			text = DisplayOptions.FormatText(Content.Comment.ToString(), textBrush, 12, layout.FreeRect.Width); text.SetFontStyle(FontStyles.Italic); text.SetFontWeight(FontWeights.Bold);
 			pos = DisplayOptions.GetTextPosition(layout.FreeRect, text, HorizontalAlignment.Left, VerticalAlignment.Center);
 			Context.DrawText(text, pos);
+
 		}
 
-		
+
 
 
 	}

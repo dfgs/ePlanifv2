@@ -100,6 +100,21 @@
 		<CommandBinding Command="{StaticResource decColumnsCommand}" CanExecute="DecColumnsCommandBinding_CanExecute" Executed="DecColumnsCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource editOptionsCommand}" CanExecute="EditOptionsCommandBinding_CanExecute" Executed="EditOptionsCommandBinding_Executed"/>
 	</Window.CommandBindings>
+
+	<Window.TaskbarItemInfo>
+		<TaskbarItemInfo  ProgressState="Normal"/>
+	</Window.TaskbarItemInfo>
+
+	<Window.Style>
+		<Style TargetType="{x:Type local:MainWindow}">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding IsLoading}" Value="true">
+					<Setter  Property="ProgressState" Value="Indeterminate"/>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+	</Window.Style>
+	
 	<Grid>
 		<DockPanel>
 			<DockPanel DockPanel.Dock="Top"  >

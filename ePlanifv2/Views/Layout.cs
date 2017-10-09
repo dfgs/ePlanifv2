@@ -9,7 +9,7 @@ namespace ePlanifv2.Views
 {
 	public class Layout
 	{
-		public Rect freeRect;
+		private Rect freeRect;
 		public Rect FreeRect
 		{
 			get { return freeRect; }

@@ -66,10 +66,10 @@ namespace ePlanifViewModelsLib
 			get { return LastName + " " + FirstName; }
 		}
 
-		//private PhotoViewModel photo;
+		private static ForeignProperty<EmployeeViewModel,PhotoViewModel> PhotoProperty=new ForeignProperty<EmployeeViewModel, PhotoViewModel>((component)=>component.Service.Photos, (component,item)=>component.EmployeeID==item.EmployeeID);
 		public PhotoViewModel Photo
 		{
-			get { return Service.Photos.FirstOrDefault(item=>item.EmployeeID==EmployeeID); }
+			get { return PhotoProperty.GetValue(this); }
 		}
 
 
@@ -77,8 +77,8 @@ namespace ePlanifViewModelsLib
 		public EmployeeViewModel(ePlanifServiceViewModel Service)
 			:base(Service)
 		{
-			
 		}
+
 		public TimeSpan GetTotalHours()
 		{
 			return TimeSpan.FromTicks( Service.Activities.Where(item =>(item.ActivityType?.LayerID==Service.VisibleLayers.SelectedItem?.LayerID) &&  (item.EmployeeID == EmployeeID) && (item.Date<Service.StartDate.AddDays(7))  ).Sum(item=> item.TrackedDuration.HasValue?item.TrackedDuration.Value.Ticks:item.Duration.Value.Ticks) );

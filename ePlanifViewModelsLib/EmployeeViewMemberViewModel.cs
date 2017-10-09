@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using ViewModelLib;
 
 namespace ePlanifViewModelsLib
 {
@@ -17,7 +18,7 @@ namespace ePlanifViewModelsLib
 		public int? EmployeeID
 		{
 			get { return Model.EmployeeID; }
-			set { Model.EmployeeID = value; OnPropertyChanged(); OnPropertyChanged("Employee"); }
+			set { Model.EmployeeID = value; OnPropertyChanged(); EmployeeProperty.Invalidate(this); }
 		}
 
 		public int? EmployeeViewID
@@ -26,14 +27,14 @@ namespace ePlanifViewModelsLib
 			set { Model.EmployeeViewID = value; OnPropertyChanged(); }
 		}
 
-		private EmployeeViewModel employee;
+		private static ForeignProperty<EmployeeViewMemberViewModel, EmployeeViewModel> EmployeeProperty = new ForeignProperty<EmployeeViewMemberViewModel, EmployeeViewModel>((component) => component.Service.Employees, (component, item) => component.EmployeeID == item.EmployeeID);
 		public EmployeeViewModel Employee
 		{
-			get { return employee; }
+			get { return EmployeeProperty.GetValue(this); }
 		}
 		public bool? IsDisabled
 		{
-			get { return employee?.IsDisabled; }
+			get { return Employee?.IsDisabled; }
 		}
 		public int RowID
 		{
@@ -45,11 +46,7 @@ namespace ePlanifViewModelsLib
 			
 		}
 
-		protected override async Task OnLoadedAsync()
-		{
-			await base.OnLoadedAsync();
-			employee = Service.Employees.FirstOrDefault(item => item.EmployeeID == EmployeeID);
-		}
+		
 
 
 		protected override Task<EmployeeViewMember> OnLoadModelAsync()

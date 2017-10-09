@@ -36,7 +36,8 @@ namespace ePlanifv2.Views
 		public static SolidColorBrush SelectionBrush = new SolidColorBrush(Color.FromArgb(92, 0,0 , 255));
 		public static LinearGradientBrush HighLightBrush = new LinearGradientBrush() { StartPoint = new Point(0.5, 0), EndPoint = new Point(0.5, 1), GradientStops = new GradientStopCollection(new GradientStop[] { new GradientStop(Color.FromArgb(136, 255, 255, 255), 0), new GradientStop(Colors.Transparent, 1) }) };
 		public static LinearGradientBrush InvertedHighLightBrush = new LinearGradientBrush() { StartPoint = new Point(0.5, 0), EndPoint = new Point(0.5, 1), GradientStops = new GradientStopCollection(new GradientStop[] {  new GradientStop(Colors.Transparent, 1), new GradientStop(Color.FromArgb(136, 255, 255, 255), 0) }) };
-		public static LinearGradientBrush BevelBrush = new LinearGradientBrush() { StartPoint = new Point(0, 0), EndPoint = new Point(1, 1), GradientStops = new GradientStopCollection(new GradientStop[] { new GradientStop(TransparentLightBrush.Color,0), new GradientStop(TransparentDarkBrush.Color, 1) }) };
+		public static LinearGradientBrush BevelBrush = new LinearGradientBrush() { StartPoint = new Point(0, 0), EndPoint = new Point(1, 1), GradientStops = new GradientStopCollection(new GradientStop[] { new GradientStop(TransparentLightBrush.Color, 0), new GradientStop(TransparentDarkBrush.Color, 1) }) };
+		public static LinearGradientBrush InvertedBevelBrush = new LinearGradientBrush() { StartPoint = new Point(0, 0), EndPoint = new Point(1, 1), GradientStops = new GradientStopCollection(new GradientStop[] { new GradientStop(TransparentDarkBrush.Color, 0), new GradientStop(TransparentLightBrush.Color, 1) }) };
 
 
 		public static Pen TransparentDarkPen = new Pen(TransparentDarkBrush, 1);
@@ -44,7 +45,9 @@ namespace ePlanifv2.Views
 		public static Pen HighLightPen = new Pen(HighLightBrush, 1);
 		public static Pen SelectionPen = new Pen(SelectionBrush, 1);
 		public static Pen InvertedHighLightPen = new Pen(InvertedHighLightBrush, 1);
-
+		public static Pen PhotoPen = new Pen(Brushes.White, 2);
+		public static Pen BevelPen = new Pen(BevelBrush, 1);
+		public static Pen InvertedBevelPen = new Pen(InvertedBevelBrush, 1);
 
 		public static FlowDirection FlowDirection= CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 		public static Typeface Typeface= new Typeface("Segoe UI");

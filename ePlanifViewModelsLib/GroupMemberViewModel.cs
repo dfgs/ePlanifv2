@@ -1,6 +1,7 @@
 ﻿using ePlanifModelsLib;
 using System.Linq;
 using System.Threading.Tasks;
+using ViewModelLib;
 
 namespace ePlanifViewModelsLib
 {
@@ -16,7 +17,7 @@ namespace ePlanifViewModelsLib
 		public int? EmployeeID
 		{
 			get { return Model.EmployeeID; }
-			set { Model.EmployeeID = value; OnPropertyChanged(); OnPropertyChanged("Employee"); }
+			set { Model.EmployeeID = value; OnPropertyChanged(); EmployeeProperty.Invalidate(this); }
 		}
 
 		public int? GroupID
@@ -25,9 +26,10 @@ namespace ePlanifViewModelsLib
 			set { Model.GroupID = value; OnPropertyChanged(); }
 		}
 
+		private static ForeignProperty<GroupMemberViewModel, EmployeeViewModel> EmployeeProperty = new ForeignProperty<GroupMemberViewModel, EmployeeViewModel>((component) => component.Service.Employees, (component, item) => component.EmployeeID == item.EmployeeID);
 		public EmployeeViewModel Employee
 		{
-			get { return (Service).Employees.FirstOrDefault(item => item.EmployeeID == EmployeeID); }
+			get { return EmployeeProperty.GetValue(this); }
 		}
 
 		public GroupMemberViewModel(ePlanifServiceViewModel Service):base(Service)

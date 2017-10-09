@@ -77,20 +77,20 @@ namespace ePlanifViewModelsLib
 		public int? ActivityTypeID
 		{
 			get { return Model.ActivityTypeID; }
-			set { Model.ActivityTypeID = value; activityType = Service.ActivityTypes.FirstOrDefault(item => item.ActivityTypeID == ActivityTypeID); OnPropertyChanged(); OnPropertyChanged("ActivityType"); }
+			set { Model.ActivityTypeID = value; OnPropertyChanged(); ActivityTypeProperty.Invalidate(this); }
 		}
 
-		private ActivityTypeViewModel activityType;
+		private static ForeignProperty<ActivityViewModel, ActivityTypeViewModel> ActivityTypeProperty = new ForeignProperty<ActivityViewModel, ActivityTypeViewModel>((component) => component.Service.ActivityTypes, (component, item) => component.ActivityTypeID == item.ActivityTypeID);
 		public ActivityTypeViewModel ActivityType
 		{
-			get { return activityType; }
+			get { return ActivityTypeProperty.GetValue(this); }
 		}
 
 		[IntListProperty(Header = "Employee", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.WriteableEmployees")]
 		public int? EmployeeID
 		{
 			get { return Model.EmployeeID; }
-			set { Model.EmployeeID = value; OnPropertyChanged(); OnPropertyChanged("Employee"); }
+			set { Model.EmployeeID = value;  OnPropertyChanged(); EmployeeProperty.Invalidate(this); }
 		}
 
 		[TextProperty(Header = "Project number", IsMandatory = false, IsReadOnly = false)]	// text property because it is more a ref than a number
@@ -117,10 +117,10 @@ namespace ePlanifViewModelsLib
 		}
 
 
-
+		private static ForeignProperty<ActivityViewModel, EmployeeViewModel> EmployeeProperty=new ForeignProperty<ActivityViewModel, EmployeeViewModel>( (component) => component.Service.Employees, (component,item) => component.EmployeeID==item.EmployeeID);
 		public EmployeeViewModel Employee
 		{
-			get { return (Service).Employees.FirstOrDefault(item => item.EmployeeID == EmployeeID); }
+			get { return EmployeeProperty.GetValue(this); }
 		}
 
 
@@ -136,15 +136,9 @@ namespace ePlanifViewModelsLib
 
 		public ActivityViewModel(ePlanifServiceViewModel Service) : base(Service)
 		{
-			
-			
 		}
 
-		protected override async Task OnLoadedAsync()
-		{
-			activityType = Service.ActivityTypes.FirstOrDefault(item => item.ActivityTypeID == ActivityTypeID);
-			await base.OnLoadedAsync();
-		}
+		
 
 		public override bool IsModelEqualTo(Activity Other)
 		{

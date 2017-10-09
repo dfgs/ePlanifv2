@@ -11,7 +11,7 @@
 									  Columns="{Binding Service.Days}" ColumnCount="{Binding Service.Days.Count}"
 									  Rows="{Binding VisibleMembers}" RowCount="{Binding VisibleMembers.Count}"
 									  CornerContent="{Binding Service.WeekName}"
-									  VerticalHeaderWidth="200" HorizontalHeaderHeight="48"
+									  VerticalHeaderWidth="264" HorizontalHeaderHeight="48"
 									  ColumnWidth="{Binding Source={x:Static Views:DisplayOptions.Instance},Path=ColumnWidth}" ActivityHeight="32" 
 									  />
 	</ScrollViewer>

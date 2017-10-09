@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using ViewModelLib;
 using ViewLib;
+using System.Windows.Shell;
 
 namespace ePlanifv2
 {
@@ -27,18 +28,26 @@ namespace ePlanifv2
 			set { SetValue(LogVisibilityProperty, value); }
 		}
 
-		public MainWindow()
-        {
-			//lyncWorker = new LyncWorker();
-			//lyncWorker.Start();
-			InitializeComponent();
+
+		public static readonly DependencyProperty ProgressStateProperty = DependencyProperty.Register("ProgressState", typeof(TaskbarItemProgressState), typeof(MainWindow),new PropertyMetadata(TaskbarItemProgressState.None,ProgressStatePropertyChanged));
+		public TaskbarItemProgressState ProgressState
+		{
+			get { return (TaskbarItemProgressState)GetValue(ProgressStateProperty); }
+			set { SetValue(ProgressStateProperty,value); }
 		}
 
-		/*protected override void OnClosing(CancelEventArgs e)
+		public MainWindow()
+        {
+			InitializeComponent();
+			
+		}
+		private static void ProgressStatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			base.OnClosing(e);
-			lyncWorker.Stop();
-		}*/
+			MainWindow window;
+			window = (MainWindow)d;
+			window.TaskbarItemInfo.ProgressState=window.ProgressState;
+		}
+
 
 		private async void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -208,7 +217,7 @@ namespace ePlanifv2
 
 		private void FitColumnsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			DisplayOptions.Instance.ColumnWidth = (System.Windows.SystemParameters.PrimaryScreenWidth - 250) / 7;
+			DisplayOptions.Instance.ColumnWidth = (System.Windows.SystemParameters.PrimaryScreenWidth - 314) / 7;
 		}
 
 		private void RestoreColumnsCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)

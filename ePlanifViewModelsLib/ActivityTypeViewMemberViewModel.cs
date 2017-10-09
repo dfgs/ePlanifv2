@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using ViewModelLib;
 
 namespace ePlanifViewModelsLib
 {
@@ -17,7 +18,7 @@ namespace ePlanifViewModelsLib
 		public int? ActivityTypeID
 		{
 			get { return Model.ActivityTypeID; }
-			set { Model.ActivityTypeID = value; OnPropertyChanged(); OnPropertyChanged("ActivityType"); }
+			set { Model.ActivityTypeID = value; OnPropertyChanged(); ActivityTypeProperty.Invalidate(this); }
 		}
 
 		public int? ActivityTypeViewID
@@ -26,16 +27,18 @@ namespace ePlanifViewModelsLib
 			set { Model.ActivityTypeViewID = value; OnPropertyChanged(); }
 		}
 
-		
 
-		private ActivityTypeViewModel activityType;
+
+		private static ForeignProperty<ActivityTypeViewMemberViewModel, ActivityTypeViewModel> ActivityTypeProperty = new ForeignProperty<ActivityTypeViewMemberViewModel, ActivityTypeViewModel>((component) => component.Service.ActivityTypes, (component, item) => component.ActivityTypeID == item.ActivityTypeID);
 		public ActivityTypeViewModel ActivityType
 		{
-			get { return activityType; }
+			get { return ActivityTypeProperty.GetValue(this); ; }
 		}
+
+
 		public bool? IsDisabled
 		{
-			get { return activityType?.IsDisabled; }
+			get { return ActivityType?.IsDisabled; }
 		}
 		public int RowID
 		{
@@ -47,11 +50,7 @@ namespace ePlanifViewModelsLib
 		
 		}
 
-		protected override async Task OnLoadedAsync()
-		{
-			await base.OnLoadedAsync();
-			activityType = Service.ActivityTypes.FirstOrDefault(item => item.ActivityTypeID == ActivityTypeID);
-		}
+		
 
 		protected override Task<ActivityTypeViewMember> OnLoadModelAsync()
         {

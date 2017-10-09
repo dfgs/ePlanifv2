@@ -112,7 +112,7 @@ namespace ePlanifViewModelsLib
 		protected override bool OnValidateCell(CellViewModel Cell)
 		{
 			ActivityTypeViewModel activityType;
-
+			
 			activityType = Service.ActivityTypes.FirstOrDefault(item => item.ActivityTypeID == Cell.RowID);
 
 			if (!activityType.MinEmployees.HasValue) return false;
