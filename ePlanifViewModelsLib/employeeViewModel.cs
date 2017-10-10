@@ -55,6 +55,7 @@ namespace ePlanifViewModelsLib
 			set { Model.MaxWorkingHoursPerWeek = value; OnPropertyChanged(); }
 		}
 
+		
 
 		public bool? WriteAccess
 		{
@@ -83,6 +84,12 @@ namespace ePlanifViewModelsLib
 		public TimeSpan GetTotalHours()
 		{
 			return TimeSpan.FromTicks( Service.Activities.Where(item =>(item.ActivityType?.LayerID==Service.VisibleLayers.SelectedItem?.LayerID) &&  (item.EmployeeID == EmployeeID) && (item.Date<Service.StartDate.AddDays(7))  ).Sum(item=> item.TrackedDuration.HasValue?item.TrackedDuration.Value.Ticks:item.Duration.Value.Ticks) );
+		}
+
+		public async Task DeletePhotoAsync()
+		{
+			if (Photo == null) return;
+			if (await Service.Photos.RemoveAsync(Photo)) PhotoProperty.Invalidate(this);
 		}
 
 		public async Task UploadPhotoAsync(byte[] PhotoData)

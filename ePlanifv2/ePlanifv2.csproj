@@ -143,6 +143,9 @@
       <DependentUpon>ActivityTypeViewsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DisplayOptions.cs" />
+    <Compile Include="Views\EmployeesAdminView.xaml.cs">
+      <DependentUpon>EmployeesAdminView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EmployeeViewsView.xaml.cs">
       <DependentUpon>EmployeeViewsView.xaml</DependentUpon>
     </Compile>
@@ -159,9 +162,6 @@
     <Compile Include="Views\InverterTypeConverter.cs" />
     <Compile Include="Views\LoadView.xaml.cs">
       <DependentUpon>LoadView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PhotosView.xaml.cs">
-      <DependentUpon>PhotosView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabContent.cs" />
     <Compile Include="Views\Test.xaml.cs">
@@ -231,6 +231,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EmployeesAdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EmployeeViewsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -248,10 +252,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoadView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PhotosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -696,6 +696,8 @@
     <Resource Include="Images\arrow_redo.png" />
     <Resource Include="Images\arrow_undo.png" />
     <Resource Include="Images\equalizer.png" />
+    <Resource Include="Images\user--minus.png" />
+    <Resource Include="Images\user-medium.png" />
     <Content Include="Nager.Date LICENCE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

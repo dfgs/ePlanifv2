@@ -37,9 +37,10 @@
 	</DataTemplate>
 	<DataTemplate DataType="{x:Type ViewModels:EmployeeViewModel}">
 		<StackPanel Orientation="Horizontal" >
-			<TextBlock Text="{Binding LastName}" Style="{StaticResource disabledStyle}"/>
-			<TextBlock Text=" "/>
-			<TextBlock Text="{Binding FirstName}" Style="{StaticResource disabledStyle}"/>
+			<Image Source="{Binding Photo.Image}" Width="24" Height="16" Stretch="Uniform" Margin="0,0,4,0"/>
+			<TextBlock VerticalAlignment="Center" Text="{Binding LastName}" Style="{StaticResource disabledStyle}"/>
+			<TextBlock VerticalAlignment="Center" Text=" "/>
+			<TextBlock VerticalAlignment="Center" Text="{Binding FirstName}" Style="{StaticResource disabledStyle}"/>
 		</StackPanel>
 	</DataTemplate>
 	<DataTemplate DataType="{x:Type ViewModels:AccountViewModel}">
