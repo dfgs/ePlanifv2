@@ -51,13 +51,13 @@ namespace ePlanifv2.Views
 			Point pos;
 			EmployeeViewModel employee;
 			Rect rect;
-			TimeSpan total;
 			Layout layout,totalTimeLayout;
 			Point center;
 			double angle;
 			Brush pieBrush;
 			byte pieAlpha = 92;
-			float percent;
+			double percent;
+			double totalTime,workingTime, maxWorkingTime;
 
 			layout = new Layout(Rect);
 			layout.Trim(8);
@@ -67,24 +67,30 @@ namespace ePlanifv2.Views
 			rect = layout.DockRight(32);
 			totalTimeLayout = new Layout(rect);
 
-			angle = 359.9;pieBrush = new SolidColorBrush(Color.FromArgb(pieAlpha, 0, 255, 0));
-			total = employee.GetTotalHours();
-			text = DisplayOptions.FormatText(((int)(total.TotalMinutes / 60)).ToString("00") + ":" + (total.TotalMinutes % 60).ToString("00"), DisplayOptions.TextBrush, 16); //String.Format("{0:00}:{1:00}", total.H,total.Minutes)
-			if (employee.MaxWorkingHoursPerWeek.HasValue)
+			totalTime = employee.GetTotalHours().TotalMinutes;
+			workingTime = employee.WorkingTimePerWeek.HasValue ? employee.WorkingTimePerWeek.Value.TotalMinutes : totalTime;
+			maxWorkingTime = employee.MaxWorkingTimePerWeek.HasValue ? employee.MaxWorkingTimePerWeek.Value.TotalMinutes : totalTime;
+			if (workingTime == 0) workingTime = totalTime;
+
+
+			percent = totalTime / workingTime;
+			angle = Math.Min(359.9, 359.9 *percent );
+			text = DisplayOptions.FormatText(((int)(totalTime / 60)).ToString("00") + ":" + (totalTime % 60).ToString("00"), DisplayOptions.TextBrush, 16); //String.Format("{0:00}:{1:00}", total.H,total.Minutes)
+			if (totalTime > maxWorkingTime)
 			{
-				percent = (float)total.TotalMinutes / (float)employee.MaxWorkingHoursPerWeek.Value;
-				angle = Math.Min(359.9, 5.9 *percent );
-				if (total.TotalMinutes > employee.MaxWorkingHoursPerWeek.Value * 60)
-				{
-					pieBrush = new SolidColorBrush(Color.FromArgb(pieAlpha, 255, 0, 0));
-					text.SetForegroundBrush(Brushes.IndianRed);
-					text.SetFontWeight(FontWeights.Bold);
-				}
-				else if (total.TotalMinutes > 8 * employee.MaxWorkingHoursPerWeek.Value * 6)
-				{
-					pieBrush = new SolidColorBrush(Color.FromArgb(pieAlpha, 255, 128, 0));
-				}
+				pieBrush = new SolidColorBrush(Color.FromArgb(pieAlpha, 255, 0, 0));
+				text.SetForegroundBrush(Brushes.IndianRed);
+				text.SetFontWeight(FontWeights.Bold);
 			}
+			else if (totalTime> workingTime)
+			{
+				pieBrush = new SolidColorBrush(Color.FromArgb(pieAlpha, 255, 128, 0));
+			}
+			else
+			{
+				pieBrush = new SolidColorBrush(Color.FromArgb(pieAlpha, 0, 255, 0));
+			}
+
 
 			rect = totalTimeLayout.SplitTop();
 			center = new Point(rect.Left + rect.Width / 2, rect.Bottom);

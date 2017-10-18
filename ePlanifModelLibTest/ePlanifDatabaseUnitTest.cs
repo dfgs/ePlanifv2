@@ -38,8 +38,8 @@ namespace ePlanifModelLibTest
 			await Database.InsertAsync(group1);
 			await Database.InsertAsync(group2);
 
-			employee1 = new Employee() { CountryCode = "US", FirstName = "test", LastName = "test", IsDisabled = false, MaxWorkingHoursPerWeek = null };
-			employee2 = new Employee() { CountryCode = "US", FirstName = "test", LastName = "test", IsDisabled = false, MaxWorkingHoursPerWeek = null };
+			employee1 = new Employee() { CountryCode = "US", FirstName = "test", LastName = "test", IsDisabled = false, MaxWorkingTimePerWeek = null };
+			employee2 = new Employee() { CountryCode = "US", FirstName = "test", LastName = "test", IsDisabled = false, MaxWorkingTimePerWeek = null };
 			await Database.InsertAsync(employee1);
 			await Database.InsertAsync(employee2);
 
@@ -134,7 +134,7 @@ namespace ePlanifModelLibTest
 		[TestMethod, TestCategory("CRUD")]
 		public async Task Should_Success_When_CRUD_Employee()
 		{
-			var row = new Employee() { CountryCode = "FR", FirstName = "test", LastName = "test", IsDisabled = false, MaxWorkingHoursPerWeek = 10 };
+			var row = new Employee() { CountryCode = "FR", FirstName = "test", LastName = "test", IsDisabled = false, MaxWorkingTimePerWeek = 10 };
 			await AssertInsertAsync(true, row);
 			await AssertUpdateAsync(false, row, (item) => item.IsDisabled = null);
 			await AssertUpdateAsync(true, row, (item) => item.IsDisabled = true);
@@ -144,8 +144,8 @@ namespace ePlanifModelLibTest
 			await AssertUpdateAsync(true, row, (item) => item.FirstName = "test2");
 			await AssertUpdateAsync(false, row, (item) => item.LastName = null);
 			await AssertUpdateAsync(true, row, (item) => item.LastName = "test2");
-			await AssertUpdateAsync(true, row, (item) => item.MaxWorkingHoursPerWeek = null);
-			await AssertUpdateAsync(true, row, (item) => item.MaxWorkingHoursPerWeek = 50);
+			await AssertUpdateAsync(true, row, (item) => item.MaxWorkingTimePerWeek = null);
+			await AssertUpdateAsync(true, row, (item) => item.MaxWorkingTimePerWeek = 50);
 			await AssertDeleteAsync(true, row);
 		}
 

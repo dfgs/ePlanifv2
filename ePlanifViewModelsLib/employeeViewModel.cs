@@ -47,12 +47,29 @@ namespace ePlanifViewModelsLib
 			get { return Model.CountryCode; }
 			set { Model.CountryCode = value; OnPropertyChanged(); }
 		}
-
-		[ByteProperty(Header = "Max working hours per week", IsMandatory = false, IsReadOnly = false)]
-		public byte? MaxWorkingHoursPerWeek
+		
+		[LargeTimeSpanProperty(Header = "Working time per week", IsMandatory = false, IsReadOnly = false)]
+		public TimeSpan? WorkingTimePerWeek
 		{
-			get { return Model.MaxWorkingHoursPerWeek; }
-			set { Model.MaxWorkingHoursPerWeek = value; OnPropertyChanged(); }
+			get { return Model.WorkingTimePerWeek.HasValue?TimeSpan.FromMinutes(Model.WorkingTimePerWeek.Value):(TimeSpan?)null; }
+			set
+			{
+				if (value == null) Model.WorkingTimePerWeek = null;
+				else Model.WorkingTimePerWeek = (ushort)value.Value.TotalMinutes;
+				OnPropertyChanged();
+			}
+		}
+
+		[LargeTimeSpanProperty(Header = "Max working time per week", IsMandatory = false, IsReadOnly = false)]
+		public TimeSpan? MaxWorkingTimePerWeek
+		{
+			get { return Model.MaxWorkingTimePerWeek.HasValue ? TimeSpan.FromMinutes(Model.MaxWorkingTimePerWeek.Value) : (TimeSpan?)null; }
+			set
+			{
+				if (value == null) Model.MaxWorkingTimePerWeek = null;
+				else Model.MaxWorkingTimePerWeek = (ushort)value.Value.TotalMinutes;
+				OnPropertyChanged();
+			}
 		}
 
 		

@@ -1,5 +1,6 @@
 ﻿using DatabaseModelLib;
 using ModelLib;
+using System;
 using System.Runtime.Serialization;
 
 
@@ -60,14 +61,20 @@ namespace ePlanifModelsLib
 			set { WriteAccessColumn.SetValue(this, value); }
 		}
 
-
-
-		public static readonly Column<Employee, byte> MaxWorkingHoursPerWeekColumn = new Column<Employee, byte>() { IsNullable = true };
+		public static readonly Column<Employee, int> WorkingTimePerWeekColumn = new Column<Employee, int>() { IsNullable = true };
 		[DataMember]
-		public byte? MaxWorkingHoursPerWeek
+		public int? WorkingTimePerWeek
 		{
-			get { return MaxWorkingHoursPerWeekColumn.GetValue(this); }
-			set { MaxWorkingHoursPerWeekColumn.SetValue(this, value); }
+			get { return WorkingTimePerWeekColumn.GetValue(this); }
+			set { WorkingTimePerWeekColumn.SetValue(this, value); }
+		}
+
+		public static readonly Column<Employee, int> MaxWorkingTimePerWeekColumn = new Column<Employee, int>() { IsNullable = true };
+		[DataMember]
+		public int? MaxWorkingTimePerWeek
+		{
+			get { return MaxWorkingTimePerWeekColumn.GetValue(this); }
+			set { MaxWorkingTimePerWeekColumn.SetValue(this, value); }
 		}
 
 
@@ -87,7 +94,8 @@ namespace ePlanifModelsLib
 		}
 		public Employee(Employee Model)
 		{
-			Schema<Employee>.Clone(Model, this);
+			
+			
 		}
 
 

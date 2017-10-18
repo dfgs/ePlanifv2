@@ -45,18 +45,18 @@ namespace ePlanifServerLib
 			Profiles.Add(new Profile() { ProfileID = 3, Name = "Parents", AdministrateAccounts = true, AdministrateActivityTypes = true, AdministrateEmployees = true, CanRunReports = true });
 
 			Accounts.Add(new Account() { AccountID = 1, Login = "admin", ProfileID = 3 });
-			Accounts.Add(new Account() { AccountID = 2, Login = "liza", ProfileID = 2 });
+			Accounts.Add(new Account() { AccountID = 2, Login = "liza", ProfileID = 2,EmployeeID=4 });
 			Accounts.Add(new Account() { AccountID = 3, Login = "bart", ProfileID = 2 });
 
 			Layers.Add(new Layer() { LayerID = 1, Name = "Job" });
 			Layers.Add(new Layer() { LayerID = 2, Name = "Home tasks", Color = "Violet" });
 			Layers.Add(new Layer() { LayerID = 3, Name = "Personal tasks", Color = "Gold" });
 
-			Employees.Add(new Employee() { EmployeeID = 1, FirstName = "Homer", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = 10 });
-			Employees.Add(new Employee() { EmployeeID = 2, FirstName = "Marje", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = 50 });
-			Employees.Add(new Employee() { EmployeeID = 3, FirstName = "Bart", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = null });
-			Employees.Add(new Employee() { EmployeeID = 4, FirstName = "Lisa", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = null });
-			Employees.Add(new Employee() { EmployeeID = 5, FirstName = "Maggie", LastName = "Simpson", CountryCode = "US", MaxWorkingHoursPerWeek = null });
+			Employees.Add(new Employee() { EmployeeID = 1, FirstName = "Homer", LastName = "Simpson", CountryCode = "US", MaxWorkingTimePerWeek = 10 });
+			Employees.Add(new Employee() { EmployeeID = 2, FirstName = "Marje", LastName = "Simpson", CountryCode = "US", MaxWorkingTimePerWeek = 50 });
+			Employees.Add(new Employee() { EmployeeID = 3, FirstName = "Bart", LastName = "Simpson", CountryCode = "US", MaxWorkingTimePerWeek = null });
+			Employees.Add(new Employee() { EmployeeID = 4, FirstName = "Lisa", LastName = "Simpson", CountryCode = "US", MaxWorkingTimePerWeek = null });
+			Employees.Add(new Employee() { EmployeeID = 5, FirstName = "Maggie", LastName = "Simpson", CountryCode = "US", MaxWorkingTimePerWeek = null });
 
 			Photos.Add(new Photo() { PhotoID = 1, EmployeeID = 1, Data = GetPhoto("ePlanifServerLib.Images.homer.png") });
 			Photos.Add(new Photo() { PhotoID = 2, EmployeeID = 2, Data = GetPhoto("ePlanifServerLib.Images.marje.png") });
@@ -404,7 +404,7 @@ namespace ePlanifServerLib
 				   join grantedGroup in GetGroupHierarchy() on grant.GroupID equals grantedGroup.ParentGroupID
 				   join member in GroupMembers on grantedGroup.Group.GroupID equals member.GroupID
 				   join employee in Employees on member.EmployeeID equals employee.EmployeeID
-				   group  new Employee(employee) { WriteAccess=grant.WriteAccess }  by new { employee.EmployeeID, employee.FirstName, employee.LastName, employee.CountryCode, employee.IsDisabled, employee.MaxWorkingHoursPerWeek } into employeeGroup
+				   group  new Employee(employee) { WriteAccess=grant.WriteAccess }  by new { employee.EmployeeID, employee.FirstName, employee.LastName, employee.CountryCode, employee.IsDisabled, employee.MaxWorkingTimePerWeek, employee.WorkingTimePerWeek } into employeeGroup
 				   select new Employee()
 				   {
 					   EmployeeID = employeeGroup.Key.EmployeeID,
@@ -412,7 +412,8 @@ namespace ePlanifServerLib
 					   FirstName = employeeGroup.Key.FirstName,
 					   LastName = employeeGroup.Key.LastName,
 					   IsDisabled = employeeGroup.Key.IsDisabled,
-					   MaxWorkingHoursPerWeek = employeeGroup.Key.MaxWorkingHoursPerWeek,
+					   WorkingTimePerWeek=employeeGroup.Key.WorkingTimePerWeek,
+					   MaxWorkingTimePerWeek = employeeGroup.Key.MaxWorkingTimePerWeek,
 					   WriteAccess = (from item in employeeGroup select item.WriteAccess.Value).Max()
 				   };
 

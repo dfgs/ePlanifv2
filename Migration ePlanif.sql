@@ -39,8 +39,8 @@ Set Identity_Insert [Employee] On
 --
 --	Employee from Technicien
 --
-insert into [Employee] (EmployeeID,FirstName,LastName, MaxWorkingHoursPerWeek,CountryCode, IsDisabled)
-select NumTech ,Prenom ,Nom ,40,'FR',0 from EtraliCommon.dbo.Technicien where Valide=1 
+insert into [Employee] (EmployeeID,FirstName,LastName,WorkingHoursPerWeek, MaxWorkingHoursPerWeek,CountryCode, IsDisabled)
+select NumTech ,Prenom ,Nom,37*60+40, 40*60,'FR',0 from EtraliCommon.dbo.Technicien where Valide=1 
 Set Identity_Insert [Employee] Off
 
 

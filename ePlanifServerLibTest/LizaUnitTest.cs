@@ -82,7 +82,7 @@ namespace ePlanifServerLibTest
 		[TestMethod, TestCategory("Employee")]
 		public void Should_Fail_When_CreateEmployee()
 		{
-			AssertCreateItem(false, (client) =>  client.CreateEmployee, new Employee() { CountryCode = "FR", FirstName = "Test", LastName = "Test", MaxWorkingHoursPerWeek = null, WriteAccess = false });
+			AssertCreateItem(false, (client) =>  client.CreateEmployee, new Employee() { CountryCode = "FR", FirstName = "Test", LastName = "Test", MaxWorkingTimePerWeek = null, WriteAccess = false });
 		}
 		[TestMethod, TestCategory("Employee")]
 		public void Should_Fail_When_UpdateEmployee()
@@ -90,6 +90,31 @@ namespace ePlanifServerLibTest
 			AssertUpdateItem(false, (client) => client.UpdateEmployee, dataProvider.Employees[0]);
 		}
 		#endregion
+
+		#region Photo
+
+		[TestMethod, TestCategory("Photo")]
+		public void Should_Success_When_CreatePhotoForHimSelf()
+		{
+			AssertCreateItem(true, (client) => client.CreatePhoto, new Photo() { EmployeeID = 4, Data = new byte[] { } });
+		}
+		[TestMethod, TestCategory("Photo")]
+		public void Should_Fail_When_CreatePhotoForAnotherEmployee()
+		{
+			AssertCreateItem(false, (client) => client.CreatePhoto, new Photo() { EmployeeID = 1, Data = new byte[] { } });
+		}
+		[TestMethod, TestCategory("Photo")]
+		public void Should_Success_When_UpdatePhotoForHimSelf()
+		{
+			AssertUpdateItem(true, (client) => client.UpdatePhoto, dataProvider.Photos[3]);
+		}
+		[TestMethod, TestCategory("Photo")]
+		public void Should_Fail_When_UpdatePhotoForHimSelf()
+		{
+			AssertUpdateItem(false, (client) => client.UpdatePhoto, dataProvider.Photos[0]);
+		}
+		#endregion
+
 
 		#region ActivityType
 		[TestMethod, TestCategory("ActivityType")]

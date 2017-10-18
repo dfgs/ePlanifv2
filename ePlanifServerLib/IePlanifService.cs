@@ -9,11 +9,23 @@ using System.Threading.Tasks;
 
 namespace ePlanifServerLib
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	[ServiceContract]
 	public interface IePlanifService
 	{
+		/// <summary>
+		/// Returns a list of employees, based on your privileges
+		/// </summary>
+		/// <returns></returns>
 		[OperationContract]
 		Task<IEnumerable<Employee>> GetEmployeesAsync();
+		/// <summary>
+		/// Create an employee
+		/// </summary>
+		/// <param name="Item">Employee object you want to create</param>
+		/// <returns></returns>
 		[OperationContract]
 		Task<int> CreateEmployeeAsync(Employee Item);
 		[OperationContract]
