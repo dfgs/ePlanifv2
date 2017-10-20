@@ -105,26 +105,29 @@ namespace ePlanifv2.Views
 
 
 			#region photo
-			layout.DockRight(8);
-			rect = Layout.Center(layout.DockLeft(64), 64, 64);
-			center = new Point(rect.Left + rect.Width / 2, rect.Top + rect.Height / 2);
+			if (Content.Service.Option.DisplayPhotos == true)
+			{
+				layout.DockRight(8);
+				rect = Layout.Center(layout.DockLeft(64), 64, 64);
+				center = new Point(rect.Left + rect.Width / 2, rect.Top + rect.Height / 2);
 
-			Geometry geometry;
-			geometry = new EllipseGeometry(rect);
-			Context.PushClip(geometry);
-			if (employee.Photo==null)
-			{
-				Context.DrawEllipse(DisplayOptions.ShadowBrush, DisplayOptions.InvertedBevelPen, center, 32, 32);
-				text = DisplayOptions.FormatText(String.Concat(employee.LastName.Value.Value[0], employee.FirstName.Value.Value[0]), Brushes.White, 24, 64);
-				Context.DrawText(text, DisplayOptions.GetTextPosition(rect, text, HorizontalAlignment.Center, VerticalAlignment.Center));
+				Geometry geometry;
+				geometry = new EllipseGeometry(rect);
+				Context.PushClip(geometry);
+				if (employee.Photo == null)
+				{
+					Context.DrawEllipse(DisplayOptions.ShadowBrush, DisplayOptions.InvertedBevelPen, center, 32, 32);
+					text = DisplayOptions.FormatText(String.Concat(employee.LastName.Value.Value[0], employee.FirstName.Value.Value[0]), Brushes.White, 24, 64);
+					Context.DrawText(text, DisplayOptions.GetTextPosition(rect, text, HorizontalAlignment.Center, VerticalAlignment.Center));
+				}
+				else
+				{
+					Context.DrawImage(employee.Photo.Image, rect);
+					Context.DrawEllipse(null, DisplayOptions.InvertedBevelPen, center, 32, 32);
+				}
+				Context.Pop();
+				layout.DockLeft(8);
 			}
-			else
-			{
-				Context.DrawImage(employee.Photo.Image, rect);
-				Context.DrawEllipse(null, DisplayOptions.InvertedBevelPen, center, 32, 32);
-			}
-			Context.Pop();
-			layout.DockLeft(8);
 			#endregion
 
 			rect = layout.SplitTop();

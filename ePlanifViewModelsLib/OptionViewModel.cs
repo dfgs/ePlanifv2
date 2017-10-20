@@ -35,6 +35,13 @@ namespace ePlanifViewModelsLib
 		}
 
 
+		[BoolProperty(Header = "Display photos", IsMandatory = true, IsReadOnly = false)]
+		public bool? DisplayPhotos
+		{
+			get { return Model.DisplayPhotos; }
+			set { Model.DisplayPhotos = value; OnPropertyChanged(); }
+		}
+
 		public OptionViewModel(ePlanifServiceViewModel Service)
 			:base(Service)
 		{

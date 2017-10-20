@@ -290,7 +290,7 @@ namespace ePlanifModelLibTest
 		[TestMethod, TestCategory("CRUD")]
 		public async Task Should_Success_When_CRUD_Option()
 		{
-			var row = new Option() { AccountID = account1.AccountID.Value, FirstDayOfWeek=DayOfWeek.Friday,CalendarWeekRule=System.Globalization.CalendarWeekRule.FirstFourDayWeek  };
+			var row = new Option() { AccountID = account1.AccountID.Value, FirstDayOfWeek=DayOfWeek.Friday,CalendarWeekRule=System.Globalization.CalendarWeekRule.FirstFourDayWeek, DisplayPhotos=true  };
 			await AssertInsertAsync(true, row);
 			await AssertUpdateAsync(false, row, (item) => item.FirstDayOfWeek = DayOfWeek.Monday);
 			await AssertUpdateAsync(true, row, (item) => item.CalendarWeekRule= System.Globalization.CalendarWeekRule.FirstFullWeek);

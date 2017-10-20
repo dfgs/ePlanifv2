@@ -40,11 +40,11 @@ namespace ePlanifv2.Views
 			layout = new Layout(Rect);
 
 			
-			if (Content.Employee.Photo!=null)
+			/*if (Content.Employee.Photo!=null)
 			{
 				rect = layout.DockRight(Rect.Height);
 				Context.DrawImage(Content.Employee.Photo.Image, rect);
-			}
+			}*/
 
 			rect = layout.SplitTop();
 			topLayout = new Layout(rect);

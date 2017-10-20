@@ -47,6 +47,16 @@ namespace ePlanifModelsLib
 			set { CalendarWeekRuleColumn.SetValue(this, value); }
 		}
 
+		[Revision(5)]
+		public static readonly Column<Option, bool> DisplayPhotosColumn = new Column<Option, bool>() {DefaultValue=true };
+		[DataMember]
+		public bool? DisplayPhotos
+		{
+			get { return DisplayPhotosColumn.GetValue(this); }
+			set { DisplayPhotosColumn.SetValue(this, value); }
+		}
+
+
 
 
 
