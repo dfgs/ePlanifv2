@@ -163,6 +163,7 @@
     <Compile Include="Views\LoadView.xaml.cs">
       <DependentUpon>LoadView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SelectionAdorner.cs" />
     <Compile Include="Views\TabContent.cs" />
     <Compile Include="Views\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>

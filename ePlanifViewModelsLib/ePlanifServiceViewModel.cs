@@ -414,7 +414,7 @@ namespace ePlanifViewModelsLib
 
 		private bool OnRefreshCommandCanExecute(object Parameter)
 		{
-			return IsLoaded;
+			return IsLoaded && (!IsLoading);
 		}
 		private async void OnRefreshCommandExecute(object Parameter)
 		{
@@ -424,7 +424,7 @@ namespace ePlanifViewModelsLib
 
 		private bool OnUndoCommandCanExecute(object Parameter)
 		{
-			return commandManager.CanUndo;
+			return commandManager.CanUndo && (!IsLoading);
 		}
 		private async void OnUndoCommandExecute(object Parameter)
 		{
@@ -433,7 +433,7 @@ namespace ePlanifViewModelsLib
 
 		private bool OnRedoCommandCanExecute(object Parameter)
 		{
-			return commandManager.CanRedo;
+			return commandManager.CanRedo && (!IsLoading);
 		}
 		private async void OnRedoCommandExecute(object Parameter)
 		{
@@ -445,7 +445,7 @@ namespace ePlanifViewModelsLib
 
 		private bool OnCurrentWeekCommandCanExecute(object Parameter)
 		{
-			return IsLoaded;
+			return IsLoaded && (!IsLoading);
 		}
 		private async void OnCurrentWeekCommandExecute(object Parameter)
 		{
@@ -454,7 +454,7 @@ namespace ePlanifViewModelsLib
 		}
 		private bool OnPreviousWeekCommandCanExecute(object Parameter)
 		{
-			return IsLoaded;
+			return IsLoaded && (!IsLoading);
 		}
 		private async void OnPreviousWeekCommandExecute(object Parameter)
 		{
@@ -463,7 +463,7 @@ namespace ePlanifViewModelsLib
 		}
 		private bool OnNextWeekCommandCanExecute(object Parameter)
 		{
-			return IsLoaded;
+			return IsLoaded && (!IsLoading);
 		}
 		private async void OnNextWeekCommandExecute(object Parameter)
 		{
@@ -473,7 +473,7 @@ namespace ePlanifViewModelsLib
 
 		private bool OnRemoveDaysCommandCanExecute(object Parameter)
 		{
-			return (IsLoaded) && (DaysCount > 7);
+			return (IsLoaded) && (DaysCount > 7) && (!IsLoading);
 		}
 		private async void OnRemoveDaysCommandExecute(object Parameter)
 		{
@@ -482,7 +482,7 @@ namespace ePlanifViewModelsLib
 		}
 		private bool OnAddDaysCommandCanExecute(object Parameter)
 		{
-			return (IsLoaded) && (DaysCount < 28);
+			return (IsLoaded) && (DaysCount < 28) && (!IsLoading);
 		}
 		private async void OnAddDaysCommandExecute(object Parameter)
 		{

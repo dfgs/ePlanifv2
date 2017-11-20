@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using ViewModelLib;
@@ -15,6 +16,8 @@ namespace ePlanifv2.Views
 {
 	//public delegate void RenderVerticalHeaderHandler<RowViewModelType>(DrawingContext Context, Rect Rect, RowViewModelType Content);
 	//public delegate void RenderActivityHandler(DrawingContext Context, Rect Rect, ActivityViewModel Content);
+
+	public enum SelectionModes {None,Click,Drag };
 
 	public abstract class VirtualizingGridPanel<RowViewModelType> : FrameworkElement, IScrollInfo
 		where RowViewModelType: class,IRowViewModel
@@ -139,6 +142,9 @@ namespace ePlanifv2.Views
 
 		#endregion
 
+		private SelectionModes selectionMode;
+		private Point clickedPoint;
+		private SelectionAdorner adorner;
 
 		public static readonly DependencyProperty LayerIDProperty = DependencyProperty.Register("LayerID", typeof(int), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsRender));
 		public int LayerID
@@ -810,6 +816,7 @@ namespace ePlanifv2.Views
 			InvalidateVisual();
 			await Task.Yield();
 		}
+
 		private async Task OnCellsClick(Point Position, bool ControlKey)
 		{
 			int column,row;
@@ -865,30 +872,157 @@ namespace ePlanifv2.Views
 			InvalidateVisual();
 		}
 
+	
+
+		private async Task OnSelectionBeginDrag(Point Position,bool ControlKey)
+		{
+			if (!Mouse.Capture(this)) return;
+
+			AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
+			adorner = new SelectionAdorner(this);
+			adorner.PointA = clickedPoint;
+			adorner.PointB = Position;
+			adornerLayer.Add(adorner);
+			await Task.Yield();
+		}
+		private async Task OnSelectionDrag(Point Position, bool ControlKey)
+		{
+			adorner.PointB = Position;
+			await Task.Yield();
+		}
+		private async Task OnSelectionEndDrag(Point Position, bool ControlKey)
+		{
+			int column1, row1, column2, row2;
+			int index1,index2;
+			double x1, y1, x2, y2;
+			Point pt1, pt2;
+			CellViewModel cell;
+			double rowPos;
+			double relativePos1,relativePos2;
+
+			Mouse.Capture(null);
+
+			if (!ControlKey)
+			{
+				TableViewModel.UnSelectActivities();
+			}
+
+			adorner.GetSelectionPoints(out x1, out y1, out x2, out y2);
+			pt1 = new Point(x1, y1);
+			pt2 = new Point(x2, y2);
+
+			column1 = GetColumnAtPos(pt1);
+			row1 = Math.Max(0, GetRowAtPos(pt1));
+			column2 = GetColumnAtPos(pt2);
+			row2 = Math.Min(RowCount-1, GetRowAtPos(pt2));
+
+			for (int row = row1; row <= row2; row++)
+			{
+				for (int column = column1; column <= column2; column++)
+				{
+					cell = TableViewModel.GetCellContent(column, row);
+					rowPos = GetRowPosition(row) - VerticalOffset;
+					relativePos1 = (pt1.Y - rowPos);
+					relativePos2 = (pt2.Y - rowPos);
+
+					index1 = Math.Max(0, (int)((relativePos1 - CellHeaderMargin) / (ActivityHeight + ActivityMargin)));
+					index2 = Math.Min(cell.GetActivities(LayerID).Count-1,(int)((relativePos2 - CellHeaderMargin) / (ActivityHeight + ActivityMargin)));
+
+					for (int index = index1; index <= index2; index++)
+					{
+						await OnActivityClick(cell, index, true);
+					}
+				}
+			}
+
+			AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
+			adornerLayer.Remove(adorner);
+			adorner = null;
+
+		}
+
 		protected override async void OnMouseDown(MouseButtonEventArgs e)
 		{
-			Point position;
+			//Point position;
 			bool controlKey;
 
-
 			base.OnMouseDown(e);
-			if (e.LeftButton!=MouseButtonState.Pressed) return;
+			if (e.LeftButton != MouseButtonState.Pressed)
+			{
+				selectionMode = SelectionModes.None;
+				return;
+			}
 
 			Keyboard.Focus(this);
 
 			controlKey = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
 
-			position =e.MouseDevice.GetPosition(this);
-			if (position.X<VerticalHeaderWidth)
+			clickedPoint = e.MouseDevice.GetPosition(this);
+			if (clickedPoint.X < VerticalHeaderWidth)
 			{
-				if (position.Y < HorizontalHeaderHeight) await OnCornerHeaderClick(position,controlKey);
-				else await OnVerticalHeaderClick(position, controlKey);
+				if (clickedPoint.Y < HorizontalHeaderHeight) await OnCornerHeaderClick(clickedPoint, controlKey);
+				else await OnVerticalHeaderClick(clickedPoint, controlKey);
 			}
 			else
 			{
-				if (position.Y < HorizontalHeaderHeight) await OnHorizontalHeaderClick(position, controlKey);
-				else await OnCellsClick(position, controlKey);
+				if (clickedPoint.Y < HorizontalHeaderHeight) await OnHorizontalHeaderClick(clickedPoint, controlKey);
+				else selectionMode = SelectionModes.Click;
 			}
+		}
+
+		protected override async void OnMouseMove(MouseEventArgs e)
+		{
+			Point position;
+			bool controlKey;
+
+			base.OnMouseMove(e);
+
+			position = e.MouseDevice.GetPosition(this);
+			controlKey = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
+
+			switch (selectionMode)
+			{
+				case SelectionModes.None:
+					break;
+				case SelectionModes.Click:
+					selectionMode = SelectionModes.Drag;
+					await OnSelectionBeginDrag(position, controlKey);
+					break;
+				case SelectionModes.Drag:
+					await OnSelectionDrag(position, controlKey);
+					break;
+			}
+
+		}
+
+		
+
+		protected override async void OnMouseUp(MouseButtonEventArgs e)
+		{
+			Point position;
+			bool controlKey;
+
+			base.OnMouseDown(e);
+
+			controlKey = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
+			position = e.MouseDevice.GetPosition(this);
+
+			switch (selectionMode)
+			{
+				case SelectionModes.None:
+					break;
+				case SelectionModes.Click:
+					selectionMode = SelectionModes.None;	// must be before edit in order to avoid capturing mouse during edit
+					await OnCellsClick(position, controlKey);
+					break;
+				case SelectionModes.Drag:
+					selectionMode = SelectionModes.None;
+					await OnSelectionEndDrag(position, controlKey);
+					break;
+
+			}
+
+			
 		}
 		#endregion
 
