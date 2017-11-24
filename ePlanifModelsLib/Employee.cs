@@ -77,6 +77,15 @@ namespace ePlanifModelsLib
 			set { MaxWorkingTimePerWeekColumn.SetValue(this, value); }
 		}
 
+		[Revision(7)]
+		public static readonly Column<Employee, int> MaxWorkingTimePerDayColumn = new Column<Employee, int>() { IsNullable = true };
+		[DataMember]
+		public int? MaxWorkingTimePerDay
+		{
+			get { return MaxWorkingTimePerDayColumn.GetValue(this); }
+			set { MaxWorkingTimePerDayColumn.SetValue(this, value); }
+		}
+
 
 		public static readonly Column<Employee, Text> CountryCodeColumn = new Column<Employee, Text>();
 		[DataMember]

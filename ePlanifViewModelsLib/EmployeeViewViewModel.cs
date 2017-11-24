@@ -109,6 +109,8 @@ namespace ePlanifViewModelsLib
 		protected override bool OnValidateCell(CellViewModel Cell)
 		{
 			ObservableCollection<ActivityViewModel> activities;
+			double totalMinutes;
+			TimeSpan? maxWorkingTimePerDay;
 
 			activities = Cell.GetActivities(LayerID);
 			
@@ -118,7 +120,16 @@ namespace ePlanifViewModelsLib
 				{
 					if (Overlap(activities[t], activities[t + 1])) return true;
 				}
+
+				maxWorkingTimePerDay = activities.First().Employee.MaxWorkingTimePerDay;
+				if (maxWorkingTimePerDay != null)
+				{
+					totalMinutes = activities.Sum(item => item.Duration.Value.TotalMinutes);
+					if (totalMinutes > maxWorkingTimePerDay.Value.TotalMinutes) return true;
+				}
+
 			}
+			
 			return false;
 		}
 

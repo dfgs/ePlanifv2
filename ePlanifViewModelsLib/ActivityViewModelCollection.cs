@@ -121,6 +121,13 @@ namespace ePlanifViewModelsLib
 			}
 			return true;
 		}
+
+		protected override Window OnCreateEditWindow()
+		{
+			return new EditActivityWindow(); ;
+		}
+
+
 		/*
 		public ActivityViewModel SearchProject(string Reference, ActivityViewModel CurrentActivity)
 		{

@@ -1,5 +1,6 @@
 ﻿using DatabaseModelLib;
 using ModelLib;
+using System;
 using System.Runtime.Serialization;
 
 
@@ -71,9 +72,40 @@ namespace ePlanifModelsLib
 			set { MinEmployeesColumn.SetValue(this, value); }
 		}
 
+		[Revision(6)]
+		public static readonly Column<ActivityType, DateTime> DefaultStartTimeAMColumn = new Column<ActivityType, DateTime>() { IsNullable=true};
+		[DataMember]
+		public DateTime? DefaultStartTimeAM
+		{
+			get { return DefaultStartTimeAMColumn.GetValue(this); }
+			set { DefaultStartTimeAMColumn.SetValue(this, value); }
+		}
+		[Revision(6)]
+		public static readonly Column<ActivityType, TimeSpan> DefaultDurationAMColumn = new Column<ActivityType, TimeSpan>() { IsNullable = true };
+		[DataMember]
+		public TimeSpan? DefaultDurationAM
+		{
+			get { return DefaultDurationAMColumn.GetValue(this); }
+			set { DefaultDurationAMColumn.SetValue(this, value); }
+		}
 
+		[Revision(6)]
+		public static readonly Column<ActivityType, DateTime> DefaultStartTimePMColumn = new Column<ActivityType, DateTime>() { IsNullable = true };
+		[DataMember]
+		public DateTime? DefaultStartTimePM
+		{
+			get { return DefaultStartTimePMColumn.GetValue(this); }
+			set { DefaultStartTimePMColumn.SetValue(this, value); }
+		}
 
-
+		[Revision(6)]
+		public static readonly Column<ActivityType, TimeSpan> DefaultDurationPMColumn = new Column<ActivityType, TimeSpan>() { IsNullable = true };
+		[DataMember]
+		public TimeSpan? DefaultDurationPM
+		{
+			get { return DefaultDurationPMColumn.GetValue(this); }
+			set { DefaultDurationPMColumn.SetValue(this, value); }
+		}
 
 
 

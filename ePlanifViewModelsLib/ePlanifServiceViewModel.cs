@@ -282,7 +282,7 @@ namespace ePlanifViewModelsLib
 			RemoveDaysCommand = new ViewModelCommand(OnRemoveDaysCommandCanExecute, OnRemoveDaysCommandExecute);
 			AddDaysCommand = new ViewModelCommand(OnAddDaysCommandCanExecute, OnAddDaysCommandExecute);
 
-			StartDate = DateTime.MinValue;
+			StartDate = DateTime.Now;
 
 			reports = new ReportViewModelCollection(this);Children.Add(reports);
 			options = new OptionViewModelCollection(this); // do not add options into children. Option are loaded at connection. Children.Add(options);
@@ -364,13 +364,14 @@ namespace ePlanifViewModelsLib
 		public DateTime FirstDayOfWeek(DateTime Date)
 		{
 			DayOfWeek firstDayOfWeek;
-
+			
 			if (Option == null) firstDayOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
 			else firstDayOfWeek = Option.FirstDayOfWeek.Value;
 
 			int diff = Date.DayOfWeek - firstDayOfWeek;
 			if (diff < 0) diff += 7;
 			return Date.AddDays(-1 * diff).Date;
+			
 		}
 
 		private void UpdateWeekNumber()

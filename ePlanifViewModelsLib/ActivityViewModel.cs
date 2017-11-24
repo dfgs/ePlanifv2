@@ -21,7 +21,7 @@ namespace ePlanifViewModelsLib
         }
 
 
-		[DateTimeProperty(Header = "Date", IsMandatory = true, IsReadOnly = false)]
+		[DateTimeProperty(Header = "Date", IsMandatory = true, IsReadOnly = false,Category ="Date/Time")]
 		public DateTime? Date
 		{
 			get { return Model.StartDate; }
@@ -30,7 +30,7 @@ namespace ePlanifViewModelsLib
 				Model.StartDate = value.Value.Date + Model.StartDate.Value.TimeOfDay; OnPropertyChanged();
 			}
 		}
-		[TimeProperty(Header = "Start time", IsMandatory = true, IsReadOnly = false)]
+		[TimeProperty(Header = "Start time", IsMandatory = true, IsReadOnly = false, Category = "Date/Time")]
 		public DateTime? StartTime
 		{
 			get { return Model.StartDate; }
@@ -39,33 +39,30 @@ namespace ePlanifViewModelsLib
 				Model.StartDate = Model.StartDate.Value.Date + value.Value.TimeOfDay; OnPropertyChanged(); OnPropertyChanged("StopTime");
 			}
 		}
+		[TimeProperty(Header = "Stop time", IsMandatory = true, IsReadOnly = false, Category = "Date/Time")]
 		public DateTime? StopTime
 		{
 			get { return Model.StartDate+Model.Duration; }
+			set
+			{
+				Duration = value - StartTime;
+			}
 		}
 
-		[TimeSpanProperty(Header = "Duration", IsMandatory = true, IsReadOnly = false)]
+		//[TimeSpanProperty(Header = "Duration", IsMandatory = true, IsReadOnly = false)]
 		public TimeSpan? Duration
 		{
 			get { return Model.Duration; }
 			set { Model.Duration = value; OnPropertyChanged(); OnPropertyChanged("StopTime"); }
 		}
-		[TimeSpanProperty(Header = "Tracked duration", IsMandatory = false, IsReadOnly = false)]
+		[TimeSpanProperty(Header = "Tracked duration", IsMandatory = false, IsReadOnly = false, Category = "Information")]
 		public TimeSpan? TrackedDuration
 		{
 			get { return Model.TrackedDuration; }
 			set { Model.TrackedDuration = value; OnPropertyChanged();  }
 		}
 
-		/*[BoolProperty(Header = "Is all day", IsMandatory = true, IsReadOnly = false)]
-		public bool? IsAllDay
-		{
-			get { return Model.IsAllDay; }
-			set { Model.IsAllDay = value; OnPropertyChanged(); }
-		}*/
-
-
-		[TextProperty(Header = "Comment", IsMandatory = false, IsReadOnly = false)]
+		[TextProperty(Header = "Comment", IsMandatory = false, IsReadOnly = false, Category = "Information")]
         public Text? Comment
         {
             get { return Model.Comment; }
@@ -73,7 +70,7 @@ namespace ePlanifViewModelsLib
         }
 
 
-		[IntListProperty(Header = "Activity", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "ActivityTypeID", SourcePath = "Service.VisibleActivityTypes")]
+		[IntListProperty(Header = "Activity", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "Name", SelectedValuePath = "ActivityTypeID", SourcePath = "Service.VisibleActivityTypes", Category = "Information")]
 		public int? ActivityTypeID
 		{
 			get { return Model.ActivityTypeID; }
@@ -86,14 +83,14 @@ namespace ePlanifViewModelsLib
 			get { return ActivityTypeProperty.GetValue(this); }
 		}
 
-		[IntListProperty(Header = "Employee", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.WriteableEmployees")]
+		[IntListProperty(Header = "Employee", IsMandatory = true, IsReadOnly = false, DisplayMemberPath = "FullName", SelectedValuePath = "EmployeeID", SourcePath = "Service.WriteableEmployees", Category = "Information")]
 		public int? EmployeeID
 		{
 			get { return Model.EmployeeID; }
 			set { Model.EmployeeID = value;  OnPropertyChanged(); EmployeeProperty.Invalidate(this); }
 		}
 
-		[TextProperty(Header = "Project number", IsMandatory = false, IsReadOnly = false)]	// text property because it is more a ref than a number
+		[TextProperty(Header = "Project number", IsMandatory = false, IsReadOnly = false, Category = "Information")]	// text property because it is more a ref than a number
 		public int? ProjectNumber
 		{
 			get { return Model.ProjectNumber; }
@@ -102,14 +99,14 @@ namespace ePlanifViewModelsLib
 
 
 
-		[TextProperty(Header = "Remedy reference", IsMandatory = true, IsReadOnly = false)]
+		[TextProperty(Header = "Remedy reference", IsMandatory = true, IsReadOnly = false, Category = "Information")]
 		public Text? RemedyRef
 		{
 			get { return Model.RemedyRef; }
 			set { Model.RemedyRef = value; OnPropertyChanged(); }
 		}
 
-		[BoolProperty(Header = "Is draft activity", IsMandatory = true, IsReadOnly = false)]
+		[BoolProperty(Header = "Is draft activity", IsMandatory = true, IsReadOnly = false, Category = "Information")]
 		public bool? IsDraft
 		{
 			get { return Model.IsDraft; }

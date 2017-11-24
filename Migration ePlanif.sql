@@ -25,6 +25,7 @@ DATEADD(MINUTE,Duree, TIMEFROMPARTS(0,0,0,0,0)),Duree,DureePause,Commentaire,Num
 
 
 
+delete from Photo;
 delete from ActivityTypeViewMember;
 delete from EmployeeViewMember;
 delete from GroupMember
@@ -39,7 +40,7 @@ Set Identity_Insert [Employee] On
 --
 --	Employee from Technicien
 --
-insert into [Employee] (EmployeeID,FirstName,LastName,WorkingHoursPerWeek, MaxWorkingHoursPerWeek,CountryCode, IsDisabled)
+insert into [Employee] (EmployeeID,FirstName,LastName,WorkingTimePerWeek, MaxWorkingTimePerWeek,CountryCode, IsDisabled)
 select NumTech ,Prenom ,Nom,37*60+40, 40*60,'FR',0 from EtraliCommon.dbo.Technicien where Valide=1 
 Set Identity_Insert [Employee] Off
 
@@ -48,8 +49,8 @@ Set Identity_Insert [Employee] Off
 --	Activity type from activity type
 --
 Set Identity_Insert [ActivityType] On
-insert into [ActivityType] (ActivityTypeID,Name,BackgroundColor,TextColor,IsDisabled,LayerID)
-select NumTypeActivite ,Description,'LightGreen', Couleur,0,1 from ePlanif.dbo.TypeActivite where Valide=1
+insert into [ActivityType] (ActivityTypeID,Name,BackgroundColor,TextColor,IsDisabled,LayerID,DefaultStartTimeAM,DefaultDurationAM)
+select NumTypeActivite ,Description,'LightGreen', Couleur,0,1,DATEADD(MINUTE,MinutesDebut, TIMEFROMPARTS(0,0,0,0,0)),DATEADD(MINUTE,Duree, TIMEFROMPARTS(0,0,0,0,0))  from ePlanif.dbo.TypeActivite where Valide=1
 select @typeJourDelta=max(ActivityTypeID)+1 from ActivityType;
 
 --

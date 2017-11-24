@@ -76,9 +76,9 @@ namespace ePlanifServerLib
 			GroupMembers.Add(new GroupMember() { GroupMemberID = 4, GroupID = 4, EmployeeID = 4 });
 			GroupMembers.Add(new GroupMember() { GroupMemberID = 5, GroupID = 4, EmployeeID = 5 });
 
-			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 1, BackgroundColor = "LightGreen", LayerID = 1, MinEmployees = 1, Name = "Monitor nuclear plant", TextColor = "Red" });
-			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 2, BackgroundColor = "Green", LayerID = 1, MinEmployees = 0, Name = "Send security report", TextColor = "Black" });
-			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 3, BackgroundColor = "LightGreen", LayerID = 1, MinEmployees = 1, Name = "Care of baby", TextColor = "Red" });
+			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 1, BackgroundColor = "LightGreen", LayerID = 1, MinEmployees = 1, Name = "Monitor nuclear plant", TextColor = "Red", DefaultStartTimeAM=new DateTime(1,1,1,8,00,00),DefaultDurationAM=TimeSpan.FromHours(4) });
+			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 2, BackgroundColor = "Green", LayerID = 1, MinEmployees = 0, Name = "Send security report", TextColor = "Black", DefaultStartTimePM = new DateTime(1, 1, 1, 14, 00, 00), DefaultDurationPM = TimeSpan.FromHours(4) });
+			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 3, BackgroundColor = "LightGreen", LayerID = 1, MinEmployees = 1, Name = "Care of baby", TextColor = "Red", DefaultStartTimeAM = new DateTime(1, 1, 1, 8, 00, 00) });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 4, BackgroundColor = "Green", LayerID = 1, MinEmployees = 0, Name = "Go to kwik&mark", TextColor = "Black" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 5, BackgroundColor = "LightBlue", LayerID = 1, MinEmployees = 2, Name = "Go to school", TextColor = "Black" });
 			ActivityTypes.Add(new ActivityType() { ActivityTypeID = 6, BackgroundColor = "Lavender", LayerID = 2, MinEmployees = 0, Name = "Clean house", TextColor = "Black" });

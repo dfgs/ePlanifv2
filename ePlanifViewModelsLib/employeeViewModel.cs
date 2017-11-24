@@ -72,7 +72,17 @@ namespace ePlanifViewModelsLib
 			}
 		}
 
-		
+		[LargeTimeSpanProperty(Header = "Max working time per day", IsMandatory = false, IsReadOnly = false)]
+		public TimeSpan? MaxWorkingTimePerDay
+		{
+			get { return Model.MaxWorkingTimePerDay.HasValue ? TimeSpan.FromMinutes(Model.MaxWorkingTimePerDay.Value) : (TimeSpan?)null; }
+			set
+			{
+				if (value == null) Model.MaxWorkingTimePerDay = null;
+				else Model.MaxWorkingTimePerDay = (ushort)value.Value.TotalMinutes;
+				OnPropertyChanged();
+			}
+		}
 
 		public bool? WriteAccess
 		{

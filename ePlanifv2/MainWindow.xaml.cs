@@ -70,6 +70,7 @@ namespace ePlanifv2
 		{
 			ConnectWindow window;
 
+			//throw (new InvalidCastException("test"));
 
 			window = new ConnectWindow() { Owner = this };
 
