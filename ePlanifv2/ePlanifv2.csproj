@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -145,6 +145,9 @@
     <Compile Include="Views\ActivityTypeViewsView.xaml.cs">
       <DependentUpon>ActivityTypeViewsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BulletView.xaml.cs">
+      <DependentUpon>BulletView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DisplayOptions.cs" />
     <Compile Include="Views\EmployeesAdminView.xaml.cs">
       <DependentUpon>EmployeesAdminView.xaml</DependentUpon>
@@ -232,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ActivityTypeViewsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BulletView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -702,6 +709,7 @@
     <Resource Include="Images\equalizer.png" />
     <Resource Include="Images\user--minus.png" />
     <Resource Include="Images\user-medium.png" />
+    <Resource Include="Images\bullet_blue.png" />
     <Content Include="Nager.Date LICENCE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

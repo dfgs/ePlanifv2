@@ -4,15 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Views="clr-namespace:ePlanifv2.Views"
+			xmlns:ViewModels="clr-namespace:ePlanifViewModelsLib;assembly=ePlanifViewModelsLib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-	<ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Focusable="False">
-		<Views:VirtualizingEmployeePanel  TableViewModel="{Binding}" LayerID="{Binding Service.VisibleLayers.SelectedItem.LayerID}" Layers="{Binding Service.VisibleLayers}"
+	<UserControl.Resources>
+		<DataTemplate DataType="{x:Type ViewModels:ActivityViewModel}">
+			<StackPanel>
+				<Views:BulletView Header="Activity" Value="{Binding ActivityType.Name}"/>
+				<Views:BulletView Header="Remedy ref" Value="{Binding RemedyRef}"/>
+				<Views:BulletView Header="Project number" Value="{Binding ProjectNumber}"/>
+				<Views:BulletView Header="Comment" Value="{Binding Comment}"/>
+			</StackPanel>
+		</DataTemplate>
+	</UserControl.Resources>
+	<Grid x:Name="grid">
+		<ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Focusable="False">
+		<Views:VirtualizingEmployeePanel x:Name="panel"   TableViewModel="{Binding}" LayerID="{Binding Service.VisibleLayers.SelectedItem.LayerID}" Layers="{Binding Service.VisibleLayers}"
 									  Columns="{Binding Service.Days}" ColumnCount="{Binding Service.Days.Count}"
 									  Rows="{Binding VisibleMembers}" RowCount="{Binding VisibleMembers.Count}"
 									  CornerContent="{Binding Service.WeekName}"
 									  VerticalHeaderWidth="264" HorizontalHeaderHeight="48"
 									  ColumnWidth="{Binding Source={x:Static Views:DisplayOptions.Instance},Path=ColumnWidth}" ActivityHeight="32"
 									  />
-	</ScrollViewer>
+		</ScrollViewer>
+		<Popup  IsOpen="{Binding ElementName=panel,Path=IsToolTipVisible}" PopupAnimation="Fade"
+				Placement="Mouse" StaysOpen="True">
+			<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" BorderBrush="Gray" BorderThickness="1">
+				<ContentPresenter Margin="4" Content="{Binding ElementName=panel,Path=ToolTipContent}"/>
+			</Border>
+		</Popup>
+	</Grid>
 </UserControl>

@@ -124,7 +124,9 @@ namespace ePlanifViewModelsLib
 
 		protected override Window OnCreateEditWindow()
 		{
-			return new EditActivityWindow(); ;
+			EditActivityWindow window= new EditActivityWindow();
+			window.ActivityTypes = Service.ActivityTypes;
+			return  window;
 		}
 
 

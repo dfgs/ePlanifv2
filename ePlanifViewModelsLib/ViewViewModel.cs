@@ -116,6 +116,8 @@ namespace ePlanifViewModelsLib
 		protected abstract bool GetIsPublicHolyday(DateTime Data, int Row);
 		protected abstract bool HasWriteAccessOnRow(int Row);
 
+		protected abstract int CompareActivities(ActivityViewModel A, ActivityViewModel B);
+
 		protected bool Overlap(ActivityViewModel A, ActivityViewModel B)
 		{
 			if ((A.StartTime >= B.StartTime) && (A.StartTime < B.StopTime) ) return true;
@@ -303,7 +305,7 @@ namespace ePlanifViewModelsLib
 			cell = GetCell(Activity);
 			if (cell != null)
 			{
-				cell.InsertActivity(GetLayerID(Activity), Activity);
+				cell.InsertActivity(GetLayerID(Activity), Activity,CompareActivities);
 				ValidateCell(cell);
 			}
 		}
@@ -334,7 +336,7 @@ namespace ePlanifViewModelsLib
 			newCell = GetCell(Activity);
 			if (newCell != null)
 			{
-				newCell.InsertActivity(GetLayerID(Activity), Activity);
+				newCell.InsertActivity(GetLayerID(Activity), Activity,CompareActivities);
 				ValidateCell(newCell);
 			}
 		}

@@ -120,7 +120,13 @@ namespace ePlanifViewModelsLib
 
 		}
 
-		
+		protected override int CompareActivities(ActivityViewModel A, ActivityViewModel B)
+		{
+			int result= A.Employee.FullName.CompareTo(B.Employee.FullName);
+			if (result != 0) return result;
+			return A.Model.StartDate.Value.CompareTo(B.Model.StartDate.Value);
+		}
+
 
 
 

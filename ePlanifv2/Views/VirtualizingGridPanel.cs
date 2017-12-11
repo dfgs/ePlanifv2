@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -225,14 +226,37 @@ namespace ePlanifv2.Views
 		}
 		#endregion
 
+
+
+		
+
+		public static readonly DependencyProperty IsToolTipVisibleProperty = DependencyProperty.Register("IsToolTipVisible", typeof(bool), typeof(VirtualizingGridPanel<RowViewModelType>));
+		public bool IsToolTipVisible
+		{
+			get { return (bool)GetValue(IsToolTipVisibleProperty); }
+			private set { SetValue(IsToolTipVisibleProperty, value); }
+		}
+
+
+		public static readonly DependencyProperty ToolTipContentProperty = DependencyProperty.Register("ToolTipContent", typeof(ActivityViewModel), typeof(VirtualizingGridPanel<RowViewModelType>));
+		public ActivityViewModel ToolTipContent
+		{
+			get { return (ActivityViewModel)GetValue(ToolTipContentProperty); }
+			private set { SetValue(ToolTipContentProperty, value); }
+		}
+
+		private Timer timer;
+
 		public VirtualizingGridPanel()
 		{
 			//this.SnapsToDevicePixels = true;
 			//SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
 			Focusable = true;
+			timer = new Timer(500) { AutoReset=false };
+			timer.Elapsed += Timer_Elapsed;
 		}
-		
 
+	
 		protected virtual void OnTableChanged(IViewViewModel OldValue,IViewViewModel NewValue)
 		{
 			if (OldValue != null)
@@ -448,6 +472,30 @@ namespace ePlanifv2.Views
 			return RowCount - 1;
 		}
 
+		private ActivityViewModel GetActivityAtPos(Point Position)
+		{
+			int column, row;
+			int index;
+			CellViewModel cell;
+			double rowPos;
+			double relativePos;
+
+			column = GetColumnAtPos(Position);
+			row = GetRowAtPos(Position);
+			if ((column < 0) || (column >= ColumnCount) || (row < 0) || (row > RowCount)) return null;
+
+			cell = TableViewModel.GetCellContent(column, row);
+
+			rowPos = GetRowPosition(row) - VerticalOffset;
+			relativePos = (Position.Y - rowPos);
+			if (relativePos <= CellHeaderMargin) return null;
+
+			index = (int)((relativePos - CellHeaderMargin) / (ActivityHeight + ActivityMargin));
+			if ((index >= 0) && (index < cell.GetActivities(LayerID).Count)) return cell.GetActivity(LayerID, index);
+
+			return null;
+
+		}
 		private int GetColumnAtPos(Point Position)
 		{
 			int first;
@@ -776,6 +824,16 @@ namespace ePlanifv2.Views
 		}
 		#endregion
 
+		private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+		{
+			Dispatcher.Invoke(UpdateToolTip);
+		}
+		private void UpdateToolTip()
+		{
+			ToolTipContent= GetActivityAtPos(Mouse.GetPosition(this));
+			IsToolTipVisible = ToolTipContent!=null;
+		}
+
 		#region click
 		private async Task OnCornerHeaderClick(Point Position,bool ControlKey)
 		{
@@ -970,6 +1028,12 @@ namespace ePlanifv2.Views
 			}
 		}
 
+		protected override void OnMouseLeave(MouseEventArgs e)
+		{
+			base.OnMouseLeave(e);
+			IsToolTipVisible = false;
+			timer.Stop();
+		}
 		protected override async void OnMouseMove(MouseEventArgs e)
 		{
 			Point position;
@@ -983,6 +1047,11 @@ namespace ePlanifv2.Views
 			switch (selectionMode)
 			{
 				case SelectionModes.None:
+					IsToolTipVisible = false;
+					
+					timer.Stop();
+					timer.Start();
+
 					break;
 				case SelectionModes.Click:
 					selectionMode = SelectionModes.Drag;
@@ -1026,9 +1095,14 @@ namespace ePlanifv2.Views
 		}
 		#endregion
 
+		#region mouse
+		
+
+		#endregion
+
 		#region keyboad
 
-		
+
 
 		protected override void OnKeyDown(KeyEventArgs e)
 		{

@@ -7,4 +7,5 @@ v1.1
 	* User's photo
 v1.2
 	* Drag selection
+	* Alert based on working hours per day
 	

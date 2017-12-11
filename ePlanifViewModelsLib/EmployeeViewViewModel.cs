@@ -133,6 +133,10 @@ namespace ePlanifViewModelsLib
 			return false;
 		}
 
+		protected override int CompareActivities(ActivityViewModel A, ActivityViewModel B)
+		{
+			return A.Model.StartDate.Value.CompareTo(B.Model.StartDate.Value);
+		}
 
 	}
 }

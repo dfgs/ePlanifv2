@@ -147,10 +147,10 @@ namespace ePlanifViewModelsLib
             return Task.FromResult(Model);
 		}
 
-		public int Compare(ActivityViewModel Other)
+		/*public int Compare(ActivityViewModel Other)
 		{
 			return Model.StartDate.Value.CompareTo(Other.Model.StartDate.Value);
-		}
+		}*/
 
 		public async Task<ActivityViewModel> CloneAsync()
 		{

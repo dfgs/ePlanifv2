@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="ePlanifv2.Views.BulletView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ePlanifv2.Views"
+             mc:Ignorable="d" x:Name="root"
+             d:DesignWidth="300">
+	<StackPanel Orientation="Horizontal">
+		<Image Source="/ePlanifv2;component/Images/bullet_blue.png"/>
+		<TextBlock Text="{Binding ElementName=root,Path=Header,FallbackValue=Header}" FontWeight="Bold"/>
+		<TextBlock Text=": "/>
+		<TextBlock Text="{Binding ElementName=root,Path=Value,FallbackValue=NA}"/>
+	</StackPanel>
+</UserControl>

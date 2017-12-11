@@ -133,7 +133,7 @@ namespace ePlanifViewModelsLib
 			return items[Index].IsSelected;
 		}
 
-		public void InsertActivity(int LayerID, ActivityViewModel Activity)
+		public void InsertActivity(int LayerID, ActivityViewModel Activity,Func<ActivityViewModel,ActivityViewModel,int> Comparer)
 		{
 			int index ;
 			ObservableCollection<ActivityViewModel> items;
@@ -142,15 +142,18 @@ namespace ePlanifViewModelsLib
 			index = items.Count;
 			for (int t = 0; t < items.Count; t++)
 			{
-				//if (activities[t].IsAllDay==true) continue;
-				if (Activity.Compare(items[t]) <= 0)
+				/*if (Activity.Compare(items[t]) <= 0)
+				{
+					index = t;
+					break;
+				}*/
+				if (Comparer(Activity,items[t])<=0)
 				{
 					index = t;
 					break;
 				}
 			}
 			items.Insert(index, Activity);
-			//Validate();
 		}
 		public void RemoveActivity(int LayerID,ActivityViewModel Activity)
 		{

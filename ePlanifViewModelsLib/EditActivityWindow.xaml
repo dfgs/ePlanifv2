@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:ePlanifViewModelsLib"
 		xmlns:ViewLib="clr-namespace:ViewLib;assembly=ViewLib"
         xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
-        SizeToContent="Height" 
-       Title="Edit" Width="320"  Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" >
+        mc:Ignorable="d"  ShowInTaskbar="False"
+        x:Name="root" WindowStartupLocation="CenterOwner"  ResizeMode="NoResize"
+       Title="Edit" Width="320" Height="600" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" >
 
 
 	<Window.InputBindings>
@@ -28,8 +28,8 @@
 		<StackPanel>
 			<ViewLib:EditControl DataContext="{Binding GroupedProperties[Date/Time]}"/>
 			<UniformGrid Columns="2">
-				<Button Content="Set default AM" Width="128" Click="ButtonAM_Click"/>
-				<Button Content="Set default PM" Width="128" Click="ButtonPM_Click"/>
+				<Button Content="Set default AM" Width="128" Command="{Binding ElementName=root,Path=DefaultAMCommand}"/>
+				<Button Content="Set default PM" Width="128" Command="{Binding ElementName=root,Path=DefaultPMCommand}"/>
 			</UniformGrid>
 			<ViewLib:EditControl DataContext="{Binding GroupedProperties[Information]}"/>
 		</StackPanel>
