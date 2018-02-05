@@ -25,7 +25,7 @@ namespace ePlanifv2.Views
 	{
 		#region columns and rows properties
 
-		public static readonly DependencyProperty TableViewModelProperty = DependencyProperty.Register("TableViewModel", typeof(IViewViewModel), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, TablePropertyChangedCallBack));
+		public static readonly DependencyProperty TableViewModelProperty = DependencyProperty.Register("TableViewModel", typeof(IViewViewModel), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, TablePropertyChangedCallBack, TablePropertyCoerceCallBack));
 		public IViewViewModel TableViewModel
 		{
 			get { return (IViewViewModel)GetValue(TableViewModelProperty); }
@@ -255,8 +255,11 @@ namespace ePlanifv2.Views
 			timer = new Timer(500) { AutoReset=false };
 			timer.Elapsed += Timer_Elapsed;
 		}
+		protected virtual void OnTableChanging()
+		{
+			int t = 0;
+		}
 
-	
 		protected virtual void OnTableChanged(IViewViewModel OldValue,IViewViewModel NewValue)
 		{
 			if (OldValue != null)
@@ -269,7 +272,7 @@ namespace ePlanifv2.Views
 				NewValue.Updated += Table_Updated;
 				NewValue.CellFocused += Table_CellFocused;
 			}
-		
+
 			if (ScrollOwner != null) ScrollOwner.InvalidateScrollInfo();
 		}
 
@@ -288,7 +291,7 @@ namespace ePlanifv2.Views
 			SetHorizontalOffset(HorizontalOffset);SetVerticalOffset(VerticalOffset);
 			InvalidateVisual();
 		}
-
+		
 		private static void TablePropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			VirtualizingGridPanel<RowViewModelType> panel;
@@ -296,7 +299,14 @@ namespace ePlanifv2.Views
 			if (panel == null) return;
 			panel.OnTableChanged((IViewViewModel)e.OldValue, (IViewViewModel)e.NewValue);
 		}
-
+		private static object TablePropertyCoerceCallBack(DependencyObject d, object BaseValue)
+		{
+			VirtualizingGridPanel<RowViewModelType> panel;
+			panel = d as VirtualizingGridPanel<RowViewModelType>;
+			if (panel == null) return BaseValue;
+			panel.OnTableChanging();
+			return BaseValue;
+		}
 		private static void IScrollPropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			VirtualizingGridPanel<RowViewModelType> panel;

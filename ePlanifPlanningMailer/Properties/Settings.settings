@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ePlanifPlanningMailer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ePlanifPlanningMailer_ReportingServices_ReportingService2010" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:80/ReportServer/ReportService2010.asmx</Value>
+    </Setting>
+    <Setting Name="ePlanifPlanningMailer_ReportingExecutionServices_ReportExecutionService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:80/ReportServer/ReportExecution2005.asmx</Value>
+    </Setting>
+    <Setting Name="SMTPServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">smtp.ipc.com</Value>
+    </Setting>
+    <Setting Name="SMTPUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ePlanif@IPC.com</Value>
+    </Setting>
+    <Setting Name="SMTPPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SMTPSender" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ePlanif@IPC.com</Value>
+    </Setting>
+    <Setting Name="SMTPPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">25</Value>
+    </Setting>
+    <Setting Name="SMTPSSL" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SaveToFile" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SendMail" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ReportName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/ePlanif_Mailing/weekly_planning</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

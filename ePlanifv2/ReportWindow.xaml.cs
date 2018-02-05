@@ -54,6 +54,7 @@ namespace ePlanifv2
 			//reportViewer.ServerReport.Refresh();
 
 			reportViewer.RefreshReport();
+			
 		}
 
 

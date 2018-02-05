@@ -41,6 +41,13 @@ namespace ePlanifViewModelsLib
 			set { Model.eMail = value; OnPropertyChanged();  }
 		}
 
+		[BoolProperty(Header = "Registered to mail plannning", IsMandatory = true, IsReadOnly = false)]
+		public bool? IsRegisteredToMailPlannning
+		{
+			get { return Model.IsRegisteredToMailPlannning; }
+			set { Model.IsRegisteredToMailPlannning = value; OnPropertyChanged(); }
+		}
+
 		[TextListProperty(Header = "Country", IsMandatory = true, IsReadOnly = false,  SelectedValuePath = "Model", DisplayMemberPath = null, SourcePath = "Service.CountryCodes")]
 		public Text? CountryCode
 		{
@@ -83,6 +90,7 @@ namespace ePlanifViewModelsLib
 				OnPropertyChanged();
 			}
 		}
+
 
 		public bool? WriteAccess
 		{

@@ -95,7 +95,15 @@ namespace ePlanifModelsLib
 			set { CountryCodeColumn.SetValue(this, value); }
 		}
 
-		
+
+		[Revision(8)]
+		public static readonly Column<Employee, bool> IsRegisteredToMailPlannningColumn = new Column<Employee, bool>() {DefaultValue=true };
+		[DataMember]
+		public bool? IsRegisteredToMailPlannning
+		{
+			get { return IsRegisteredToMailPlannningColumn.GetValue(this); }
+			set { IsRegisteredToMailPlannningColumn.SetValue(this, value); }
+		}
 
 		public Employee()
 		{

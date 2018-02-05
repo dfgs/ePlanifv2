@@ -45,7 +45,7 @@ namespace ePlanifViewModelsLib
 			get { return Model.StartDate+Model.Duration; }
 			set
 			{
-				Duration = value - StartTime;
+				Duration = value.Value.TimeOfDay - StartTime.Value.TimeOfDay;
 			}
 		}
 

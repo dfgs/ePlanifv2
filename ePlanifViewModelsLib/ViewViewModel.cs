@@ -45,6 +45,7 @@ namespace ePlanifViewModelsLib
 		}
 		#endregion
 
+
 		public event EventHandler Updated;
 		public event CellFocusedEventHandler CellFocused;
 
@@ -131,11 +132,6 @@ namespace ePlanifViewModelsLib
 			await base.OnLoadedAsync();
 
 
-			//this.rows = rowSource?.ToArray();
-			//this.columns = database.Days?.ToArray();
-			//columnCount = columns?.Length ?? 0;
-			//rowCount = rows?.Length ?? 0;
-
 			columnCount = Service.Days.Count;rowCount = VisibleMembers.Count;
 			this.cells = new CellViewModel[columnCount, rowCount];
 			for(int r=0;r<rowCount;r++)
@@ -157,7 +153,6 @@ namespace ePlanifViewModelsLib
 				ValidateCell(cell);
 			}
 
-			//Update();
 		}
 
 		public IEnumerator<CellViewModel> GetEnumerator()
