@@ -11,6 +11,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using ViewModelLib;
 
 namespace ePlanifv2.Views
@@ -25,7 +26,7 @@ namespace ePlanifv2.Views
 	{
 		#region columns and rows properties
 
-		public static readonly DependencyProperty TableViewModelProperty = DependencyProperty.Register("TableViewModel", typeof(IViewViewModel), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, TablePropertyChangedCallBack, TablePropertyCoerceCallBack));
+		public static readonly DependencyProperty TableViewModelProperty = DependencyProperty.Register("TableViewModel", typeof(IViewViewModel), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, TablePropertyChangedCallBack)  );
 		public IViewViewModel TableViewModel
 		{
 			get { return (IViewViewModel)GetValue(TableViewModelProperty); }
@@ -56,7 +57,7 @@ namespace ePlanifv2.Views
 		}
 
 
-		public static readonly DependencyProperty RowCountProperty = DependencyProperty.Register("RowCount", typeof(int), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsRender, IScrollPropertyChangedCallBack));
+		public static readonly DependencyProperty RowCountProperty = DependencyProperty.Register("RowCount", typeof(int), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsRender, RowCountPropertyChangedCallBack));
 		public int RowCount
 		{
 			get { return (int)GetValue(RowCountProperty); }
@@ -247,6 +248,8 @@ namespace ePlanifv2.Views
 
 		private Timer timer;
 
+		private BitmapSource[] rowCache;
+
 		public VirtualizingGridPanel()
 		{
 			//this.SnapsToDevicePixels = true;
@@ -255,9 +258,11 @@ namespace ePlanifv2.Views
 			timer = new Timer(500) { AutoReset=false };
 			timer.Elapsed += Timer_Elapsed;
 		}
-		protected virtual void OnTableChanging()
+
+		protected virtual void OnRowCountChanged()
 		{
-			int t = 0;
+			rowCache = new BitmapSource[RowCount];
+			if (ScrollOwner != null) ScrollOwner.InvalidateScrollInfo();
 		}
 
 		protected virtual void OnTableChanged(IViewViewModel OldValue,IViewViewModel NewValue)
@@ -286,9 +291,10 @@ namespace ePlanifv2.Views
 			InvalidateVisual();
 		}
 
-		private void Table_Updated(object sender, EventArgs e)
+		private void Table_Updated(DependencyObject sender, int Col,int Row)
 		{
 			SetHorizontalOffset(HorizontalOffset);SetVerticalOffset(VerticalOffset);
+			InvalidateRow(Row);
 			InvalidateVisual();
 		}
 		
@@ -299,20 +305,21 @@ namespace ePlanifv2.Views
 			if (panel == null) return;
 			panel.OnTableChanged((IViewViewModel)e.OldValue, (IViewViewModel)e.NewValue);
 		}
-		private static object TablePropertyCoerceCallBack(DependencyObject d, object BaseValue)
-		{
-			VirtualizingGridPanel<RowViewModelType> panel;
-			panel = d as VirtualizingGridPanel<RowViewModelType>;
-			if (panel == null) return BaseValue;
-			panel.OnTableChanging();
-			return BaseValue;
-		}
+
 		private static void IScrollPropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			VirtualizingGridPanel<RowViewModelType> panel;
 			panel = d as VirtualizingGridPanel<RowViewModelType>;
 			if (panel == null) return;
 			if (panel.ScrollOwner != null) panel.ScrollOwner.InvalidateScrollInfo();
+		}
+		private static void RowCountPropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			VirtualizingGridPanel<RowViewModelType> panel;
+			panel = d as VirtualizingGridPanel<RowViewModelType>;
+			if (panel == null) return;
+			panel.OnRowCountChanged();
+			
 		}
 
 
@@ -542,6 +549,12 @@ namespace ePlanifv2.Views
 		#endregion
 
 		#region render
+		protected void InvalidateRow(int Row)
+		{
+			rowCache[Row] = null;
+			//InvalidateVisual();
+		}
+
 		protected abstract void OnRenderVerticalHeaderContent(DrawingContext Context, Rect Rect, RowViewModelType Content);
 		protected abstract void OnRenderActivityContent(DrawingContext Context, Rect Rect, ActivityViewModel Content);
 
@@ -779,8 +792,9 @@ namespace ePlanifv2.Views
 			int visibleColumns,visibleRows;
 			int firstRow,firstColumn;
 			double deltaX,deltaY;
-			double x,y;
+			double x,y,cx,cy;
 			int row;
+			ImageSource img;
 
 			//if (TableViewModel == null) return;
 
@@ -797,11 +811,29 @@ namespace ePlanifv2.Views
 			{
 				rowHeight = GetRowHeight(row);
 				x = VerticalHeaderWidth - deltaX;
-				for (int col = 0; col < visibleColumns; col++)
+
+				img = rowCache[row];
+				if ( img== null)
 				{
-					OnRenderCell(drawingContext, new Rect(x, y, ColumnWidth, rowHeight), TableViewModel?.GetCellContent(col + firstColumn, row));
-					x += ColumnWidth;
+					DrawingVisual drawingVisual = new DrawingVisual();
+					DrawingContext cacheContext = drawingVisual.RenderOpen();
+					
+					cx = 0; cy = 0;
+					for (int col = 0; col < visibleColumns; col++)
+					{
+						OnRenderCell(cacheContext, new Rect(cx, cy, ColumnWidth, rowHeight), TableViewModel?.GetCellContent(col + firstColumn, row));
+						cx += ColumnWidth;
+					}
+
+					cacheContext.Close();
+
+					RenderTargetBitmap bitmap = new RenderTargetBitmap((int)cx, (int)rowHeight, 96, 96, PixelFormats.Default);
+					bitmap.Render(drawingVisual);
+					rowCache[row] = bitmap;
+					img = bitmap;
+					
 				}
+				drawingContext.DrawImage(img, new Rect(x, y, img.Width, img.Height));
 				row++; y += rowHeight; visibleRows++;
 			}
 			#endregion
@@ -856,13 +888,19 @@ namespace ePlanifv2.Views
 
 			index = GetRowAtPos(Position);
 
+			foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
 			TableViewModel.UnSelectCells();
-			if (!ControlKey) TableViewModel.UnSelectActivities();
+			if (!ControlKey)
+			{
+				foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
+				TableViewModel.UnSelectActivities();
+			}
 			for(int t=0;t<ColumnCount;t++)
 			{
 				cell = TableViewModel.GetCellContent(t, index);
 				cell.SelectAll(LayerID);
 			}
+			InvalidateRow(index);
 			InvalidateVisual();
 			await Task.Yield();
 		}
@@ -878,6 +916,7 @@ namespace ePlanifv2.Views
 			if (!ControlKey) TableViewModel.UnSelectActivities();
 			for (int t = 0; t < RowCount; t++)
 			{
+				InvalidateRow(t);
 				cell = TableViewModel.GetCellContent(index,t);
 				cell.SelectAll(LayerID);
 			}
@@ -919,8 +958,14 @@ namespace ePlanifv2.Views
 			}
 			else
 			{
+				foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
 				TableViewModel.UnSelectActivities();
-				if (!ControlKey) TableViewModel.UnSelectCells();
+				if (!ControlKey)
+				{
+					foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
+					TableViewModel.UnSelectCells();
+				}
+				InvalidateRow(Cell.Row);
 				TableViewModel.Select(Cell);
 			}
 			InvalidateVisual();
@@ -933,10 +978,16 @@ namespace ePlanifv2.Views
 			}
 			else
 			{
+				foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
 				TableViewModel.UnSelectCells();
-				if (!ControlKey) TableViewModel.UnSelectActivities();
+				if (!ControlKey)
+				{
+					foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
+					TableViewModel.UnSelectActivities();
+				}
 				TableViewModel.SelectActivity(Cell, Index);
 			}
+			InvalidateRow(Cell.Row);
 			InvalidateVisual();
 		}
 
@@ -972,6 +1023,7 @@ namespace ePlanifv2.Views
 
 			if (!ControlKey)
 			{
+				foreach(int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
 				TableViewModel.UnSelectActivities();
 			}
 

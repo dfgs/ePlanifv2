@@ -13,7 +13,7 @@ using ePlanifViewModelsLib.Commands;
 
 namespace ePlanifViewModelsLib
 {
-	public delegate void CellFocusedEventHandler(DependencyObject sender, int Column,int Row);
+	public delegate void CellEventHandler(DependencyObject sender, int Column,int Row);
 
 	public abstract class ViewViewModel<ViewModelType,MemberViewModelType> : WCFViewModel<ViewModelType>, IEnumerable<CellViewModel>,IViewViewModel
 		where MemberViewModelType:IRowViewModel
@@ -46,8 +46,8 @@ namespace ePlanifViewModelsLib
 		#endregion
 
 
-		public event EventHandler Updated;
-		public event CellFocusedEventHandler CellFocused;
+		public event CellEventHandler Updated;
+		public event CellEventHandler CellFocused;
 
 		private CellViewModel[,] cells;
 
@@ -211,6 +211,15 @@ namespace ePlanifViewModelsLib
 		{
 			Cell.IsSelected = !Cell.IsSelected;
 		}
+
+		public IEnumerable<int> GetSelectedCellRows()
+		{
+			foreach(CellViewModel cell in cells)
+			{
+				if (cell.IsSelected) yield return cell.Row;
+			}
+		}
+
 		public void UnSelectCells()
 		{
 			this.SelectedCell = null;
@@ -229,6 +238,14 @@ namespace ePlanifViewModelsLib
 		{
 			Service.Activities.SelectedItem = null;
 		}
+
+		
+		public IEnumerable<int> GetSelectedActivitiesRows()
+		{
+			return Service.Activities.SelectedItems.Select(item => GetRowIndex(item));
+		}
+
+
 		public async Task Edit()
 		{
 			foreach(ActivityViewModel activity in Service.Activities.SelectedItems)
@@ -378,24 +395,24 @@ namespace ePlanifViewModelsLib
 		private void Activities_ActivityAdded(object sender, ActivityViewModel Activity)
 		{
 			AddActivity(Activity);
-			OnUpdated();
+			OnUpdated(GetColumnIndex(Activity),  GetRowIndex(Activity) );
 		}
 		private void Activities_ActivityRemoved(object sender, ActivityViewModel Activity)
 		{
 			RemoveActivity(Activity);
-			OnUpdated();
+			OnUpdated(GetColumnIndex(Activity), GetRowIndex(Activity));
 		}
 		private void Activities_ActivityEdited(object sender, ActivityViewModel Activity)
 		{
 			MoveActivity(Activity);
-			OnUpdated();
+			OnUpdated(GetColumnIndex(Activity), GetRowIndex(Activity));
 		}
 
 
 
-		protected virtual void OnUpdated()
+		protected virtual void OnUpdated(int Column, int Row)
 		{
-			if (Updated != null) Updated(this, EventArgs.Empty);
+			if (Updated != null) Updated(this, Column,Row);
 		}
 		protected virtual void OnCellFocused(int Column,int Row)
 		{
@@ -507,7 +524,6 @@ namespace ePlanifViewModelsLib
 			OnCellFocused(GetColumnIndex(Activity), GetRowIndex(Activity));
 		}
 
-
-
+		
 	}
 }

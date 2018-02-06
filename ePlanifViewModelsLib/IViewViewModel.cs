@@ -8,21 +8,19 @@ namespace ePlanifViewModelsLib
 {
 	public interface IViewViewModel
 	{
-		event EventHandler Updated;
-		event CellFocusedEventHandler CellFocused;
+		event CellEventHandler Updated;
+		event CellEventHandler CellFocused;
 
 		bool HasActivitySelected
 		{
 			get;
 		}
 
-		Task<bool> ReplicateActivitiesAsync(DateTime EndDate,bool SkipPublicHolidays);
-		//Task<bool> HasWriteAccessAsync();
+		IEnumerable<int> GetSelectedCellRows();
+		IEnumerable<int> GetSelectedActivitiesRows();
 
+		Task<bool> ReplicateActivitiesAsync(DateTime EndDate,bool SkipPublicHolidays);
 		CellViewModel GetCellContent(int Col, int Row);
-		//DayViewModel GetColumnContent(int Index);
-		//IRowViewModel GetRowContent(int Index);
-		//object GetCornerContent();
 		void Select(CellViewModel Cell);
 		void UnSelectCells();
 		void SelectActivity(CellViewModel Cell, int ActivityIndex);
