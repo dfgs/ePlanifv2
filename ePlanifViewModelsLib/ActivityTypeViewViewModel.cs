@@ -127,7 +127,10 @@ namespace ePlanifViewModelsLib
 			return A.Model.StartDate.Value.CompareTo(B.Model.StartDate.Value);
 		}
 
-
+		protected override string OnGetActivityDisplay(ActivityViewModel Activity)
+		{
+			return $"{Activity.StartTime.Value.ToShortTimeString()} - {Activity.StopTime.Value.ToShortTimeString()} {Activity.Employee.FullName}";
+		}
 
 
 	}

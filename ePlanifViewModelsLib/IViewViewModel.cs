@@ -10,14 +10,16 @@ namespace ePlanifViewModelsLib
 	{
 		event CellEventHandler Updated;
 		event CellEventHandler CellFocused;
+		event CellEventHandler CellSelectionChanged;
+		event CellEventHandler ActivitySelectionChanged;
 
 		bool HasActivitySelected
 		{
 			get;
 		}
 
-		IEnumerable<int> GetSelectedCellRows();
-		IEnumerable<int> GetSelectedActivitiesRows();
+		//IEnumerable<int> GetSelectedCellRows();
+		//IEnumerable<int> GetSelectedActivitiesRows();
 
 		Task<bool> ReplicateActivitiesAsync(DateTime EndDate,bool SkipPublicHolidays);
 		CellViewModel GetCellContent(int Col, int Row);
@@ -29,5 +31,7 @@ namespace ePlanifViewModelsLib
 		Task Add(CellViewModel Cell);
 		ActivityViewModel SearchProject(string Reference, ActivityViewModel CurrentActivity);
 		void Focus(ActivityViewModel Activity);
+
+		void ExportToExcel(string FileName);
 	}
 }

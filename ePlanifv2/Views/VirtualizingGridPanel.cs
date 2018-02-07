@@ -271,15 +271,21 @@ namespace ePlanifv2.Views
 			{
 				OldValue.Updated -= Table_Updated;
 				OldValue.CellFocused -= Table_CellFocused;
+				OldValue.CellSelectionChanged -= Table_CellSelectionChanged;
+				OldValue.ActivitySelectionChanged -= Table_ActivitySelectionChanged;
 			}
 			if (NewValue != null)
 			{
 				NewValue.Updated += Table_Updated;
 				NewValue.CellFocused += Table_CellFocused;
+				NewValue.CellSelectionChanged += Table_CellSelectionChanged;
+				NewValue.ActivitySelectionChanged += Table_ActivitySelectionChanged;
 			}
 
 			if (ScrollOwner != null) ScrollOwner.InvalidateScrollInfo();
 		}
+
+		
 
 		private void Table_CellFocused(DependencyObject sender, int Column,int Row)
 		{
@@ -288,6 +294,7 @@ namespace ePlanifv2.Views
 			y = GetRowPosition(Row)-HorizontalHeaderHeight;
 			SetHorizontalOffset(x);
 			SetVerticalOffset(y);
+			InvalidateRow(Row);
 			InvalidateVisual();
 		}
 
@@ -297,7 +304,14 @@ namespace ePlanifv2.Views
 			InvalidateRow(Row);
 			InvalidateVisual();
 		}
-		
+		private void Table_CellSelectionChanged(DependencyObject sender, int Column, int Row)
+		{
+			InvalidateRow(Row);
+		}
+		private void Table_ActivitySelectionChanged(DependencyObject sender, int Column, int Row)
+		{
+			InvalidateRow(Row);
+		}
 		private static void TablePropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			VirtualizingGridPanel<RowViewModelType> panel;
@@ -551,7 +565,7 @@ namespace ePlanifv2.Views
 		#region render
 		protected void InvalidateRow(int Row)
 		{
-			rowCache[Row] = null;
+			if ((Row>=0) && (Row<RowCount)) rowCache[Row] = null;
 			//InvalidateVisual();
 		}
 
@@ -810,7 +824,7 @@ namespace ePlanifv2.Views
 			while ((y < viewportHeight) && (row < RowCount))
 			{
 				rowHeight = GetRowHeight(row);
-				x = VerticalHeaderWidth - deltaX;
+				x = VerticalHeaderWidth - HorizontalOffset;
 
 				img = rowCache[row];
 				if ( img== null)
@@ -819,9 +833,9 @@ namespace ePlanifv2.Views
 					DrawingContext cacheContext = drawingVisual.RenderOpen();
 					
 					cx = 0; cy = 0;
-					for (int col = 0; col < visibleColumns; col++)
+					for (int col = 0; col < ColumnCount; col++)
 					{
-						OnRenderCell(cacheContext, new Rect(cx, cy, ColumnWidth, rowHeight), TableViewModel?.GetCellContent(col + firstColumn, row));
+						OnRenderCell(cacheContext, new Rect(cx, cy, ColumnWidth, rowHeight), TableViewModel?.GetCellContent(col , row));
 						cx += ColumnWidth;
 					}
 
@@ -888,11 +902,11 @@ namespace ePlanifv2.Views
 
 			index = GetRowAtPos(Position);
 
-			foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
+			//foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
 			TableViewModel.UnSelectCells();
 			if (!ControlKey)
 			{
-				foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
+				//foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
 				TableViewModel.UnSelectActivities();
 			}
 			for(int t=0;t<ColumnCount;t++)
@@ -958,11 +972,11 @@ namespace ePlanifv2.Views
 			}
 			else
 			{
-				foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
+				//foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
 				TableViewModel.UnSelectActivities();
 				if (!ControlKey)
 				{
-					foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
+					//foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
 					TableViewModel.UnSelectCells();
 				}
 				InvalidateRow(Cell.Row);
@@ -978,11 +992,11 @@ namespace ePlanifv2.Views
 			}
 			else
 			{
-				foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
+				//foreach (int row in TableViewModel.GetSelectedCellRows()) InvalidateRow(row);
 				TableViewModel.UnSelectCells();
 				if (!ControlKey)
 				{
-					foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
+					//foreach (int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
 					TableViewModel.UnSelectActivities();
 				}
 				TableViewModel.SelectActivity(Cell, Index);
@@ -1023,7 +1037,7 @@ namespace ePlanifv2.Views
 
 			if (!ControlKey)
 			{
-				foreach(int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
+				//foreach(int row in TableViewModel.GetSelectedActivitiesRows()) InvalidateRow(row);
 				TableViewModel.UnSelectActivities();
 			}
 

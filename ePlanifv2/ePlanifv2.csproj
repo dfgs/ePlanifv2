@@ -710,6 +710,7 @@
     <Resource Include="Images\user--minus.png" />
     <Resource Include="Images\user-medium.png" />
     <Resource Include="Images\bullet_blue.png" />
+    <Resource Include="Images\table-excel.png" />
     <Content Include="Nager.Date LICENCE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

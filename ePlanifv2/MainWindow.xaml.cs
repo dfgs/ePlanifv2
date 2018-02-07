@@ -10,6 +10,7 @@ using System.ComponentModel;
 using ViewModelLib;
 using ViewLib;
 using System.Windows.Shell;
+using Microsoft.Win32;
 
 namespace ePlanifv2
 {
@@ -279,7 +280,34 @@ namespace ePlanifv2
 		}
 
 
+		private void ExportToExcelCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (vm != null) && (vm.IsLoaded); e.Handled = true;
+		}
 
+		private void ExportToExcelCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			SaveFileDialog dialog;
+			IViewViewModel viewModel;
+
+			viewModel = GetSelectedView();
+			if (viewModel == null) return;
+
+			dialog = new SaveFileDialog();
+			dialog.Title = "Export as excel file";
+			dialog.FileName = "Planning.xlsx";
+			dialog.Filter = "Excel files|*.xlsx|All files|*.*";
+			if (!dialog.ShowDialog(this) ?? false) return;
+			try
+			{
+				viewModel.ExportToExcel(dialog.FileName);
+			}
+			catch(Exception ex)
+			{
+				ShowError(ex);
+			}
+			
+		}
 
 
 

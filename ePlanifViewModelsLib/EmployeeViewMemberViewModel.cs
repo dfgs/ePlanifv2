@@ -41,6 +41,8 @@ namespace ePlanifViewModelsLib
 			get { return EmployeeID.Value; }
 		}
 
+		
+
 		public EmployeeViewMemberViewModel(ePlanifServiceViewModel Service):base(Service)
 		{
 			
@@ -59,6 +61,11 @@ namespace ePlanifViewModelsLib
 			return Employee.LastName.Value.Value.StartsWith(Key.ToString(), true, CultureInfo.CurrentCulture);
 		}
 
+		// /!\ used by excel export /!\
+		public override string ToString()
+		{
+			return Employee.FullName;
+		}
 
 	}
 }

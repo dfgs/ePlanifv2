@@ -63,6 +63,7 @@
 			<RoutedUICommand x:Key="incColumnsCommand"/>
 			<RoutedUICommand x:Key="decColumnsCommand"/>
 			<RoutedUICommand x:Key="editOptionsCommand"/>
+			<RoutedUICommand x:Key="exportToExcelCommand"/>
 		</ResourceDictionary>
 
 	</Window.Resources>
@@ -99,6 +100,7 @@
 		<CommandBinding Command="{StaticResource incColumnsCommand}" CanExecute="IncColumnsCommandBinding_CanExecute" Executed="IncColumnsCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource decColumnsCommand}" CanExecute="DecColumnsCommandBinding_CanExecute" Executed="DecColumnsCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource editOptionsCommand}" CanExecute="EditOptionsCommandBinding_CanExecute" Executed="EditOptionsCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource exportToExcelCommand}" CanExecute="ExportToExcelCommandBinding_CanExecute" Executed="ExportToExcelCommandBinding_Executed"/>
 	</Window.CommandBindings>
 
 	<Window.TaskbarItemInfo>
@@ -217,6 +219,9 @@
 				</ComboBox>
 				<Button Command="{StaticResource openReportCommand}" ToolTip="Reports">
 					<Image Source="Images/chart_bar.png" Stretch="None"/>
+				</Button>
+				<Button Command="{StaticResource exportToExcelCommand}" ToolTip="Export to excel">
+					<Image Source="Images/table-excel.png" Stretch="None"/>
 				</Button>
 
 

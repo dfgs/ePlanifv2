@@ -18,5 +18,8 @@ namespace ePlanifViewModelsLib
 			get;
 		}
 		bool StartsWith(char Key);
+
+		
+
 	}
 }

@@ -62,6 +62,12 @@ namespace ePlanifViewModelsLib
 			return ActivityType.Name.Value.Value.StartsWith(Key.ToString(), true, CultureInfo.CurrentCulture);
 		}
 
+		// /!\ used by excel export /!\
+		public override string ToString()
+		{
+			return ActivityType.Name.Value.Value;
+		}
+
 
 	}
 }

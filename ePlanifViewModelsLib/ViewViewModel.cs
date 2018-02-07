@@ -10,6 +10,8 @@ using ViewModelLib;
 using System.Collections;
 using Nager.Date;
 using ePlanifViewModelsLib.Commands;
+using ClosedXML.Excel;
+using System.Collections.ObjectModel;
 
 namespace ePlanifViewModelsLib
 {
@@ -48,6 +50,8 @@ namespace ePlanifViewModelsLib
 
 		public event CellEventHandler Updated;
 		public event CellEventHandler CellFocused;
+		public event CellEventHandler CellSelectionChanged;
+		public event CellEventHandler ActivitySelectionChanged;
 
 		private CellViewModel[,] cells;
 
@@ -107,7 +111,7 @@ namespace ePlanifViewModelsLib
 			//Service.Activities.ActivityFocused += Activities_ActivityFocused;
 
 			ActivitySelectionManager.ActivitySelected += ViewViewModel_ActivitySelected;
-
+			ActivitySelectionManager.ActivityUnselected += ViewViewModel_ActivityUnSelected;
 		}
 
 		protected abstract bool IsActivityBindedTo (ActivityViewModel Activity, MemberViewModelType Row);
@@ -118,6 +122,115 @@ namespace ePlanifViewModelsLib
 		protected abstract bool HasWriteAccessOnRow(int Row);
 
 		protected abstract int CompareActivities(ActivityViewModel A, ActivityViewModel B);
+		protected abstract string OnGetActivityDisplay(ActivityViewModel Activity);
+
+		public void ExportToExcel(string FileName)
+		{
+			IXLWorksheet worksheet;
+			XLWorkbook workbook;
+			IXLStyle xlStyle;
+			int maxLines;
+			int line;
+			ObservableCollection<ActivityViewModel> activities;
+			
+			xlStyle =  XLWorkbook.DefaultStyle;
+			//xlStyle.Font.FontColor = XLColor.FromArgb(255, 0, 0, 0);
+			//xlStyle.Font.FontName = "Arial";
+			//xlStyle.Font.FontSize = 12;
+			//xlStyle.Font.Bold = false;
+			//xlStyle.Font.Italic = false;
+			
+			workbook = new XLWorkbook();
+			worksheet = workbook.Worksheets.Add("Activities");
+
+			// Corner header
+			worksheet.Column(1).Width = 25;
+			worksheet.Cell(1, 1).SetValue(Service.WeekName)
+				.Style
+				.Border.SetBottomBorder( XLBorderStyleValues.Thin)
+				.Border.SetTopBorder(XLBorderStyleValues.Thin)
+				.Border.SetLeftBorder(XLBorderStyleValues.Thin)
+				.Border.SetRightBorder(XLBorderStyleValues.Thin)
+				.Fill.SetBackgroundColor(XLColor.LightSteelBlue);
+
+			// horizontal header
+			for (int col = 0; col < this.columnCount; col++)
+			{
+				worksheet.Column(col + 2).Width = 25;
+				worksheet.Cell(1, col + 2).SetValue(cells[col,0].Date)
+					.Style
+					.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Left)
+					.Border.SetBottomBorder(XLBorderStyleValues.Thin)
+					.Border.SetTopBorder(XLBorderStyleValues.Thin)
+					.Border.SetLeftBorder(XLBorderStyleValues.Thin)
+					.Border.SetRightBorder(XLBorderStyleValues.Thin)
+					.Fill.SetBackgroundColor(XLColor.LightSteelBlue);
+
+			}
+
+
+
+
+			line = 2;
+			for (int row = 0; row < rowCount; row++)
+			{
+				#region get max number of line
+				maxLines = 1;
+				for (int col = 0; col < this.columnCount; col++)
+				{
+					activities = cells[col, row].GetActivities(LayerID);
+					if (activities.Count > maxLines) maxLines = activities.Count;
+				}
+				#endregion
+
+				#region vertical header
+				worksheet.Cell(line, 1).SetValue(VisibleMembers[row].ToString())
+					.Style
+					.Alignment.SetVertical(XLAlignmentVerticalValues.Top)
+					.Border.SetBottomBorder(XLBorderStyleValues.Thin)
+					.Border.SetTopBorder(XLBorderStyleValues.Thin)
+					.Border.SetLeftBorder(XLBorderStyleValues.Thin)
+					.Border.SetRightBorder(XLBorderStyleValues.Thin)
+					.Fill.SetBackgroundColor(XLColor.LightSteelBlue);
+				worksheet.Range(line, 1, line + maxLines - 1, 1).Merge();
+				#endregion
+
+				for (int col = 0; col < this.columnCount; col++)
+				{
+					activities = cells[col, row].GetActivities(LayerID);
+					
+					for (int t = 0; t < activities.Count; t++)
+					{
+						worksheet.Cell(line + t, col + 2).SetValue(OnGetActivityDisplay(activities[t]))
+							.Style
+							.Fill.SetBackgroundColor(XLColor.FromName(activities[t].ActivityType.BackgroundColor.Value.Value ))
+							.Font.SetFontColor(XLColor.FromName(activities[t].ActivityType.TextColor.Value.Value))
+							.Border.SetTopBorder(XLBorderStyleValues.Thin)
+							.Border.SetBottomBorder(XLBorderStyleValues.Thin)
+							.Border.SetLeftBorder(XLBorderStyleValues.Thin)
+							.Border.SetRightBorder(XLBorderStyleValues.Thin);
+					}
+					if (activities.Count < maxLines)
+					{
+						worksheet.Range(line+activities.Count, col+2, line + maxLines - 1, col+2).Merge()
+							.Style.Fill.SetBackgroundColor(XLColor.FromName(cells[col, row].Background))
+							.Border.SetTopBorder(XLBorderStyleValues.Thin)
+							.Border.SetBottomBorder(XLBorderStyleValues.Thin)
+							.Border.SetLeftBorder(XLBorderStyleValues.Thin)
+							.Border.SetRightBorder(XLBorderStyleValues.Thin);
+						
+					}
+
+				}
+				
+				line += maxLines;
+			}
+
+
+			workbook.SaveAs(FileName);
+		}
+
+
 
 		protected bool Overlap(ActivityViewModel A, ActivityViewModel B)
 		{
@@ -201,27 +314,36 @@ namespace ePlanifViewModelsLib
 
 		private void ViewViewModel_ActivitySelected(DependencyObject sender, ActivityViewModel Activity)
 		{
-			if (sender == this) return;
+
 			Tuple<CellViewModel, int> pair = FindCellForActivity(Activity);
 			if ((pair == null) || (pair.Item2 != this.LayerID)) return;
-			OnCellFocused(pair.Item1.Column, pair.Item1.Row);
+			if (sender == this) OnActivitySelected(GetColumnIndex(Activity), GetRowIndex(Activity));
+			else OnCellFocused(pair.Item1.Column, pair.Item1.Row);
+		}
+		private void ViewViewModel_ActivityUnSelected(DependencyObject sender, ActivityViewModel Activity)
+		{
+			Tuple<CellViewModel, int> pair = FindCellForActivity(Activity);
+			if ((pair == null) || (pair.Item2 != this.LayerID)) return;
+			OnActivitySelected(GetColumnIndex(Activity), GetRowIndex(Activity));
 		}
 
 		public void Select(CellViewModel Cell)
 		{
 			Cell.IsSelected = !Cell.IsSelected;
+			OnCellSelected(Cell.Column, Cell.Row);
 		}
 
-		public IEnumerable<int> GetSelectedCellRows()
+		/*public IEnumerable<int> GetSelectedCellRows()
 		{
 			foreach(CellViewModel cell in cells)
 			{
 				if (cell.IsSelected) yield return cell.Row;
 			}
-		}
+		}*/
 
 		public void UnSelectCells()
 		{
+			if (this.SelectedCell != null) OnCellSelected(SelectedCell.Column, SelectedCell.Row);
 			this.SelectedCell = null;
 		}
 		public void SelectActivity(CellViewModel Cell,int ActivityIndex)
@@ -232,18 +354,24 @@ namespace ePlanifViewModelsLib
 			cell = Cell as CellViewModel;
 			activity = cell.GetActivity(LayerID,ActivityIndex);
 			activity.IsSelected = !activity.IsSelected;
-			if (activity.IsSelected) ActivitySelectionManager.OnActivitySelected(this, activity);
+			if (activity.IsSelected) ActivitySelectionManager.OnActivitySelected(this,activity);
+			else ActivitySelectionManager.OnActivityUnselected(this,activity);
 		}
 		public void UnSelectActivities()
 		{
+			foreach (ActivityViewModel activity in Service.Activities.SelectedItems)
+			{
+				activity.IsSelected = false;
+				ActivitySelectionManager.OnActivityUnselected(this, activity);
+			}
 			Service.Activities.SelectedItem = null;
 		}
 
 		
-		public IEnumerable<int> GetSelectedActivitiesRows()
+		/*public IEnumerable<int> GetSelectedActivitiesRows()
 		{
 			return Service.Activities.SelectedItems.Select(item => GetRowIndex(item));
-		}
+		}*/
 
 
 		public async Task Edit()
@@ -418,7 +546,16 @@ namespace ePlanifViewModelsLib
 		{
 			if (CellFocused != null) CellFocused(this,Column,Row);
 		}
-
+		protected virtual void OnCellSelected(int Column, int Row)
+		{
+			if (CellSelectionChanged != null) CellSelectionChanged(this, Column, Row);
+		}
+		
+		protected virtual void OnActivitySelected(int Column, int Row)
+		{
+			if (ActivitySelectionChanged != null) ActivitySelectionChanged(this, Column, Row);
+		}
+		
 
 		private bool OnCopyCommandCanExecute(object Parameter)
 		{
