@@ -74,7 +74,7 @@ namespace ePlanifv2.Views
 		
 
 
-		public static readonly DependencyProperty ColumnWidthProperty = DependencyProperty.Register("ColumnWidth", typeof(double), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(100d, FrameworkPropertyMetadataOptions.AffectsRender, IScrollPropertyChangedCallBack));
+		public static readonly DependencyProperty ColumnWidthProperty = DependencyProperty.Register("ColumnWidth", typeof(double), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(100d, FrameworkPropertyMetadataOptions.AffectsRender, LayerIDPropertyChangedCallBack));
 		public double ColumnWidth
 		{
 			get { return (double)GetValue(ColumnWidthProperty); }
@@ -628,6 +628,12 @@ namespace ePlanifv2.Views
 			{
 				rect = Layout.Center( layout.DockRight(16),16,16);
 				Context.DrawImage(DisplayOptions.InterogationImage, rect);
+			}
+
+			if (Activity.TrackedDuration!=null)
+			{
+				rect = Layout.Center(layout.DockRight(16), 16, 16);
+				Context.DrawImage(DisplayOptions.ClockImage, rect);
 			}
 			// time
 			text = DisplayOptions.FormatText(String.Format("{0:HH:mm}", Activity.StartTime), textBrush, 12);

@@ -155,6 +155,7 @@ namespace ePlanifv2.Views
 			Layout layout;
 
 			layout = new Layout(Rect);
+			
 			rect = layout.SplitTop();
 			// activity type
 			textBrush = DisplayOptions.GetBrush(Content.TextColor.ToString());

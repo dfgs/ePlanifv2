@@ -711,6 +711,10 @@
     <Resource Include="Images\user-medium.png" />
     <Resource Include="Images\bullet_blue.png" />
     <Resource Include="Images\table-excel.png" />
+    <Resource Include="ClosedXML LICENCE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\clock.png" />
     <Content Include="Nager.Date LICENCE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
