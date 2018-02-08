@@ -112,6 +112,8 @@ namespace ePlanifViewModelsLib
 
 			ActivitySelectionManager.ActivitySelected += ViewViewModel_ActivitySelected;
 			ActivitySelectionManager.ActivityUnselected += ViewViewModel_ActivityUnSelected;
+
+			//Service.VisibleLayers.S
 		}
 
 		protected abstract bool IsActivityBindedTo (ActivityViewModel Activity, MemberViewModelType Row);

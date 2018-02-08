@@ -148,7 +148,7 @@ namespace ePlanifv2.Views
 		private Point clickedPoint;
 		private SelectionAdorner adorner;
 
-		public static readonly DependencyProperty LayerIDProperty = DependencyProperty.Register("LayerID", typeof(int), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsRender));
+		public static readonly DependencyProperty LayerIDProperty = DependencyProperty.Register("LayerID", typeof(int), typeof(VirtualizingGridPanel<RowViewModelType>), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsRender,LayerIDPropertyChangedCallBack));
 		public int LayerID
 		{
 			get { return (int)GetValue(LayerIDProperty); }
@@ -273,6 +273,7 @@ namespace ePlanifv2.Views
 				OldValue.CellFocused -= Table_CellFocused;
 				OldValue.CellSelectionChanged -= Table_CellSelectionChanged;
 				OldValue.ActivitySelectionChanged -= Table_ActivitySelectionChanged;
+				//OldValue.LayerIDChanged -= Table_LayerIDChanged;
 			}
 			if (NewValue != null)
 			{
@@ -280,6 +281,7 @@ namespace ePlanifv2.Views
 				NewValue.CellFocused += Table_CellFocused;
 				NewValue.CellSelectionChanged += Table_CellSelectionChanged;
 				NewValue.ActivitySelectionChanged += Table_ActivitySelectionChanged;
+				//NewValue.LayerIDChanged += Table_LayerIDChanged;
 			}
 
 			if (ScrollOwner != null) ScrollOwner.InvalidateScrollInfo();
@@ -312,6 +314,25 @@ namespace ePlanifv2.Views
 		{
 			InvalidateRow(Row);
 		}
+
+		/*private void Table_LayerIDChanged(object sender, EventArgs e)
+		{
+			for(int t=0;t<RowCount;t++) InvalidateRow(t);
+		}*/
+
+		private static void LayerIDPropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			VirtualizingGridPanel<RowViewModelType> panel;
+			panel = d as VirtualizingGridPanel<RowViewModelType>;
+			if (panel == null) return;
+			panel.OnLayerIDChanged();
+		}
+
+		protected void OnLayerIDChanged()
+		{
+			for (int t = 0; t < RowCount; t++) InvalidateRow(t);
+		}
+
 		private static void TablePropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			VirtualizingGridPanel<RowViewModelType> panel;
