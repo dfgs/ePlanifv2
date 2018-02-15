@@ -6,8 +6,8 @@ namespace ePlanifModelsLib
 {
 	public class Layer:ePlanifModel
     {
-
-        public static readonly Column<Layer, int> LayerIDColumn = new Column<Layer, int>() {IsPrimaryKey=true,IsIdentity=true };
+		
+		public static readonly Column<Layer, int> LayerIDColumn = new Column<Layer, int>() {IsPrimaryKey=true,IsIdentity=true };
         public int? LayerID
         {
             get { return LayerIDColumn.GetValue(this); }

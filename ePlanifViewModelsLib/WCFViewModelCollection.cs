@@ -1,4 +1,6 @@
-﻿using ePlanifViewModelsLib.ePlanifService;
+﻿using DatabaseModelLib;
+using ePlanifModelsLib;
+using ePlanifViewModelsLib.ePlanifService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,7 +67,11 @@ namespace ePlanifViewModelsLib
 			}
 		}
 
-		
+		public override bool Equals(ModelType x, ModelType y)
+		{
+			if (x is BaseModel) return ValueType.Equals(Schema<ModelType>.PrimaryKey.GetValue(x) , Schema<ModelType>.PrimaryKey.GetValue(y));
+			else return x.Equals(y);
+		}
 
 
 	}

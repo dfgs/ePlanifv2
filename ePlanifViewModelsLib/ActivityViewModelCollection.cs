@@ -11,7 +11,11 @@ namespace ePlanifViewModelsLib
 
     public class ActivityViewModelCollection : WCFViewModelCollection<ActivityViewModel, Activity>
     {
-		
+
+		public override bool UseDiff
+		{
+			get { return false; }
+		}
 
 		public event ActivityEditedHandler ActivityAdded;
 		public event ActivityEditedHandler ActivityRemoved;

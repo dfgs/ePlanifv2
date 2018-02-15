@@ -9,6 +9,7 @@ namespace ePlanifModelsLib
 	[DataContract]
 	public class Employee : ePlanifModel
 	{
+		
 
 		public static readonly Column<Employee, int> EmployeeIDColumn = new Column<Employee, int>() { IsPrimaryKey = true, IsIdentity = true };
 		[DataMember]

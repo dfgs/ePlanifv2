@@ -7,7 +7,7 @@ namespace ePlanifModelsLib
 	[DataContract]
 	public class Account:ePlanifModel
 	{
-
+		
 
 		public static readonly Column<Account, int> AccountIDColumn = new Column<Account, int>() { IsPrimaryKey = true, IsIdentity = true };
 		[DataMember]

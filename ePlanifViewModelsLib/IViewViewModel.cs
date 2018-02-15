@@ -12,7 +12,7 @@ namespace ePlanifViewModelsLib
 		event CellEventHandler CellFocused;
 		event CellEventHandler CellSelectionChanged;
 		event CellEventHandler ActivitySelectionChanged;
-		//event EventHandler LayerIDChanged;
+		event EventHandler Loaded;
 
 		bool HasActivitySelected
 		{

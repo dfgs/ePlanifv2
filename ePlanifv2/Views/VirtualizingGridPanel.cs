@@ -273,7 +273,7 @@ namespace ePlanifv2.Views
 				OldValue.CellFocused -= Table_CellFocused;
 				OldValue.CellSelectionChanged -= Table_CellSelectionChanged;
 				OldValue.ActivitySelectionChanged -= Table_ActivitySelectionChanged;
-				//OldValue.LayerIDChanged -= Table_LayerIDChanged;
+				OldValue.Loaded -= Table_Loaded;
 			}
 			if (NewValue != null)
 			{
@@ -281,7 +281,7 @@ namespace ePlanifv2.Views
 				NewValue.CellFocused += Table_CellFocused;
 				NewValue.CellSelectionChanged += Table_CellSelectionChanged;
 				NewValue.ActivitySelectionChanged += Table_ActivitySelectionChanged;
-				//NewValue.LayerIDChanged += Table_LayerIDChanged;
+				NewValue.Loaded += Table_Loaded;
 			}
 
 			if (ScrollOwner != null) ScrollOwner.InvalidateScrollInfo();
@@ -315,10 +315,11 @@ namespace ePlanifv2.Views
 			InvalidateRow(Row);
 		}
 
-		/*private void Table_LayerIDChanged(object sender, EventArgs e)
+		private void Table_Loaded(object sender, EventArgs e)
 		{
 			for(int t=0;t<RowCount;t++) InvalidateRow(t);
-		}*/
+			InvalidateVisual();
+		}
 
 		private static void LayerIDPropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{

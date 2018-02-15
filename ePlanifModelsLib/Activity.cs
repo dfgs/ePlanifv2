@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace ePlanifModelsLib
 {
 	[DataContract]
-	public class Activity
+	public class Activity : BaseModel
 	{
 
 		public static readonly Column<Activity, int> ActivityIDColumn = new Column<Activity, int>() { IsPrimaryKey = true, IsIdentity = true };

@@ -5,8 +5,8 @@ using System.Runtime.Serialization;
 namespace ePlanifModelsLib
 {
 	[DataContract]
-    public class EmployeeViewMember
-    {
+    public class EmployeeViewMember : BaseModel
+	{
 
         public static readonly Column<EmployeeViewMember, int> EmployeeViewMemberIDColumn = new Column<EmployeeViewMember, int>() {IsPrimaryKey=true,IsIdentity=true };
 		[DataMember]

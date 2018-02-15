@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseModel.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="ActivityTypeView.cs" />

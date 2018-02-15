@@ -9,8 +9,8 @@ namespace ePlanifModelsLib
 	[DataContract]
     public class ActivityType:ePlanifModel
     {
-
-        public static readonly Column<ActivityType, int> ActivityTypeIDColumn = new Column<ActivityType, int>() {IsPrimaryKey=true,IsIdentity=true };
+		
+		public static readonly Column<ActivityType, int> ActivityTypeIDColumn = new Column<ActivityType, int>() {IsPrimaryKey=true,IsIdentity=true };
 		[DataMember]
 		public int? ActivityTypeID
         {

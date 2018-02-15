@@ -6,8 +6,8 @@ using System.Runtime.Serialization;
 namespace ePlanifModelsLib
 {
 	[DataContract]
-    public class Grant
-    {
+    public class Grant : BaseModel
+	{
 
         public static readonly Column<Grant, int> GrantIDColumn = new Column<Grant, int>() {IsPrimaryKey=true,IsIdentity=true };
 		[DataMember]

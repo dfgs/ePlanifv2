@@ -52,6 +52,7 @@ namespace ePlanifViewModelsLib
 		public event CellEventHandler CellFocused;
 		public event CellEventHandler CellSelectionChanged;
 		public event CellEventHandler ActivitySelectionChanged;
+		public event EventHandler Loaded;
 
 		private CellViewModel[,] cells;
 
@@ -268,6 +269,7 @@ namespace ePlanifViewModelsLib
 				ValidateCell(cell);
 			}
 
+			if (Loaded != null) Loaded(this, EventArgs.Empty);
 		}
 
 		public IEnumerator<CellViewModel> GetEnumerator()

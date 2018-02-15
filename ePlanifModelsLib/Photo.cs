@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace ePlanifModelsLib
 {
 	[DataContract]
-	public class Photo
+	public class Photo:BaseModel
 	{
 
 

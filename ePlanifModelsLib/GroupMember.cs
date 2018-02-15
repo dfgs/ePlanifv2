@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace ePlanifModelsLib
 {
 	[DataContract]
-	public class GroupMember
+	public class GroupMember : BaseModel
 	{
 
 		public static readonly Column<GroupMember, int> GroupMemberIDColumn = new Column<GroupMember, int>() { IsPrimaryKey = true, IsIdentity = true };

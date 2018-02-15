@@ -6,8 +6,8 @@ using System.Runtime.Serialization;
 namespace ePlanifModelsLib
 {
 	[DataContract]
-    public class ActivityTypeView
-    {
+    public class ActivityTypeView : BaseModel
+	{
 
         public static readonly Column<ActivityTypeView, int> ActivityTypeViewIDColumn = new Column<ActivityTypeView, int>() {IsPrimaryKey=true,IsIdentity=true };
 		[DataMember]

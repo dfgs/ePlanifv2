@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace ePlanifModelsLib
 {
 	[DataContract]
-	public class Option
+	public class Option:BaseModel
 	{
 
 

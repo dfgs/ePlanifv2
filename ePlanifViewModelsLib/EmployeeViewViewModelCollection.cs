@@ -56,8 +56,6 @@ namespace ePlanifViewModelsLib
 		protected override async Task<bool> OnEditInModelAsync(IePlanifServiceClient Client, EmployeeViewViewModel ViewModel)
 		{
 			return await Client.UpdateEmployeeViewAsync(ViewModel.Model);
-			
-
 		}
 
 
