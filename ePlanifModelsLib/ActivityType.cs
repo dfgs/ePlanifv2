@@ -107,7 +107,14 @@ namespace ePlanifModelsLib
 			set { DefaultDurationPMColumn.SetValue(this, value); }
 		}
 
-
+		[Revision(9)]
+		public static readonly Column<ActivityType, TimeSpan> DefaultTrackedDurationColumn = new Column<ActivityType, TimeSpan>() { IsNullable = true };
+		[DataMember]
+		public TimeSpan? DefaultTrackedDuration
+		{
+			get { return DefaultTrackedDurationColumn.GetValue(this); }
+			set { DefaultTrackedDurationColumn.SetValue(this, value); }
+		}
 
 
 

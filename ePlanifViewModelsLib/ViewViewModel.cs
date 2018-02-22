@@ -301,20 +301,7 @@ namespace ePlanifViewModelsLib
 			return cells[Col, Row];
 		}
 
-		/*public IRowViewModel GetRowContent(int Index)
-		{
-			return VisibleMembers[Index];
-		}
-		public DayViewModel GetColumnContent(int Index)
-		{
-			return Service.Days[Index];
-		}
-
-
-		public object GetCornerContent()
-		{
-			return Service.WeekName;
-		}*/
+		
 
 		private void ViewViewModel_ActivitySelected(DependencyObject sender, ActivityViewModel Activity)
 		{
@@ -337,13 +324,7 @@ namespace ePlanifViewModelsLib
 			OnCellSelected(Cell.Column, Cell.Row);
 		}
 
-		/*public IEnumerable<int> GetSelectedCellRows()
-		{
-			foreach(CellViewModel cell in cells)
-			{
-				if (cell.IsSelected) yield return cell.Row;
-			}
-		}*/
+		
 
 		public void UnSelectCells()
 		{
@@ -372,10 +353,7 @@ namespace ePlanifViewModelsLib
 		}
 
 		
-		/*public IEnumerable<int> GetSelectedActivitiesRows()
-		{
-			return Service.Activities.SelectedItems.Select(item => GetRowIndex(item));
-		}*/
+		
 
 
 		public async Task Edit()

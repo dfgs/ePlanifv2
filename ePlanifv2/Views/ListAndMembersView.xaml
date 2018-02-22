@@ -39,7 +39,13 @@
 					<Image Source="/ViewLib;component/Images/pencil.png" Stretch="None"/>
 				</Button>
 			</StackPanel>
-			<ListBox ItemsSource="{Binding}" SelectedItem="{Binding SelectedItem}"/>
+			<ListBox ItemsSource="{Binding}" SelectedItem="{Binding SelectedItem}" SelectionMode="Extended">
+				<ListBox.ItemContainerStyle>
+					<Style TargetType="{x:Type ListBoxItem}">
+						<Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+					</Style>
+				</ListBox.ItemContainerStyle>
+			</ListBox>
 		</DockPanel>
 	</Grid>
 </UserControl>

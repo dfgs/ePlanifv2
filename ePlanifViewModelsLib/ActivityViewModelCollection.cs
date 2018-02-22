@@ -134,29 +134,6 @@ namespace ePlanifViewModelsLib
 		}
 
 
-		/*
-		public ActivityViewModel SearchProject(string Reference, ActivityViewModel CurrentActivity)
-		{
-			int index;
-			ActivityViewModel activity;
-
-			if (CurrentActivity != null) index = IndexOf(CurrentActivity) + 1;
-			else index = 0;
-
-			for (int t = index; t < Count; t++)
-			{
-				activity = this[t];
-				if ((activity.ProjectNumber.ToString() == Reference) || (activity.RemedyRef.ToString() == Reference) || (activity.Comment.ToString().Contains(Reference))) return activity;
-			}
-
-			return null;
-		}
-		public void Focus(ActivityViewModel Activity)
-		{
-			SelectedItem = Activity;
-			if ((Activity != null) && (ActivityFocused != null)) ActivityFocused(this, Activity);
-		}
-		//*/
 
 	}
 }

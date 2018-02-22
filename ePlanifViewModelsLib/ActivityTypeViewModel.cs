@@ -82,6 +82,13 @@ namespace ePlanifViewModelsLib
 			set { Model.DefaultDurationPM = value; OnPropertyChanged(); }
 		}
 
+		[TimeSpanProperty(Header = "Default tracked duration", IsMandatory = false, IsReadOnly = false)]
+		public TimeSpan? DefaultTrackedDuration
+		{
+			get { return Model.DefaultTrackedDuration; }
+			set { Model.DefaultTrackedDuration = value; OnPropertyChanged(); }
+		}
+
 		private static ForeignProperty<ActivityTypeViewModel, LayerViewModel> LayerProperty = new ForeignProperty<ActivityTypeViewModel, LayerViewModel>((component) => component.Service.Layers, (component, item) => component.LayerID == item.LayerID);
 		public LayerViewModel Layer
 		{

@@ -43,6 +43,7 @@ namespace ePlanifViewModelsLib.Commands
 		{
 			schema.Revert();
 			bool result = await collection.EditAsync(schema, false);
+
 			return result;
 		}
 

@@ -27,7 +27,7 @@ namespace ePlanifViewModelsLib
 			get { return Model.StartDate; }
 			set
 			{
-				Model.StartDate = value.Value.Date + Model.StartDate.Value.TimeOfDay; OnPropertyChanged();
+				Model.StartDate =DateTime.SpecifyKind(  value.Value.Date + Model.StartDate.Value.TimeOfDay, DateTimeKind.Unspecified); OnPropertyChanged();
 			}
 		}
 		[TimeProperty(Header = "Start time", IsMandatory = true, IsReadOnly = false, Category = "Date/Time")]
@@ -36,7 +36,7 @@ namespace ePlanifViewModelsLib
 			get { return Model.StartDate; }
 			set
 			{
-				Model.StartDate = Model.StartDate.Value.Date + value.Value.TimeOfDay; OnPropertyChanged(); OnPropertyChanged("StopTime");
+				Model.StartDate = DateTime.SpecifyKind(Model.StartDate.Value.Date + value.Value.TimeOfDay,DateTimeKind.Unspecified); OnPropertyChanged(); OnPropertyChanged("StopTime");
 			}
 		}
 		[TimeProperty(Header = "Stop time", IsMandatory = true, IsReadOnly = false, Category = "Date/Time")]
@@ -74,7 +74,11 @@ namespace ePlanifViewModelsLib
 		public int? ActivityTypeID
 		{
 			get { return Model.ActivityTypeID; }
-			set { Model.ActivityTypeID = value; OnPropertyChanged(); ActivityTypeProperty.Invalidate(this); }
+			set
+			{
+				Model.ActivityTypeID = value; OnPropertyChanged(); ActivityTypeProperty.Invalidate(this);
+				if (ActivityType.DefaultTrackedDuration != null) TrackedDuration = ActivityType.DefaultTrackedDuration;
+			}
 		}
 
 		private static ForeignProperty<ActivityViewModel, ActivityTypeViewModel> ActivityTypeProperty = new ForeignProperty<ActivityViewModel, ActivityTypeViewModel>((component) => component.Service.ActivityTypes, (component, item) => component.ActivityTypeID == item.ActivityTypeID);
@@ -133,6 +137,7 @@ namespace ePlanifViewModelsLib
 
 		public ActivityViewModel(ePlanifServiceViewModel Service) : base(Service)
 		{
+			
 		}
 
 		
