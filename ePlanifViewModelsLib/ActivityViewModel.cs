@@ -45,7 +45,14 @@ namespace ePlanifViewModelsLib
 			get { return Model.StartDate+Model.Duration; }
 			set
 			{
-				Duration = value.Value.TimeOfDay - StartTime.Value.TimeOfDay;
+				if (value.Value.TimeOfDay < StartTime.Value.TimeOfDay)
+				{
+					Duration =  value.Value.TimeOfDay + TimeSpan.FromHours(24) - StartTime.Value.TimeOfDay;
+				}
+				else
+				{
+					Duration = value.Value.TimeOfDay - StartTime.Value.TimeOfDay;
+				}
 			}
 		}
 
@@ -77,7 +84,7 @@ namespace ePlanifViewModelsLib
 			set
 			{
 				Model.ActivityTypeID = value; OnPropertyChanged(); ActivityTypeProperty.Invalidate(this);
-				if (ActivityType.DefaultTrackedDuration != null) TrackedDuration = ActivityType.DefaultTrackedDuration;
+				if (ActivityType?.DefaultTrackedDuration != null) TrackedDuration = ActivityType.DefaultTrackedDuration;
 			}
 		}
 
